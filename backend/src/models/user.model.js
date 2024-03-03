@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
     trim:true,
     unique:true
   },
+  mobile:{
+    type:Number
+  },
   role:{
     type:String,
     enum:["admin","student","hod","company"],
@@ -32,12 +35,38 @@ const userSchema = new mongoose.Schema({
     required:true,
   },
   avatar:{
-    type:String,
-    required:true
+    type:String
   },
   refreshToken:{
     type:String
+  },
+  designation:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Job"
+  },
+  branch:{
+    type:String,
+    enum:["CSE","CSIT","IOT"]
+  },
+  result_10:{
+    type:Number
+  },
+  result_12:{
+    type:Number
+  },
+  college_cgpa:{
+    type:Number
+  },
+  resume:{
+    type:String
+  },
+  isPalced:{
+    type:Boolean
+  },
+  address:{
+    type:String
   }
+
 },{timestamps:true})
 
 userSchema.pre("save",async function (next){

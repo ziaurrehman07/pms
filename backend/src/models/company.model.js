@@ -28,7 +28,15 @@ const companySchema = new mongoose.Schema({
   website:{
     type:String,
     required:true
-  }
+  },
+  selected_User:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"User"
+  }],
+  jobs:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Job"
+  }]
 },{timestamps:true})
 
 export const Company = mongoose.model("Company",companySchema)

@@ -14,14 +14,28 @@ const jobSchema = new mongoose.Schema({
     required:true
   },
   experience:{
-    type:String,
-    required:true
+    type:Number,
+    default:0
   },
   salaryPackage:{
     type:Number,
     required:true,
     min:3,
+  },
+  criteria_10:{
+    type:Number
+  },
+  criteria_12:{
+    type:Number
+  },
+  criteria_cllg_cgpa:{
+    type:Number
+  },
+  students:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"User"
   }
+  ]
 },{timestamps:true})
 
 export const Job = mongoose.model( 'Job', jobSchema );
