@@ -8,6 +8,12 @@ const userSchema = new mongoose.Schema({
     required:true,
     trim:true
   },
+  enrollment:{
+    type:String,
+    unique: true,
+    trim:true,
+    lowerCase:true
+  },
   username:{
     type:String,
     required:true,

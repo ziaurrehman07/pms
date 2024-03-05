@@ -1,42 +1,91 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
-const companySchema = new mongoose.Schema({
-  name:{
-    type:String,
-    required:true,
-    unique:true,
-    trim:true
+const companySchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    avatar: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    website: {
+      type: String,
+    },
+    refreshToken: {
+      type: String,
+    },
+    selected_User: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    jobs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      },
+    ],
   },
-  email:{
-    type: String,
-    required: true,
-    unique:true,
-    trim:true
-  },
-  password:{
-    type:String,
-    required:true,
-  },
-  description:{
-    type:String,
-    required:true
-  },
-  Address:{
-    type:String,
-    required:true
-  },
-  website:{
-    type:String,
-    required:true
-  },
-  selected_User:[{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"User"
-  }],
-  jobs:[{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Job"
-  }]
-},{timestamps:true})
+  { timestamps: true }
+);
 
-export const Company = mongoose.model("Company",companySchema)
+companySchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    this.password = await hash(this.password, 11);
+  }
+  next();
+});
+
+companySchema.methods.isPasswordCorrect = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
+
+companySchema.methods.generateAccessToken = async function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      name: this.name,
+      email: this.email,
+    },
+    process.env.ACCESS_TOKEN_SECRET_KEY,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+    }
+  );
+};
+
+companySchema.methods.generateRefreshToken = async function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+    },
+    process.env.REFRESH_TOKEN_SECRET_KEY,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+    }
+  );
+};
+
+export const Company = mongoose.model("Company", companySchema);

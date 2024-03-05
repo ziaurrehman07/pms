@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/asnycHandler.util.js";
 import { ApiError } from "../utils/ApiError.util.js";
 import { ApiResponse } from "../utils/ApiResponse.util.js";
 import {
-  uploadOncloudinary,
+  uploadOnCloudinary,
   deleteFromCloudinary,
 } from "../utils/cloudinary.util.js";
 import jwt from "jsonwebtoken";
@@ -27,16 +27,16 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerStudent = asyncHandler(async (req, res) => {
-  const { fullName, username, email, password } = req.body;
+  const { fullName, username, email, password ,enrollment} = req.body;
 
   if (
-    [fullName, username, email, password].some((field) => field?.trim() === "")
+    [fullName, username, email, password,enrollment].some((field) => field?.trim() === "")
   ) {
     throw new ApiError(400, "All fields are required");
   }
 
   const existedUser = await User.findOne({
-    $or: [{ username }, { email }],
+    $or: [{ enrollment  }, { email }, { username }]
   });
 
   if (!existedUser) {
@@ -48,6 +48,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     username,
     password,
     email,
+    enrollment
   });
 
   const createdUser = await User.findById(user._id).select(
@@ -103,7 +104,7 @@ const logOutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      $unset: { refreshToken: "" },
+      $unset: { refreshToken: 1 },
     },
     {
       new: true,
@@ -225,7 +226,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar file is missing");
   }
 
-  const avatar = await uploadOncloudinary(avatarLocalPath);
+  const avatar = await uploadOnCloudinary(avatarLocalPath);
   if (!avatar.url) {
     throw new ApiError(400, "Error while uploading avatar on cloudinary");
   }
@@ -256,7 +257,7 @@ const updateStudentResume = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Resume file is missing");
   }
 
-  const resume = await uploadOncloudinary(resumeLocalPath);
+  const resume = await uploadOnCloudinary(resumeLocalPath);
   if (!resumeLocalPath.url) {
     throw new ApiError(400, "Error while uploading resume on cloudinary");
   }
@@ -281,6 +282,26 @@ const updateStudentResume = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "Resume updated successfully"));
 });
 
+const previewResume = asyncHandler(async(req,res)=>{
+  const resume = req.user.resume
+  if(!resume){
+    throw new ApiError(400,"Resume not found")
+  }
+
+  return res
+  .status(200)
+  .json(200,resume,"Resume fetched Successfully")
+
+})
+
+const downloadResume = asyncHandler(async(req,res)=>{
+  const resumeUrl = req.user.resume
+  if(!resumeUrl){
+    throw  new ApiError(401,'No Resume Found')
+  }
+  return res.redirect(resumeUrl)
+})
+
 export {
   registerStudent,
   loginUser,
@@ -291,4 +312,6 @@ export {
   updateStudentAccountDetails,
   updateUserAvatar,
   updateStudentResume,
+  previewResume,
+  downloadResume,
 };
