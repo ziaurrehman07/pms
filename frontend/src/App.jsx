@@ -1,5 +1,11 @@
+import MyRoutes from "./routers/router";
+
 function App() {
-  return <div>App</div>;
+  return (
+    <>
+      <MyRoutes />
+    </>
+  );
 }
 
 export default App;
