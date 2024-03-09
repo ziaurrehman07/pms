@@ -1,14 +1,15 @@
 import { Company } from "../models/company.model.js";
+import { Job } from "../models/job.model.js";
 import { asyncHandler } from "../utils/asnycHandler.util.js";
 import { ApiError } from "../utils/ApiError.util.js";
 import { ApiResponse } from "../utils/ApiResponse.util.js";
-import { deleteFromCloudinary } from "../utils/cloudinary.util.js";
+import { uploadOnCloudinary,deleteFromCloudinary } from "../utils/cloudinary.util.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const company = await Company.findById(userId);
-    const accessToken = Company.generateAccessToken();
-    const refreshToken = Company.generateRefreshToken();
+    const accessToken = company.generateAccessToken();
+    const refreshToken = company.generateRefreshToken();
     company.refreshToken = refreshToken;
     company.accessToken = accessToken;
     company.save({ validateBeforeSave: false });
@@ -24,8 +25,8 @@ const generateAccessAndRefreshTokens = async (userId) => {
 const registerCompany = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
-  const isCompanyAvailable = await Company.findOne({ email: email });
-  if (!isCompanyAvailable) {
+  const isCompanyAvailable = await Company.findOne({ email });
+  if (isCompanyAvailable) {
     throw new ApiError(400, "Company already exists");
   }
   const company = await Company.create({
@@ -56,16 +57,16 @@ const loginCompany = asyncHandler(async (req, res) => {
   if (!company) {
     throw new ApiError(401, "Invalid email");
   }
-  const isPasswordCorrect = Company.isPasswordCorrect(password);
-  if (!isPasswordCorrect) {
+  const isPasswordValid = await company.isPasswordCorrect(password);
+  if (!isPasswordValid) {
     throw new ApiError(401, "Invalid Password");
   }
-  const { accessToken, refreshToken } = generateAccessAndRefreshTokens(
+  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
     company._id
   );
-  user.accessToken = accessToken;
-  user.refreshToken = refreshToken;
-  const loggedInCompany = await Company.findById(user._id).select(
+  company.accessToken = accessToken;
+  company.refreshToken = refreshToken;
+  const loggedInCompany = await Company.findById(company._id).select(
     "-password -refreshToken "
   );
 
@@ -111,8 +112,8 @@ const updateCompanyDetails = asyncHandler(async(req,res)=>{
     throw new ApiError(400,"Name and email already exist fill another one")
   }
 
-  const company = await  Company.findByIdAndUpdate(
-    req.user?._id,  
+  const company = await Company.findByIdAndUpdate(
+    req.company?._id,  
     {
       $set:{
         name,
@@ -144,12 +145,13 @@ const getCompanyDetails = asyncHandler(async(req,res)=>{
 
 const updateCompanyAvatar = asyncHandler(async(req,res)=>{
   const avatarLocalPath = req.file?.path 
+  const folder = "companyAvatar"
   if(!avatarLocalPath){
     throw new ApiError(400,"Avatar file is missing")
   }
   const oldAvatar = req.company?.avatar
-  const avatar = await cloudinaryUploads(avatarLocalPath)
-  if(!avatar){
+  const avatar = await uploadOnCloudinary(avatarLocalPath,req.company._id,folder)
+  if(!avatar.url){
     throw new ApiError(401,"Error while uploading on cloudinary")
   }
   const company = await Company.findByIdAndUpdate(
@@ -158,18 +160,61 @@ const updateCompanyAvatar = asyncHandler(async(req,res)=>{
       $set:{
         avatar:avatar.url
       }
+    },
+    {
+      new:true
     }
   )
-  await deleteFromCloudinary(oldAvatar)
+  if(oldAvatar){
+    await deleteFromCloudinary(oldAvatar,folder)
+  }
 
   return res
   .status(200)
   .json(
-    new ApiResponse(200,{},"Avatar updated successfully")
+    new ApiResponse(200,company,"Company avatar updated successfully")
   )
 
 })
 
+const getApplyStudentList = asyncHandler(async(req,res)=>{
+  const jobProfile = req.params.jobProfile;
+  const studentList =await Job.aggregate(
+    [
+      {
+        $match: {
+          designation:jobProfile
+        }
+      },
+      {
+        $lookup: {
+          from:"users",
+          localField:"students",
+          foreignField:"_id",
+          as:"studentsList" 
+        }
+      },
+      {
+        $unwind: "$studentsList"
+      },
+      {
+        $project: {
+          fullName: "$studentsList.fullName",
+          mobile:"$studentsList.mobile",
+          email:"$studentsList.email",
+          resume:"$studentsList.resume"
+        }
+      }
+    ]
+  )
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,studentList,"Applied students details fetched successfully")
+  )
+
+})
 
 
 export { 
@@ -179,5 +224,6 @@ export {
   updateCompanyDetails,
   getCompanyDetails,
   updateCompanyAvatar,
+  getApplyStudentList,
 
  };

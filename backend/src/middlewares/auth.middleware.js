@@ -4,7 +4,7 @@ import { User } from "../models/user.model.js"
 import { ApiError } from "../utils/ApiError.util.js"
 import { Company } from "../models/company.model.js"
 
-export const verifyJWT = asyncHandler(async(req,_,next)=>{
+ const verifyJWT = asyncHandler(async(req,_,next)=>{
   try {
     const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ","")
   
@@ -26,10 +26,12 @@ export const verifyJWT = asyncHandler(async(req,_,next)=>{
   }
 })
 
-export const verifyJwtForCompany = asyncHandler(async(req,_,next)=>{
+ const verifyJwtForCompany = asyncHandler(async(req,_,next)=>{
  try {
-   const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer","")
- 
+   const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ","")
+   if(!token){
+    throw new ApiError(400,"Unauthorized request")
+  }
    const decodedToken = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET_KEY)
  
    const company = await Company.findById(decodedToken?._id).select("-password -refreshToken")
@@ -43,3 +45,30 @@ export const verifyJwtForCompany = asyncHandler(async(req,_,next)=>{
     throw new ApiError(400,error?.message || "Invalid access token ")
  }
 })
+
+ const verifyAdmin = asyncHandler(async(req,_,next)=>{
+  try {
+    const token = req.cookies?.accessToken || req.header('authorization')?.replace('Bearer ', '')
+    if(!token){
+      throw new ApiError(400,"Unautherized request")
+    }
+    const decodedToken = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET_KEY)
+    const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
+    if(!user){
+      throw new ApiError(400,"Invalid access token")
+    }
+    if(user.role ==="admin"){
+      req.user = user;
+      next()
+    }
+  } catch (error) {
+    throw new ApiError(400,error?.message || "Invalid access token")
+  }
+
+})
+
+export{
+  verifyAdmin,
+  verifyJWT,
+  verifyJwtForCompany
+}

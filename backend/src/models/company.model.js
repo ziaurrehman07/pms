@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { hash } from "bcrypt";
 
 const companySchema = new mongoose.Schema(
   {
@@ -62,7 +63,7 @@ companySchema.methods.isPasswordCorrect = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-companySchema.methods.generateAccessToken = async function () {
+companySchema.methods.generateAccessToken =  function () {
   return jwt.sign(
     {
       _id: this._id,
@@ -76,7 +77,7 @@ companySchema.methods.generateAccessToken = async function () {
   );
 };
 
-companySchema.methods.generateRefreshToken = async function () {
+companySchema.methods.generateRefreshToken =  function () {
   return jwt.sign(
     {
       _id: this._id,
