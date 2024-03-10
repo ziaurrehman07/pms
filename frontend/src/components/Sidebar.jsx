@@ -9,18 +9,21 @@ import { useEffect, useState } from "react";
 function Sidebar() {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState("");
+
   useEffect(() => {
     const currentRoute = location.pathname.split("/")[1];
     setActiveLink(currentRoute || "");
   }, [location.pathname]);
 
   const handleLinkClick = (link) => {
-    setActiveLink(link === activeLink ? "" : link);
+    setActiveLink((prevActiveLink) =>
+      link === prevActiveLink ? prevActiveLink : link
+    );
   };
 
   return (
     <>
-      <div className="h-screen flex-col w-52 pt-8 p-8">
+      <div className="sticky top-0  h-screen flex-col w-60 pt-8 p-8">
         <Link to="/">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
@@ -51,7 +54,7 @@ function Sidebar() {
             onClick={() => handleLinkClick("updates")}
           >
             <LuBarChart2 className="mr-1 text-lg" />
-            <h1 className=" text-sm ">Updates</h1>
+            <h1 className=" text-sm ">Job updates</h1>
           </div>
         </Link>
 
@@ -84,7 +87,7 @@ function Sidebar() {
             className={`flex place-items-center mt-10 cursor-pointer ${
               activeLink === "feedback" ? "text-blue-400" : "text-gray-500"
             }`}
-            onClick={() => handleLinkClick("companies")}
+            onClick={() => handleLinkClick("feedback")}
           >
             <VscFeedback className="mr-1 text-lg" />
             <h1 className=" text-sm ">Feedback</h1>

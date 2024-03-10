@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import Resume from "../pages/Resume";
 import Updates from "../pages/Updates";
 import Feedback from "../pages/Feedback";
+import Companies from "../pages/Companies";
 
 function MyRoutes() {
   return (
@@ -16,6 +17,8 @@ function MyRoutes() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/updates" element={<Updates />} />
+          <Route path="/companies" element={<Companies />} />
+
           <Route path="/feedback" element={<Feedback />} />
         </Routes>
       </main>
