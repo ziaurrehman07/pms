@@ -16,7 +16,7 @@ function Navbar() {
 
   return (
     <>
-      <div className=" sticky top-0   flex justify-between h-12 w-[95%]  bg-white m-4 rounded-sm place-items-center p-6 shadow-sm  shadow-white ">
+      <div className=" sticky top-0   flex justify-between h-12 w-[93%]  bg-white mt-4 ml-8 rounded-sm place-items-center p-6 shadow-sm  shadow-white ">
         <div className="cursor-pointer">
           <h2 className="font-medium text-sm">Hello, Faizan Baig</h2>
           <p className="text-xs text-gray-500 ">Have a nice Day</p>
