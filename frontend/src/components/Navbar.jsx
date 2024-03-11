@@ -16,7 +16,7 @@ function Navbar() {
 
   return (
     <>
-      <div className=" sticky top-0   flex justify-between h-12 w-[90%]  bg-inherit m-4 rounded-sm place-items-center p-5 ">
+      <div className=" sticky top-0   flex justify-between h-12 w-[90%]  bg-white m-4 rounded-sm place-items-center p-6 shadow-sm  shadow-white ">
         <div className="cursor-pointer">
           <h2 className="font-medium text-sm">Hello, Faizan Baig</h2>
           <p className="text-xs text-gray-500 ">Have a nice Day</p>
@@ -43,7 +43,7 @@ function Navbar() {
               />
 
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 bg-white border border-gray-200 rounded-md p-2 space-y-2">
+                <div className="absolute right-0 mt-5 bg-white border border-gray-200 rounded-md p-2 space-y-2">
                   <button
                     className="text-sm text-gray-600 hover:text-black cursor-pointer"
                     onClick={() => setLogoutModalOpen(true)}
