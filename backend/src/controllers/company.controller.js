@@ -4,6 +4,7 @@ import { asyncHandler } from "../utils/asnycHandler.util.js";
 import { ApiError } from "../utils/ApiError.util.js";
 import { ApiResponse } from "../utils/ApiResponse.util.js";
 import { uploadOnCloudinary,deleteFromCloudinary } from "../utils/cloudinary.util.js";
+import { User } from "../models/user.model.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -135,7 +136,7 @@ const updateCompanyDetails = asyncHandler(async(req,res)=>{
   )
 })
 
-const getCompanyDetails = asyncHandler(async(req,res)=>{
+const getCurrentCompanyDetails = asyncHandler(async(req,res)=>{
   return res
   .status(200)
   .json(
@@ -216,14 +217,62 @@ const getApplyStudentList = asyncHandler(async(req,res)=>{
 
 })
 
+const getAllCompanyDetails = asyncHandler(async(req,res)=>{
+  const companies = await Company.find({})
+  if(!companies){
+    throw new ApiError(400,"Company details is not available")
+  }
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,companies,"Companies details fetched successfully")
+  )
+})
+
+const hireStudent = asyncHandler(async(req,res)=>{
+  const {studentId,jobId} = req.params
+  const company = await Company.findOneAndUpdate(
+    req.company?._id,
+    {
+      selected_User:{
+        $push:studentId
+      }
+    },
+    {
+      new:true
+    }
+  ).select("-password -refreshToken")
+
+  const student = await User.findOneAndUpdate(
+    studentId,
+    {
+      isPalced:true,
+      designation:jobId
+    },
+    {
+      new:true
+    }
+  ).select("-password -refreshToken")
+
+    return res
+    .status(200)
+    .json(
+      new ApiResponse(200,{student,company},"Student Hired Successfully")
+    )
+})
+
+
 
 export { 
   registerCompany,
   loginCompany,
   logOutCompany,
   updateCompanyDetails,
-  getCompanyDetails,
+  getCurrentCompanyDetails,
   updateCompanyAvatar,
   getApplyStudentList,
+  getAllCompanyDetails,
+  hireStudent,
 
  };
