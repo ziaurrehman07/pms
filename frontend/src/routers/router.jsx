@@ -18,7 +18,6 @@ function MyRoutes() {
           <Route path="/resume" element={<Resume />} />
           <Route path="/updates" element={<Updates />} />
           <Route path="/companies" element={<Companies />} />
-
           <Route path="/feedback" element={<Feedback />} />
         </Routes>
       </main>
