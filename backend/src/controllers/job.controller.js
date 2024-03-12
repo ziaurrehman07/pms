@@ -113,6 +113,7 @@ const updateJobProfile = asyncHandler(async (req, res) => {
 
 const applyForJob = asyncHandler(async (req, res) => {
   const student = req.user;
+  const currentDate = new Date()
   const isJobAvailable = await Job.findById(req.params?.jobId);
   if (!isJobAvailable) {
     throw new ApiError(400, "Job profile is not available");
@@ -122,7 +123,9 @@ const applyForJob = asyncHandler(async (req, res) => {
       student.result_10 >= isJobAvailable.criteria_10 &&
       student.result_12 >= isJobAvailable.criteria_12 &&
       student.college_cgpa >= isJobAvailable.criteria_cllg_cgpa &&
-      student.resume !==""
+      student.resume !==""  &&
+      currentDate <= isJobAvailable.lastDate &&
+      student.isPlaced === false
     )
   ) {
     throw new ApiError(400, "You are not eligible for this job profile");
@@ -149,8 +152,8 @@ const applyForJob = asyncHandler(async (req, res) => {
 
 export {
   newJobProfile,
+  deleteJobProfile,
   getAllJobProfile,
   updateJobProfile,
   applyForJob,
-  deleteJobProfile,
 };
