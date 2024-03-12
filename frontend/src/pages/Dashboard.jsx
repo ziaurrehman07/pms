@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 function Dashboard() {
   return (
     <>
-      <div className="flex w-full flex-col bg-[#f5f5f5]">
+      <div className="flex w-full flex-col bg-[#e9f1ef]">
         <Navbar />
         <h1 className="ml-8 mt-8 text-blue-500 font-semibold text-xl">
           User Dashboard

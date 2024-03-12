@@ -23,7 +23,7 @@ const newJobProfile = asyncHandler(async (req, res) => {
     criteria_12,
     criteria_cllg_cgpa,
     lastDate,
-    companyId: req.company._id,
+    company: req.company._id,
   });
   const company = await Company.findByIdAndUpdate(
     req.company._id,
@@ -56,6 +56,20 @@ const deleteJobProfile = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, job, "Job Profile is deleted successfully"));
 });
 
+const getCurrentJobProfile = asyncHandler(async(req,res)=>{
+  const {jobId} = req.params
+  const job = await Job.findById(jobId)
+  if(!job){
+    throw new ApiError(404,"Job not found")
+  }
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,job,"Current job profile fetched successfully")
+  )
+})
+
 const getAllJobProfile = asyncHandler(async (req, res) => {
   const jobs = await Job.find({});
   if (!jobs) {
@@ -67,6 +81,7 @@ const getAllJobProfile = asyncHandler(async (req, res) => {
 });
 
 const updateJobProfile = asyncHandler(async (req, res) => {
+  const {jobId}= req.params
   const {
     designation,
     description,
@@ -80,9 +95,9 @@ const updateJobProfile = asyncHandler(async (req, res) => {
 
   const job = await Job.findOne({
     $and: [
-      { companyId: req.company._id },
-      { designation: req.params.designation },
-    ],
+      { company: req.company._id },
+      { _id: jobId }
+    ]
   });
 
   const newJobProfile = await Job.findOneAndUpdate(
@@ -102,7 +117,7 @@ const updateJobProfile = asyncHandler(async (req, res) => {
     }
   );
 
-  if (!updateJobProfile) {
+  if (!newJobProfile) {
     throw new ApiError(400, "Something went wrong while updating profile");
   }
 
@@ -113,11 +128,21 @@ const updateJobProfile = asyncHandler(async (req, res) => {
 
 const applyForJob = asyncHandler(async (req, res) => {
   const student = req.user;
+  const {jobId} = req.params
   const currentDate = new Date()
-  const isJobAvailable = await Job.findById(req.params?.jobId);
+  const isJobAvailable = await Job.findById(jobId);
   if (!isJobAvailable) {
     throw new ApiError(400, "Job profile is not available");
   }
+  const existingApplication = await Job.findOne({
+    companyId: isJobAvailable.companyId,
+    students: { $in: [student._id] }
+  });
+
+  if(!existingApplication){
+    throw new ApiError(400,"You have already aplied in this company")
+  }
+
   if (
     !(
       student.result_10 >= isJobAvailable.criteria_10 &&
@@ -134,7 +159,7 @@ const applyForJob = asyncHandler(async (req, res) => {
     isJobAvailable._id,
     {
       $push: {
-        students: student,
+        students: student._id,
       },
     },
     {
@@ -156,4 +181,6 @@ export {
   getAllJobProfile,
   updateJobProfile,
   applyForJob,
+  getCurrentJobProfile,
+
 };

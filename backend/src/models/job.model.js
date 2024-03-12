@@ -1,7 +1,7 @@
 import mongoose, { mongo } from "mongoose";
 
 const jobSchema = new mongoose.Schema({
-  companyId:{
+  company:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'Company'
   },

@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
   },
   role:{
     type:String,
-    enum:["admin","student","hod","company"],
+    enum:["admin","student","editor"],
     default:"student"
   },
   password:{
@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema({
   refreshToken:{
     type:String
   },
-  designation:{
+  job:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"Job"
   },

@@ -321,7 +321,7 @@ const previewResume = asyncHandler(async (req, res) => {
     .json(200, resumeUrl, "Resume fetched Successfully");
 });
 
-const downloadResume = asyncHandler(async (req, res) => {
+const downloadResume = asyncHandler(async (req, res) => { //  TODO: write this function
   const resumeUrl = req.user.resume;
   if (!resumeUrl) {
     throw new ApiError(401, "No Resume Found");
@@ -329,52 +329,82 @@ const downloadResume = asyncHandler(async (req, res) => {
   return res.redirect(resumeUrl);
 });
 
-const placedStudentDetails = asyncHandler(async(req,res)=>{
-  const students = await User.find(
-    {
-      isPalced:true
-    }
-  ).select("-password -refreshToken")
+const placedStudentsDetails = asyncHandler(async (req, res) => {
+  const students = await User.find({
+    isPalced: true,
+  }).select("-password -refreshToken");
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,{students},"Placed students details fetched successfully")
-  )
-})
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { students },
+        "Placed students details fetched successfully"
+      )
+    );
+});
 
-const deleteStudent = asyncHandler(async(req,res)=>{
+const getPlacedCurrentStudentDetails = asyncHandler(async (req, res) => {
   try {
-    const {studentId} =  req.params;
-    const student = await User.findByIdAndDelete(studentId)
-    if(student.isPalced){
-      
+    const studentId = req.user._id;
+    const student = await User.findById(studentId)
+      .populate({
+        path: "job",
+        populate: {
+          path: "company",
+        },
+      })
+      .select("-password -refreshToken");
+
+    if (!student || !student.isPalced) {
+      throw new ApiError(404, "Student not placed or record not found");
     }
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          student,
+          "Successfully fetched placed student details"
+        )
+      );
   } catch (error) {
-    throw new ApiError(500,error?.message || "Error while deleting student")
+    throw new ApiError(
+      500,
+      "Something went wrong while fetching current details of student"
+    );
   }
+});
 
-  return  res
-  .status(200)
-  .json(
-    new ApiResponse(200,student,"Student deleted successfully")
-  )
-})
-
-const deleteCompany = asyncHandler(async(req,res)=>{
+const deleteStudent = asyncHandler(async (req, res) => {
   try {
-    const {companyId} =  req.params;
-    const company = await Company.findByIdAndDelete(companyId)
-  } catch (error) {
-    throw new ApiError(500,error?.message || "Error while deleting company")
-  }
+    const { studentId } = req.params;
+    const student = await User.findByIdAndDelete(studentId);
+    if (student.isPalced) {
 
-  return  res
-  .status(200)
-  .json(
-    new ApiResponse(200,company,"Student deleted successfully")
-  )
-})
+    }
+    return res
+      .status(200)
+      .json(new ApiResponse(200, student, "Student deleted successfully"));
+  } catch (error) {
+    throw new ApiError(500, error?.message || "Error while deleting student");
+  }
+});
+
+const deleteCompany = asyncHandler(async (req, res) => {
+  try {
+    const { companyId } = req.params;
+    const company = await Company.findByIdAndDelete(companyId);
+    return res
+      .status(200)
+      .json(new ApiResponse(200, company, "Student deleted successfully"));
+  } catch (error) {
+    throw new ApiError(500, error?.message || "Error while deleting company");
+  }
+});
+
 
 export {
   registerStudent,
@@ -389,7 +419,8 @@ export {
   previewResume,
   previewAvatar,
   downloadResume,
-  placedStudentDetails,
+  placedStudentsDetails,
+  getPlacedCurrentStudentDetails,
   deleteStudent,
-  deleteCompany
+  deleteCompany,
 };

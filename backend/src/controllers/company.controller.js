@@ -5,6 +5,7 @@ import { ApiError } from "../utils/ApiError.util.js";
 import { ApiResponse } from "../utils/ApiResponse.util.js";
 import { uploadOnCloudinary,deleteFromCloudinary } from "../utils/cloudinary.util.js";
 import { User } from "../models/user.model.js";
+import mongoose from "mongoose";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -179,12 +180,12 @@ const updateCompanyAvatar = asyncHandler(async(req,res)=>{
 })
 
 const getApplyStudentList = asyncHandler(async(req,res)=>{
-  const jobProfile = req.params.jobProfile;
+  const {jobId} = req.params
   const studentList =await Job.aggregate(
     [
       {
         $match: {
-          designation:jobProfile
+          _id:mongoose.Types.ObjectId(jobId)
         }
       },
       {
@@ -200,6 +201,7 @@ const getApplyStudentList = asyncHandler(async(req,res)=>{
       },
       {
         $project: {
+          _id:"$studentsList._id",
           fullName: "$studentsList.fullName",
           mobile:"$studentsList.mobile",
           email:"$studentsList.email",

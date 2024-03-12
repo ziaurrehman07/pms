@@ -57,10 +57,12 @@ import { Company } from "../models/company.model.js"
     if(!user){
       throw new ApiError(400,"Invalid access token")
     }
-    if(user.role ==="admin"){
-      req.user = user;
-      next()
+    if(user.role !=="admin"){
+      throw new ApiError(403,"You are not an admin")
     }
+    req.user = user;
+    next()
+    
   } catch (error) {
     throw new ApiError(400,error?.message || "Invalid access token")
   }

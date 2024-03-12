@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware.js";
-import { verifyJWT ,verifyAdmin} from "../middlewares/auth.middleware.js";
+import { verifyJWT, verifyAdmin } from "../middlewares/auth.middleware.js";
 import {
   registerStudent,
   loginUser,
@@ -12,13 +12,16 @@ import {
   updateUserAvatar,
   updateStudentResume,
   previewResume,
-  previewAvatar
+  previewAvatar,
+  placedStudentsDetails,
+  getPlacedCurrentStudentDetails,
+  deleteStudent,
+  deleteCompany,
 } from "../controllers/user.controller.js";
-
 
 const router = Router();
 
-router.route("/register-student").post(verifyAdmin,registerStudent);
+router.route("/register-student").post(verifyAdmin, registerStudent);
 router.route("/login").post(loginUser);
 router.route("/log-out-user").get(verifyJWT, logOutUser);
 router.route("/refresh-token").get(verifyJWT, refreshAccessToken);
@@ -33,11 +36,16 @@ router
 router
   .route("/update-student-resume")
   .patch(verifyJWT, upload.single("resume"), updateStudentResume);
+router.route("/preview-resume").get(verifyJWT, previewResume);
+router.route("/preview-avatar").get(verifyJWT, previewAvatar);
+
 router
-  .route("/preview-resume")
-  .get(verifyJWT,previewResume)
+  .route("/placed-current-student-details")
+  .get(verifyJWT, getPlacedCurrentStudentDetails);
 router
-  .route("/preview-avatar")
-  .get(verifyJWT,previewAvatar)
+  .route("/placed-students-details")
+  .get(verifyAdmin, placedStudentsDetails);
+router.route("/delete-student/:studentId").get(verifyAdmin, deleteStudent);
+router.route("/delete-company/:companyId").get(verifyAdmin, deleteCompany);
 
 export default router;
