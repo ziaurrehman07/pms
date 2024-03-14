@@ -8,6 +8,7 @@ import {
   deleteFromCloudinary,
 } from "../utils/cloudinary.util.js";
 import jwt from "jsonwebtoken";
+import { sendMail } from "../utils/emailSender.util.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -61,6 +62,11 @@ const registerStudent = asyncHandler(async (req, res) => {
   if (!createdUser) {
     throw new ApiError(500, "Something went wrong while registering user");
   }
+
+  const subject = `Registered to IPS Academy PMS`
+  const content = `You have been registered to the college PMS(Placement Management System)<br> Email: ${email}<br>Password:${password}`
+
+  const mailResponse = await sendMail(subject,content,email)
 
   return res
     .status(200)
