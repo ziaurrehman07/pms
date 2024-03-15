@@ -6,7 +6,7 @@ function Login() {
       <div className="bg-white h-[70%] w-[330px] -mb-20 shadow-md rounded-lg drop-shadow-sm ">
         <div className="flex place-items-center justify-center  mt-12 ">
           <RiUserLine className="text-xl text-[#33363F] font-semibold" />
-          <h4 className="text-blue-500 ml-2">student login</h4>
+          <h4 className="text-blue-500 ml-2">College Login</h4>
         </div>
         <div className="flex flex-col place-content-center">
           <form className=" flex flex-col justify-center">

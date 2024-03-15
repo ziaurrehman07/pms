@@ -3,7 +3,7 @@ import { RiUserLine } from "react-icons/ri";
 function CompanyLogin() {
   return (
     <div className="bg-[#e9f1ef] w-full h-screen grid place-items-center">
-      <div className="bg-white h-[70%] w-[330px] -mb-20 shadow-md rounded-lg drop-shadow-sm ">
+      <div className=" bg-white h-[70%] w-[330px] -mb-20 shadow-md rounded-lg drop-shadow-sm ">
         <div className="flex place-items-center justify-center  mt-12 ">
           <RiUserLine className="text-xl text-[#33363F] font-semibold" />
           <h4 className="text-blue-500 ml-2">Company login</h4>
@@ -25,7 +25,7 @@ function CompanyLogin() {
             </button>
           </form>
           <p className="mx-auto mt-8 text-gray-500">
-            For Student!
+            For College!
             <Link to="/login">
               <span className="text-blue-500 ml-1 font-semibold">Login</span>
             </Link>
