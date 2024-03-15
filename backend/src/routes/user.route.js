@@ -18,6 +18,7 @@ import {
   deleteStudent,
   deleteCompany,
 } from "../controllers/user.controller.js";
+import {sendMail} from "../utils/emailSender.util.js"
 
 const router = Router();
 

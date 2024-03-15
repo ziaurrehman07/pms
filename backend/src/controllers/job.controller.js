@@ -3,6 +3,7 @@ import { ApiResponse } from "../utils/ApiResponse.util.js";
 import { Job } from "../models/job.model.js";
 import { asyncHandler } from "../utils/asnycHandler.util.js";
 import { Company } from "../models/company.model.js";
+import { sendMail } from "../utils/emailSender.util.js";
 
 const newJobProfile = asyncHandler(async (req, res) => {
   const {
@@ -39,6 +40,11 @@ const newJobProfile = asyncHandler(async (req, res) => {
   if (!job) {
     throw new ApiError(400, "Something went wrong while creating job profile");
   }
+  const email = req.emails
+  const subject = `Job alert`
+  const content = `New Job prfile is addded for ${job.designation} in ${req.company?.name} .`
+  const mailResponse = await sendMail(subject,content,email)
+
   return res
     .status(200)
     .json(new ApiResponse(200, job, "New Job Profile Created Successfully"));
