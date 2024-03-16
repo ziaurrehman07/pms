@@ -1,6 +1,30 @@
 import { Link } from "react-router-dom";
 import { RiUserLine } from "react-icons/ri";
+import axios from "axios";
 function Login() {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("your-backend-login-endpoint", {
+        email,
+        password,
+      });
+      // Assuming your backend returns a token upon successful login
+      const token = response.data.token;
+
+      // Store the token in local storage or session storage for future requests
+      localStorage.setItem("token", token);
+
+      // Redirect the user to the dashboard or homepage
+      // You can use React Router for navigation
+      history.push("/dashboard");
+    } catch (error) {
+      // Handle error (e.g., display error message to the user)
+      console.error("Login failed:", error.message);
+    }
+  };
+
   return (
     <div className="bg-[#e9f1ef] w-full h-screen grid place-items-center">
       <div className="bg-white h-[70%] w-[330px] -mb-20 shadow-md rounded-lg drop-shadow-sm ">
