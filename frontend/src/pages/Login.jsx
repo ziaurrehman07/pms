@@ -2,31 +2,36 @@ import { Link } from "react-router-dom";
 import { RiUserLine } from "react-icons/ri";
 import { useState } from "react";
 import axios from "axios";
-import { ApiError } from "../../../backend/src/utils/ApiError.util";
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const handleLogin = async (e) => {
+  const [FormData, setFormData] = useState({});
+  const handleChange = (e) => {
+    setFormData({ ...FormData, [e.target.id]: e.target.value });
+  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await fetch("/api/v1/users/login", {
+  //       method: "POST",
+  //       headers: { "content-type": "application/json" },
+  //       body: JSON.stringify(FormData),
+  //     });
+  //     const data = await res.json();
+  //   } catch (error) {}
+  // };
+  //via axios
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post(
-      "/api/v1/users/login",
-      {
-        username,
-        password,
-      },
-      { withCredentials: true }
-    );
-    const apiResponse = res.data;
-
-    if (apiResponse.success) {
-      // Store access and refresh tokens (implement logic here)
-      console.log("Login successful!", apiResponse.data.loggedInUser);
-      // Redirect or handle successful login
-    } else {
-      throw new ApiError(apiResponse.statusCode, apiResponse.message);
+    try {
+      const res = await axios.post("/api/v1/users/login", FormData, {
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = res.data;
+    } catch (error) {
+      // Handle errors
     }
   };
+
   return (
     <div className="bg-[#e9f1ef] w-full h-screen grid place-items-center">
       <div className="bg-white h-[70%] w-[330px] -mb-20 shadow-md rounded-lg drop-shadow-sm ">
@@ -36,22 +41,22 @@ function Login() {
         </div>
         <div className="flex flex-col place-content-center">
           <form
-            onSubmit={handleLogin}
             className=" flex flex-col justify-center"
+            onSubmit={handleSubmit}
           >
             <input
               className="m-5 p-3 shadow-sm bg-gray-100 outline-none rounded-lg mt-16"
               type="text"
               placeholder="Email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="email"
+              onChange={handleChange}
             />
             <input
               className="m-5 p-3 shadow-sm bg-gray-100 outline-none rounded-lg mt-0.5"
               type="password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id="password"
+              onChange={handleChange}
             />
             <button
               type="submit"
@@ -60,7 +65,6 @@ function Login() {
               Login
             </button>
           </form>
-          {/* <p>error && {error}</p> */}
           <p className="mx-auto mt-8 text-gray-500">
             For Company!
             <Link to="/companyLogin">
