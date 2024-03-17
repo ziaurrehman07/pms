@@ -29,7 +29,7 @@ const jobSchema = new mongoose.Schema({
     type:Number
   },
   lastDate:{
-    type:Date,
+    type:String,
     required:true
   },
   students:[{

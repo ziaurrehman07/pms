@@ -4,6 +4,7 @@ import { Job } from "../models/job.model.js";
 import { asyncHandler } from "../utils/asnycHandler.util.js";
 import { Company } from "../models/company.model.js";
 import { sendMail } from "../utils/emailSender.util.js";
+import { getFormattedDate } from "../utils/getCurrentDate.util.js";
 
 const newJobProfile = asyncHandler(async (req, res) => {
   const {
@@ -135,13 +136,13 @@ const updateJobProfile = asyncHandler(async (req, res) => {
 const applyForJob = asyncHandler(async (req, res) => {
   const student = req.user;
   const {jobId} = req.params
-  const currentDate = new Date()
+  const currentDate = getFormattedDate()
   const isJobAvailable = await Job.findById(jobId);
   if (!isJobAvailable) {
     throw new ApiError(400, "Job profile is not available");
   }
   const existingApplication = await Job.findOne({
-    companyId: isJobAvailable.companyId,
+    companyId: isJobAvailable.company,
     students: { $in: [student._id] }
   });
 
