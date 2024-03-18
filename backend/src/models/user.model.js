@@ -66,8 +66,9 @@ const userSchema = new mongoose.Schema({
   resume:{
     type:String
   },
-  isPalced:{
-    type:Boolean
+  isPlaced:{
+    type:Boolean,
+    default:false
   },
   address:{
     type:String

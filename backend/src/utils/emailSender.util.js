@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import { Job } from "../models/job.model.js";
 import { getAllStudentEmails } from "./studentsEmail.util.js";
 import { ApiError } from "./ApiError.util.js";
+import { getFormattedDate, manipulateDate } from "./getCurrentDate.util.js";
 
 const sendMail = async (subject, content, email) => {
   const authEmail = process.env.EMAIL_ADDRESS;
@@ -44,17 +45,17 @@ const sendMail = async (subject, content, email) => {
 };
 
 const task = async () => {
-  const currentDate = new Date();
+  const currentDate = getFormattedDate();
 
   try {
     const jobs = await Job.find({
       lastDate: {
-        $gte: new Date(currentDate.getTime() + 24 * 60 * 60 * 1000),
-        $lt: new Date(currentDate.getTime() + 48 * 60 * 60 * 1000),
+        $gte: manipulateDate(currentDate, -1),
+        $lt: manipulateDate(currentDate, 1),
       },
     }).populate("company");
 
-    const emails =await getAllStudentEmails();
+    const emails = await getAllStudentEmails();
     const subject = `Job Application Remainder`;
     if (jobs.length) {
       jobs.forEach(async (job) => {
@@ -64,8 +65,8 @@ const task = async () => {
           throw new ApiError(400, "Email not sent ");
         }
       });
-    }else{
-      throw new ApiError(404,"No job available")
+    } else {
+      throw new ApiError(404, "No job available");
     }
   } catch (error) {
     console.error(
