@@ -1,34 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiUserLine } from "react-icons/ri";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+} from "../../redux/user/userSlice";
 
 function Login() {
-  const [FormData, setFormData] = useState({});
+  const [FormData, setFormData] = useState("");
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleChange = (e) => {
-    setFormData({ ...FormData, [e.target.id]: e.target.value });
+    setFormData({ ...FormData, [e.target.id]: e.target.value.trim() });
   };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const res = await fetch("/api/v1/users/login", {
-  //       method: "POST",
-  //       headers: { "content-type": "application/json" },
-  //       body: JSON.stringify(FormData),
-  //     });
-  //     const data = await res.json();
-  //   } catch (error) {}
-  // };
   //via axios
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!FormData.email || !FormData.password) {
+      return dispatch(loginFailure("All fields are required"));
+    }
     try {
+      dispatch(loginStart());
       const res = await axios.post("/api/v1/users/login", FormData, {
         headers: { "Content-Type": "application/json" },
       });
-      const data = res.data;
+      const data = res.data; // Access data directly from the response
+      if (data.success === false) {
+        dispatch(loginFailure(data.message));
+      } else {
+        dispatch(loginSuccess(data));
+        navigate("/homeadmin"); // Redirect to dashboard upon successful login
+      }
     } catch (error) {
-      // Handle errors
+      dispatch(loginFailure("Email or Password is Invalid"));
     }
   };
 
@@ -49,6 +57,7 @@ function Login() {
               type="text"
               placeholder="Email"
               id="email"
+              value={FormData.email}
               onChange={handleChange}
             />
             <input
@@ -56,13 +65,20 @@ function Login() {
               type="password"
               placeholder="Password"
               id="password"
+              value={FormData.password}
               onChange={handleChange}
             />
             <button
-              type="submit"
               className="bg-gray-100 text-gray-500 mx-auto mt-3 pl-5 pr-5 p-0.5 rounded-md"
+              disabled={loading}
             >
-              Login
+              {loading ? (
+                <>
+                  <span>Submitting...</span>
+                </>
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
           <p className="mx-auto mt-8 text-gray-500">
@@ -71,6 +87,12 @@ function Login() {
               <span className="text-blue-500 ml-1 font-semibold">Login</span>
             </Link>
           </p>
+
+          {errorMessage && (
+            <p className="text-red-600 bg-gray-100 mx-auto mt-5 p-2 rounded-lg">
+              {errorMessage}
+            </p>
+          )}
         </div>
       </div>
     </div>
