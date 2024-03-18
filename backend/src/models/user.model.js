@@ -67,8 +67,7 @@ const userSchema = new mongoose.Schema({
     type:String
   },
   isPlaced:{
-    type:Boolean,
-    default:false
+    type:Boolean
   },
   address:{
     type:String
