@@ -39,8 +39,10 @@ function Login() {
         console.log(userRole);
         if (userRole === "student") {
           navigate("/studenthome");
+          window.location.reload();
         } else if (userRole == "admin") {
           navigate("/adminhome");
+          window.location.reload();
         } else {
           console.error("unexpected user role: "), userRole;
         }

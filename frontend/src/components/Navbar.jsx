@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import LogoutModal from "./LogoutModal";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Navbar() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
@@ -14,7 +14,6 @@ function Navbar() {
     try {
       await axios.get("api/v1/users/log-out-user");
       window.localStorage.clear();
-      // window.location.href = "/login";
       navigate("/");
       console.log("Logout clicked");
       setLogoutModalOpen(false);

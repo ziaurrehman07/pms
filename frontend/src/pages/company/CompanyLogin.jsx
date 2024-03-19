@@ -26,7 +26,7 @@ function CompanyLogin() {
           </form>
           <p className="mx-auto mt-8 text-gray-500">
             For College!
-            <Link to="/login">
+            <Link to="/">
               <span className="text-blue-500 ml-1 font-semibold">Login</span>
             </Link>
           </p>

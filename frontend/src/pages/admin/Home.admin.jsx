@@ -13,7 +13,6 @@ function HomeAdmin() {
     <>
       <div className="flex w-full flex-col bg-[#e9f1ef]">
         <Navbar />
-        <h1>Admin Home</h1>
       </div>
     </>
   );

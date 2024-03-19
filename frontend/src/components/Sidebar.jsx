@@ -24,7 +24,7 @@ function Sidebar() {
   return (
     <>
       <div className="sticky top-0  h-screen flex-col w-60 pt-8 p-8">
-        <Link to="/">
+        <Link to="/studenthome">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
               activeLink === "dashboard" ? "" : ""
