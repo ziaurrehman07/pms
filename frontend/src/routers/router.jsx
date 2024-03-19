@@ -17,7 +17,6 @@ function MyRoutes() {
       <main className="flex">
         <Routes>
           {/* Student routes */}
-
           <Route
             path="/studenthome"
             element={
@@ -26,9 +25,7 @@ function MyRoutes() {
                 <Home />
               </>
             }
-            role="admin"
           />
-
           <Route
             path="/dashboard"
             element={
@@ -38,6 +35,7 @@ function MyRoutes() {
               </>
             }
           />
+
           <Route
             path="/resume"
             element={
@@ -75,6 +73,7 @@ function MyRoutes() {
             }
           />
 
+          <Route path="/companylogin" element={<CompanyLogin />} />
           <Route path="/" element={<Login />} />
           {/* Admin routes */}
           <Route
@@ -86,8 +85,6 @@ function MyRoutes() {
               </>
             }
           />
-          {/* company routes */}
-          <Route path="/companylogin" element={<CompanyLogin />} />
         </Routes>
       </main>
     </BrowserRouter>

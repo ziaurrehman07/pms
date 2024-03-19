@@ -1,6 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import { useEffect } from "react";
 
 function Dashboard() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/");
+    }
+  });
   return (
     <>
       <div className="flex w-full flex-col h-screen bg-[#e9f1ef]">

@@ -34,6 +34,7 @@ function Login() {
         console.log(data);
       } else {
         dispatch(loginSuccess(data));
+        localStorage.setItem("token", data.data.token);
         const userRole = data.data.loggedInUser.role;
         console.log(userRole);
         if (userRole === "student") {
