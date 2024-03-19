@@ -31,7 +31,7 @@ function SidebarAdmin() {
             }`}
             onClick={() => handleLinkClick("")}
           >
-            <h4>IPS Academy</h4>
+            <h4>Admin</h4>
           </div>
         </Link>
         <Link to="/dashboard">

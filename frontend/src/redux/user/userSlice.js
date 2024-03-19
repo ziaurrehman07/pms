@@ -15,9 +15,9 @@ const userSlice = createSlice({
       state.error = null;
     },
     loginSuccess: (state, action) => {
-      state.currentUser = action.payload;
+      state.currentUser = action.payload.currentUser; // Assuming action.payload includes user data with a 'currentUser' object containing 'role'
       state.loading = false;
-      state.loading = null;
+      state.error = null;
     },
     loginFailure: (state, action) => {
       state.loading = false;
@@ -25,5 +25,6 @@ const userSlice = createSlice({
     },
   },
 });
+
 export const { loginStart, loginSuccess, loginFailure } = userSlice.actions;
 export default userSlice.reducer;

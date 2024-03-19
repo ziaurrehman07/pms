@@ -1,11 +1,12 @@
-import NavbarAdmin from "../../components/admin/Navbar.admin";
+import Navbar from "../../components/Navbar";
 
 function HomeAdmin() {
   return (
     <>
       <div className="flex w-full flex-col bg-[#e9f1ef]">
-        <NavbarAdmin />
+        <Navbar />
       </div>
+      <h1>Admin Home</h1>
     </>
   );
 }

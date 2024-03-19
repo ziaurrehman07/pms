@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Home from "../pages/Home";
 import Dashboard from "../pages/student/Dashboard";
 import Sidebar from "../components/Sidebar";
 import Resume from "../pages/student/Resume";
@@ -18,8 +17,9 @@ function MyRoutes() {
       <main className="flex">
         <Routes>
           {/* Student routes */}
+
           <Route
-            path="/"
+            path="/studenthome"
             element={
               <>
                 <Sidebar />
@@ -75,11 +75,10 @@ function MyRoutes() {
             }
           />
 
-          <Route path="/companylogin" element={<CompanyLogin />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           {/* Admin routes */}
           <Route
-            path="/homeadmin"
+            path="/adminhome"
             element={
               <>
                 <SidebarAdmin />
@@ -87,6 +86,8 @@ function MyRoutes() {
               </>
             }
           />
+          {/* company routes */}
+          <Route path="/companylogin" element={<CompanyLogin />} />
         </Routes>
       </main>
     </BrowserRouter>

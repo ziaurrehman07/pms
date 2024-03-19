@@ -31,9 +31,18 @@ function Login() {
       const data = res.data; // Access data directly from the response
       if (data.success === false) {
         dispatch(loginFailure(data.message));
+        console.log(data);
       } else {
         dispatch(loginSuccess(data));
-        navigate("/homeadmin"); // Redirect to dashboard upon successful login
+        const userRole = data.data.loggedInUser.role;
+        console.log(userRole);
+        if (userRole === "student") {
+          navigate("/studenthome");
+        } else if (userRole == "admin") {
+          navigate("/adminhome");
+        } else {
+          console.error("unexpected user role: "), userRole;
+        }
       }
     } catch (error) {
       dispatch(loginFailure("Email or Password is Invalid"));
