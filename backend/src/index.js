@@ -20,6 +20,4 @@ connectDB()
     console.log("MongoDB connection failed !!! ", error);
   });
 
-// cron.schedule("0 12 * * *", task).catch((error) => {
-//   console.log("Mail service Failed", error);
-// });
+cron.schedule("0 12 * * *", task)

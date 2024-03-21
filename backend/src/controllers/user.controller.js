@@ -52,6 +52,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     password: password,
     email: email,
     enrollment: enrollment,
+    isPlaced:false
   });
 
   const createdUser = await User.findById(user._id).select(
