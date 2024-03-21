@@ -23,7 +23,7 @@ function Sidebar() {
 
   return (
     <>
-      <div className="sticky top-0  h-screen flex-col w-60 pt-8 p-8">
+      <div className="sticky top-0 ml-3 rounded-lg border shadow-md border-[#d2d8d6] h-[95%] mt-4  bg-white   flex-col w-60 pt-8 p-8">
         <Link to="/studenthome">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
@@ -31,7 +31,7 @@ function Sidebar() {
             }`}
             onClick={() => handleLinkClick("")}
           >
-            <h4>IPS Academy</h4>
+            <h4 className="whitespace-nowrap">IPS Academy</h4>
           </div>
         </Link>
         <Link to="/dashboard">

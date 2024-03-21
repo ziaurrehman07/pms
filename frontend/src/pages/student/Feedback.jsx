@@ -7,7 +7,7 @@ function Feedback() {
     if (!localStorage.getItem("token")) {
       navigate("/");
     }
-  }, );
+  });
   return <div className="bg-[#e9f1ef] w-full h-screen">Feedback</div>;
 }
 

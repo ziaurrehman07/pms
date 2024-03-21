@@ -11,7 +11,7 @@ function Home() {
   });
   return (
     <>
-      <div className="flex w-full flex-col bg-[#e9f1ef]">
+      <div className="flex w-full flex-col ">
         <Navbar />
       </div>
     </>

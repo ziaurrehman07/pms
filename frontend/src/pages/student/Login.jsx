@@ -10,7 +10,7 @@ import {
 } from "../../redux/user/userSlice";
 
 function Login() {
-  const [FormData, setFormData] = useState("");
+  const [FormData, setFormData] = useState({ email: "", password: "" });
   const { loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function Login() {
         if (userRole === "student") {
           navigate("/studenthome");
           window.location.reload();
-        } else if (userRole == "admin") {
+        } else if (userRole === "admin") {
           navigate("/adminhome");
           window.location.reload();
         } else {
@@ -69,6 +69,7 @@ function Login() {
               type="text"
               placeholder="Email"
               id="email"
+              // autoComplete="email"
               value={FormData.email}
               onChange={handleChange}
             />
@@ -77,6 +78,7 @@ function Login() {
               type="password"
               placeholder="Password"
               id="password"
+              autoComplete="password"
               value={FormData.password}
               onChange={handleChange}
             />

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "../pages/student/Dashboard";
 import Sidebar from "../components/Sidebar";
 import Resume from "../pages/student/Resume";
@@ -15,7 +15,6 @@ import axios from "axios";
 
 function MyRoutes() {
   const [userRole, setUserRole] = useState("");
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,21 +22,16 @@ function MyRoutes() {
         const response = await axios.get("/api/v1/users/get-user");
         setUserRole(response.data.data.role);
       } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setLoading(false);
+        // console.error("Error fetching user data:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  if (loading) {
-    return <div className="text-3xl">Loading...</div>;
-  }
   return (
     <BrowserRouter>
-      <main className="flex">
+      <main className="flex bg-[#e9f1ef] h-screen ">
         <Routes>
           {/* Student routes */}
           {userRole === "student" && (
@@ -97,6 +91,7 @@ function MyRoutes() {
                   </>
                 }
               />
+              <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
 
@@ -112,8 +107,12 @@ function MyRoutes() {
                   </>
                 }
               />
+              <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
+          {/* Admin routes end */}
+
+          {/* other than role */}
 
           <Route path="/companylogin" element={<CompanyLogin />} />
           <Route path="/" element={<Login />} />

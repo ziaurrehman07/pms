@@ -11,7 +11,7 @@ function Dashboard() {
   });
   return (
     <>
-      <div className="flex w-full flex-col h-screen bg-[#e9f1ef]">
+      <div className="flex w-full flex-col h-screen ">
         <Navbar />
         <h1 className="ml-8 mt-8 text-blue-500 font-semibold text-xl ">
           User Dashboard
