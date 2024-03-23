@@ -13,6 +13,7 @@ import SidebarAdmin from "../components/admin/Sidebar.admin";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import StudentList from "../components/admin/StudentList";
+import StudentDetails from "../components/StudentDetails";
 
 function MyRoutes() {
   const [userRole, setUserRole] = useState("");
@@ -118,12 +119,16 @@ function MyRoutes() {
           <Route path="/companylogin" element={<CompanyLogin />} />
           <Route path="/" element={<Login />} />
           <Route
+          
                 path="/student/lists"
                 element={
-                  
                     <StudentList />
-            
-                
+                }
+              />
+              <Route
+                path="/student/Details"
+                element={
+                    <StudentDetails />
                 }
               />
         </Routes>
