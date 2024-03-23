@@ -40,7 +40,7 @@ function Navbar() {
 
   return (
     <>
-      <div className=" sticky top-0   flex justify-between h-12 w-[93%]  bg-white mt-4 ml-8 rounded-sm place-items-center p-6 shadow-sm  shadow-white ">
+      <div className=" sticky top-0 flex justify-between h-12  mr-10 mt-4 bg-white  ml-4 rounded-md place-items-center p-6 shadow-sm ">
         <div className="cursor-pointer">
           <h2 className="font-medium whitespace-nowrap text-sm">
             Hello, {data.fullName}
@@ -141,7 +141,6 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <div></div>
     </>
   );
 }

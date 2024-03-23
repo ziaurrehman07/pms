@@ -19,7 +19,7 @@ const userSlice = createSlice({
       state.userRole = action.payload;
     },
     loginSuccess: (state, action) => {
-      state.currentUser = action.payload.currentUser; // Assuming action.payload includes user data with a 'currentUser' object containing 'role'
+      state.currentUser = action.payload.currentUser;
       state.loading = false;
       state.error = null;
     },

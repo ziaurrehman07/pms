@@ -17,7 +17,7 @@ function Login() {
   const handleChange = (e) => {
     setFormData({ ...FormData, [e.target.id]: e.target.value.trim() });
   };
-  //via axios
+  // via axios
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!FormData.email || !FormData.password) {
@@ -30,13 +30,13 @@ function Login() {
       });
       const data = res.data; // Access data directly from the response
       if (data.success === false) {
-        dispatch(loginFailure(data.message));
-        console.log(data);
+        // console.log(data);
       } else {
         dispatch(loginSuccess(data));
         localStorage.setItem("token", data.data.token);
+
         const userRole = data.data.loggedInUser.role;
-        console.log(userRole);
+        // console.log(userRole);
         if (userRole === "student") {
           navigate("/studenthome");
           window.location.reload();
@@ -53,8 +53,8 @@ function Login() {
   };
 
   return (
-    <div className="bg-[#e9f1ef] w-full h-screen grid place-items-center">
-      <div className="bg-white h-[70%] w-[330px] -mb-20 shadow-md rounded-lg drop-shadow-sm ">
+    <div className="bg-[#e9f1ef] w-full grid place-items-center">
+      <div className="bg-white h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm ">
         <div className="flex place-items-center justify-center  mt-12 ">
           <RiUserLine className="text-xl text-[#33363F] font-semibold" />
           <h4 className="text-blue-500 ml-2">College Login</h4>
