@@ -5,6 +5,7 @@ import { asyncHandler } from "../utils/asnycHandler.util.js";
 import { Company } from "../models/company.model.js";
 import { sendMail } from "../utils/emailSender.util.js";
 import { getFormattedDate } from "../utils/getCurrentDate.util.js";
+import { getAllStudentEmails } from "../utils/studentsEmail.util.js";
 
 const newJobProfile = asyncHandler(async (req, res) => {
   const {
@@ -41,9 +42,9 @@ const newJobProfile = asyncHandler(async (req, res) => {
   if (!job) {
     throw new ApiError(400, "Something went wrong while creating job profile");
   }
-  const email = req.emails
+  const email = await getAllStudentEmails()
   const subject = `Job alert`
-  const content = `New Job prfile is addded for ${job.designation} in ${req.company?.name} .`
+  const content = `New Job profile is added for ${job.designation} in ${req.company?.name} .`
   const mailResponse = await sendMail(subject,content,email)
 
   return res
