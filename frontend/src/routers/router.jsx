@@ -8,15 +8,21 @@ import Companies from "../pages/student/Companies";
 import Login from "../pages/student/Login";
 import CompanyLogin from "../pages/company/CompanyLogin";
 import Home from "../pages/student/Home";
-import HomeAdmin from "../pages/admin/Home.admin";
 import SidebarAdmin from "../components/admin/Sidebar.admin";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import StudentList from "../components/admin/StudentList";
-import StudentDetails from "../components/StudentDetails";
+
+import AdminHome from "../pages/admin/AdminHome";
+import AdminStudents from "../pages/admin/AdminStudents";
+import AdminCompanies from "../pages/admin/AdminCompanies";
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminRegisterStudent from "../pages/admin/AdminRegisterStudent";
+import AdminRegisterCompanies from "../pages/admin/AdminRegisterCompanies";
+import AdminFeedbacks from "../pages/admin/AdminFeedbacks";
 
 function MyRoutes() {
   const [userRole, setUserRole] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,16 +30,26 @@ function MyRoutes() {
         const response = await axios.get("/api/v1/users/get-user");
         setUserRole(response.data.data.role);
       } catch (error) {
-        // console.error("Error fetching user data:", error);
+        console.error("Error fetching user data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="text-blue-500  flex place-items-center justify-center h-screen">
+        <div className=" text-3xl">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <BrowserRouter>
-      <main className="flex bg-[#e9f1ef] h-screen ">
+      <main className="flex bg-[#e9f1ef] min-h-screen">
         <Routes>
           {/* Student routes */}
           {userRole === "student" && (
@@ -56,7 +72,6 @@ function MyRoutes() {
                   </>
                 }
               />
-
               <Route
                 path="/resume"
                 element={
@@ -93,7 +108,7 @@ function MyRoutes() {
                   </>
                 }
               />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/studenthome" />} />
             </>
           )}
 
@@ -105,32 +120,75 @@ function MyRoutes() {
                 element={
                   <>
                     <SidebarAdmin />
-                    <HomeAdmin />
+                    <AdminHome />
                   </>
                 }
               />
-              <Route path="*" element={<Navigate to="/" />} />
-            </>
-          )}
-          {/* Admin routes end */}
 
-          {/* other than role */}
-
-          <Route path="/companylogin" element={<CompanyLogin />} />
-          <Route path="/" element={<Login />} />
-          <Route
-          
-                path="/student/lists"
+              <Route
+                path="/adminstudents"
                 element={
-                    <StudentList />
+                  <>
+                    <SidebarAdmin />
+                    <AdminStudents />
+                  </>
                 }
               />
               <Route
-                path="/student/Details"
+                path="/admincompanies"
                 element={
-                    <StudentDetails />
+                  <>
+                    <SidebarAdmin />
+                    <AdminCompanies />
+                  </>
                 }
               />
+              <Route
+                path="/admindashboard"
+                element={
+                  <>
+                    <SidebarAdmin />
+                    <AdminDashboard />
+                  </>
+                }
+              />
+              <Route
+                exact
+                path="/adminregisterstudent"
+                element={
+                  <>
+                    <SidebarAdmin />
+                    <AdminRegisterStudent />
+                  </>
+                }
+              />
+              <Route
+                exact
+                path="/adminregistercompanies"
+                element={
+                  <>
+                    <SidebarAdmin />
+                    <AdminRegisterCompanies />
+                  </>
+                }
+              />
+              <Route
+                path="/adminfeedbacks"
+                element={
+                  <>
+                    <SidebarAdmin />
+                    <AdminFeedbacks />
+                  </>
+                }
+              />
+
+              <Route path="*" element={<Navigate to="/adminhome" />} />
+            </>
+          )}
+
+          {/* Default routes */}
+          <Route path="/companylogin" element={<CompanyLogin />} />
+          <Route path="/" element={<Login />} />
         </Routes>
       </main>
     </BrowserRouter>

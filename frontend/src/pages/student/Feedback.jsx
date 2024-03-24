@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar";
 
 function Feedback() {
   const navigate = useNavigate();
@@ -8,7 +9,11 @@ function Feedback() {
       navigate("/");
     }
   });
-  return <div className="bg-[#e9f1ef] w-full h-screen">Feedback</div>;
+  return (
+    <div className="flex w-full flex-col ">
+      <Navbar />
+    </div>
+  );
 }
 
 export default Feedback;
