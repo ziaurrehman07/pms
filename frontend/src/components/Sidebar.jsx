@@ -22,7 +22,7 @@ function Sidebar() {
   };
 
   return (
-    <div className=" ml-3 rounded-lg border shadow-md border-[#d2d8d6]   mb-4 mt-4 bg-white  flex  flex-col w-[200px] pt-8 p-8">
+    <div className=" ml-3 rounded-lg border shadow-md border-[#d2d8d6] mb-4 mt-4 bg-white  flex  flex-col w-[200px] pt-8 p-8 lg:p-8 lg:w-64">
       <Link to="/studenthome">
         <div
           className={` text-md text-black font-extrabold cursor-pointer ${
@@ -83,7 +83,7 @@ function Sidebar() {
 
       <Link to="/feedback">
         <div
-          className={`flex place-items-center mt-10 cursor-pointer ${
+          className={`flex mb-4 place-items-center mt-10 cursor-pointer ${
             activeLink === "feedback" ? "text-blue-400" : "text-gray-500"
           }`}
           onClick={() => handleLinkClick("feedback")}

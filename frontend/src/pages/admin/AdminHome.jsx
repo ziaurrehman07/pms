@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { useEffect } from "react";
+import StudentList from "../../components/admin/StudentList";
 
-function Dashboard() {
+function AdminHome() {
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -17,11 +18,13 @@ function Dashboard() {
           User Dashboard
         </h1>
         <div className=" ml-4 mt-4 h-[600px] bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
-          <div></div>
+          <div>
+            <StudentList />
+          </div>
         </div>
       </div>
     </>
   );
 }
 
-export default Dashboard;
+export default AdminHome;
