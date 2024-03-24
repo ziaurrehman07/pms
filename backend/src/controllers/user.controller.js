@@ -411,6 +411,18 @@ const deleteCompany = asyncHandler(async (req, res) => {
   }
 });
 
+const getAllStudents = asyncHandler(async(req,res)=>{
+  const students = await User.find({role:"student"},{fullName:1,_id:1,avatar:1,branch:1})
+  if(!students){
+    throw new ApiError(400,"Student details is not available")
+  }
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,students,"Students details fetched successfully")
+  )
+})
 
 export {
   registerStudent,
@@ -429,4 +441,5 @@ export {
   getPlacedCurrentStudentDetails,
   deleteStudent,
   deleteCompany,
+  getAllStudents,
 };

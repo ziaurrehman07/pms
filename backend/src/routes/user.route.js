@@ -17,6 +17,7 @@ import {
   getPlacedCurrentStudentDetails,
   deleteStudent,
   deleteCompany,
+  getAllStudents,
 } from "../controllers/user.controller.js";
 import {sendMail} from "../utils/emailSender.util.js"
 
@@ -28,6 +29,7 @@ router.route("/log-out-user").get(verifyJWT, logOutUser);
 router.route("/refresh-token").get(verifyJWT, refreshAccessToken);
 router.route("/change-password").patch(verifyJWT, changeCurrentPassword);
 router.route("/get-user").get(verifyJWT, getCurrentUser);
+router.route("/get-students-detail").get(verifyAdmin, getAllStudents);
 router
   .route("/update-student-account-details")
   .patch(verifyJWT, updateStudentAccountDetails);
@@ -48,5 +50,6 @@ router
   .get(verifyAdmin, placedStudentsDetails);
 router.route("/delete-student/:studentId").get(verifyAdmin, deleteStudent);
 router.route("/delete-company/:companyId").get(verifyAdmin, deleteCompany);
+
 
 export default router;
