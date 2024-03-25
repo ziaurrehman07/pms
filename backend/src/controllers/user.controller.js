@@ -1,4 +1,5 @@
 import { User } from "../models/user.model.js";
+import { Job } from "../models/job.model.js";
 import { Company } from "../models/company.model.js";
 import { asyncHandler } from "../utils/asnycHandler.util.js";
 import { ApiError } from "../utils/ApiError.util.js";
@@ -52,7 +53,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     password: password,
     email: email,
     enrollment: enrollment,
-    isPlaced:false
+    isPlaced: false,
   });
 
   const createdUser = await User.findById(user._id).select(
@@ -63,10 +64,10 @@ const registerStudent = asyncHandler(async (req, res) => {
     throw new ApiError(500, "Something went wrong while registering user");
   }
 
-  const subject = `Registered to IPS Academy PMS`
-  const content = `You have been registered to the college PMS(Placement Management System)<br> Email: ${email}<br>Password:${password}`
+  const subject = `Registered to IPS Academy PMS`;
+  const content = `You have been registered to the college PMS(Placement Management System)<br> Email: ${email}<br>Password:${password}`;
 
-  const mailResponse = await sendMail(subject,content,email)
+  const mailResponse = await sendMail(subject, content, email);
 
   return res
     .status(200)
@@ -327,7 +328,8 @@ const previewResume = asyncHandler(async (req, res) => {
     .json(200, resumeUrl, "Resume fetched Successfully");
 });
 
-const downloadResume = asyncHandler(async (req, res) => { //  TODO: write this function
+const downloadResume = asyncHandler(async (req, res) => {
+  //  TODO: write this function
   const resumeUrl = req.user.resume;
   if (!resumeUrl) {
     throw new ApiError(401, "No Resume Found");
@@ -387,10 +389,36 @@ const getPlacedCurrentStudentDetails = asyncHandler(async (req, res) => {
 const deleteStudent = asyncHandler(async (req, res) => {
   try {
     const { studentId } = req.params;
+    const folder1 = "avatar"
+    const folder2 = "resume"
     const student = await User.findByIdAndDelete(studentId);
-    if (student.isPalced) {
-
+    if (!student) {
+      throw new ApiError(404, "Student doesn't exist ");
     }
+    if (!student.isPlaced) {
+      const jobId = student.job;
+      const job = await Job.findById(jobId);
+      if (!job) {
+        throw new ApiError(404, "Job does not exists");
+      }
+      const companyId = job.company;
+      const company = await Company.findByIdAndUpdate(
+        companyId,
+        {
+          $pull: { selectedStudents: studentId },
+        },
+        {
+          new: true,
+        }
+      ).select("-password -refreshToken");
+    }
+    if(student.avatar){
+      const response =await deleteFromCloudinary(student.avatar,folder1)
+    }
+    if(student.resume){
+      const response = await deleteFromCloudinary(student.resume,folder2)
+    }
+
     return res
       .status(200)
       .json(new ApiResponse(200, student, "Student deleted successfully"));
@@ -402,7 +430,33 @@ const deleteStudent = asyncHandler(async (req, res) => {
 const deleteCompany = asyncHandler(async (req, res) => {
   try {
     const { companyId } = req.params;
-    const company = await Company.findByIdAndDelete(companyId);
+    const folder = "avatar"
+    const company = await Company.findByIdAndDelete(companyId)
+    if (!company) {
+      throw new ApiError(404, "Company not doesn't exist!");
+    }
+    const selectedStudents = company.selectedStudents;
+    if (selectedStudents) {
+      await Promise.all(
+        selectedStudents.map(async (studentId) => {
+          await User.findByIdAndUpdate(studentId, {
+            job: null,
+          });
+        })
+      );
+    }
+    const jobs = company.jobs;
+    if (jobs) {
+      await Promise.all(
+        jobs.map(async (jobId) => {
+          await Job.findByIdAndDelete(jobId);
+        })
+      );
+    }
+    if(company.avatar){
+      const response =await deleteFromCloudinary(company.avatar,folder)
+    }
+
     return res
       .status(200)
       .json(new ApiResponse(200, company, "Student deleted successfully"));
@@ -411,18 +465,41 @@ const deleteCompany = asyncHandler(async (req, res) => {
   }
 });
 
-const getAllStudents = asyncHandler(async(req,res)=>{
-  const students = await User.find({role:"student"},{fullName:1,_id:1,avatar:1,branch:1})
-  if(!students){
-    throw new ApiError(400,"Student details is not available")
+const getAllStudents = asyncHandler(async (req, res) => {
+  const students = await User.find(
+    { role: "student" },
+    { fullName: 1, _id: 1, avatar: 1, branch: 1 }
+  );
+  if (!students) {
+    throw new ApiError(400, "Student details is not available");
   }
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,students,"Students details fetched successfully")
-  )
-})
+    .status(200)
+    .json(
+      new ApiResponse(200, students, "Students details fetched successfully")
+    );
+});
+
+const getStudentDetails = asyncHandler(async (req, res) => {
+  const { studentId } = req.params;
+  if (!studentId) {
+    throw new ApiError(400, "Student id is required!");
+  }
+
+  const student = await User.findById(studentId).select(
+    "-password -refreshToken"
+  );
+  if (!student) {
+    throw new ApiError(404, "Student not found!");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, student, "Student Details Fetched Successfully")
+    );
+});
 
 export {
   registerStudent,
@@ -442,4 +519,5 @@ export {
   deleteStudent,
   deleteCompany,
   getAllStudents,
+  getStudentDetails,
 };

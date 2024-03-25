@@ -36,7 +36,7 @@ const companySchema = new mongoose.Schema(
     refreshToken: {
       type: String,
     },
-    selected_User: [
+    selectedStudents: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

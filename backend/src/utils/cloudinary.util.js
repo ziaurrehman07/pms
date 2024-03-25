@@ -42,7 +42,7 @@ const deleteFromCloudinary = async(url,folder) => {
     const response =await cloudinary.uploader.destroy(`${folder}/${publicId}`)
     return response
   } catch (error) {
-    throw new ApiError(400,error?.message || `Failed to delete file from cloudinary ${folder}`)
+    throw new ApiError(400,error?.message || `Failed to delete ${folder} file from cloudinary `)
   }
 }
 
