@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentUser: null,
-  userRole: null, // Define userRole here in the initialState
   error: null,
   loading: false,
 };
@@ -15,11 +14,8 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    setUserRole: (state, action) => {
-      state.userRole = action.payload;
-    },
     loginSuccess: (state, action) => {
-      state.currentUser = action.payload.currentUser;
+      state.currentUser = action.payload;
       state.loading = false;
       state.error = null;
     },

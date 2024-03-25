@@ -19,6 +19,7 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminRegisterStudent from "../pages/admin/AdminRegisterStudent";
 import AdminRegisterCompanies from "../pages/admin/AdminRegisterCompanies";
 import AdminFeedbacks from "../pages/admin/AdminFeedbacks";
+import Navbar from "../components/Navbar";
 
 function MyRoutes() {
   const [userRole, setUserRole] = useState("");
@@ -49,7 +50,7 @@ function MyRoutes() {
 
   return (
     <BrowserRouter>
-      <main className="flex bg-[#e9f1ef] min-h-screen">
+      <main className="flex bg-[#e9f1ef]  min-h-screen">
         <Routes>
           {/* Student routes */}
           {userRole === "student" && (
@@ -58,8 +59,13 @@ function MyRoutes() {
                 path="/studenthome"
                 element={
                   <>
-                    <Sidebar />
-                    <Home />
+                    <div className="flex w-full">
+                      <Sidebar />
+                      <div className="w-full">
+                        <Navbar />
+                        <Home />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -67,8 +73,13 @@ function MyRoutes() {
                 path="/dashboard"
                 element={
                   <>
-                    <Sidebar />
-                    <Dashboard />
+                    <div className="flex w-full">
+                      <Sidebar />
+                      <div className="w-full">
+                        <Navbar />
+                        <Dashboard />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -76,8 +87,13 @@ function MyRoutes() {
                 path="/resume"
                 element={
                   <>
-                    <Sidebar />
-                    <Resume />
+                    <div className="flex w-full">
+                      <Sidebar />
+                      <div className="w-full">
+                        <Navbar />
+                        <Resume />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -85,8 +101,13 @@ function MyRoutes() {
                 path="/updates"
                 element={
                   <>
-                    <Sidebar />
-                    <Updates />
+                    <div className="flex w-full">
+                      <Sidebar />
+                      <div className="w-full">
+                        <Navbar />
+                        <Updates />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -94,8 +115,13 @@ function MyRoutes() {
                 path="/companies"
                 element={
                   <>
-                    <Sidebar />
-                    <Companies />
+                    <div className="flex w-full">
+                      <Sidebar />
+                      <div className="w-full">
+                        <Navbar />
+                        <Companies />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -103,8 +129,13 @@ function MyRoutes() {
                 path="/feedback"
                 element={
                   <>
-                    <Sidebar />
-                    <Feedback />
+                    <div className="flex w-full">
+                      <Sidebar />
+                      <div className="w-full">
+                        <Navbar />
+                        <Feedback />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -119,8 +150,13 @@ function MyRoutes() {
                 path="/adminhome"
                 element={
                   <>
-                    <SidebarAdmin />
-                    <AdminHome />
+                    <div className="flex w-full">
+                      <SidebarAdmin />
+                      <div className="w-full">
+                        <Navbar />
+                        <AdminHome />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -129,8 +165,13 @@ function MyRoutes() {
                 path="/adminstudents"
                 element={
                   <>
-                    <SidebarAdmin />
-                    <AdminStudents />
+                    <div className="flex w-full">
+                      <SidebarAdmin />
+                      <div className="w-full">
+                        <Navbar />
+                        <AdminStudents />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -138,8 +179,13 @@ function MyRoutes() {
                 path="/admincompanies"
                 element={
                   <>
-                    <SidebarAdmin />
-                    <AdminCompanies />
+                    <div className="flex w-full">
+                      <SidebarAdmin />
+                      <div className="w-full">
+                        <Navbar />
+                        <AdminCompanies />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -147,8 +193,13 @@ function MyRoutes() {
                 path="/admindashboard"
                 element={
                   <>
-                    <SidebarAdmin />
-                    <AdminDashboard />
+                    <div className="flex w-full">
+                      <SidebarAdmin />
+                      <div className="w-full">
+                        <Navbar />
+                        <AdminDashboard />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -157,8 +208,13 @@ function MyRoutes() {
                 path="/adminregisterstudent"
                 element={
                   <>
-                    <SidebarAdmin />
-                    <AdminRegisterStudent />
+                    <div className="flex w-full">
+                      <SidebarAdmin />
+                      <div className="w-full">
+                        <Navbar />
+                        <AdminRegisterStudent />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -167,8 +223,13 @@ function MyRoutes() {
                 path="/adminregistercompanies"
                 element={
                   <>
-                    <SidebarAdmin />
-                    <AdminRegisterCompanies />
+                    <div className="flex w-full">
+                      <SidebarAdmin />
+                      <div className="w-full">
+                        <Navbar />
+                        <AdminRegisterCompanies />
+                      </div>
+                    </div>
                   </>
                 }
               />
@@ -176,8 +237,13 @@ function MyRoutes() {
                 path="/adminfeedbacks"
                 element={
                   <>
-                    <SidebarAdmin />
-                    <AdminFeedbacks />
+                    <div className="flex w-full">
+                      <SidebarAdmin />
+                      <div className="w-full">
+                        <Navbar />
+                        <AdminFeedbacks />
+                      </div>
+                    </div>
                   </>
                 }
               />

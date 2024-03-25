@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar";
 
 function Resume() {
   const navigate = useNavigate();
@@ -9,13 +8,7 @@ function Resume() {
       navigate("/");
     }
   });
-  return (
-    <>
-      <div className="flex w-full flex-col ">
-        <Navbar />
-      </div>
-    </>
-  );
+  return <></>;
 }
 
 export default Resume;
