@@ -237,7 +237,7 @@ const hireStudent = asyncHandler(async(req,res)=>{
   const company = await Company.findOneAndUpdate(
     req.company?._id,
     {
-      selected_User:{
+      selectedStudents:{
         $push:studentId
       }
     },
@@ -249,7 +249,7 @@ const hireStudent = asyncHandler(async(req,res)=>{
   const student = await User.findOneAndUpdate(
     studentId,
     {
-      isPalced:true,
+      isPlaced:true,
       designation:jobId
     },
     {
@@ -264,7 +264,23 @@ const hireStudent = asyncHandler(async(req,res)=>{
     )
 })
 
+const changeCompanyCurrentPassword = asyncHandler(async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const company = await Company.findById(req.company._id);
+  const verifyPassword = await company.isPasswordCorrect(oldPassword);
+  if (!verifyPassword) {
+    throw new ApiError(400, "Invalid Password");
+  }
 
+  company.password = newPassword;
+  company.save({
+    validateBeforeSave: false,
+  });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Password updated successfully"));
+});
 
 export { 
   registerCompany,
@@ -276,5 +292,6 @@ export {
   getApplyStudentList,
   getAllCompanyDetails,
   hireStudent,
-
+  changeCompanyCurrentPassword,
+  
  };

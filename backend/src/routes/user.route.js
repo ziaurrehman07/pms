@@ -18,8 +18,8 @@ import {
   deleteStudent,
   deleteCompany,
   getAllStudents,
+  getStudentDetails,
 } from "../controllers/user.controller.js";
-import {sendMail} from "../utils/emailSender.util.js"
 
 const router = Router();
 
@@ -50,6 +50,7 @@ router
   .get(verifyAdmin, placedStudentsDetails);
 router.route("/delete-student/:studentId").get(verifyAdmin, deleteStudent);
 router.route("/delete-company/:companyId").get(verifyAdmin, deleteCompany);
+router.route("/get-student-details/:studentId").get( getStudentDetails);
 
 
 export default router;
