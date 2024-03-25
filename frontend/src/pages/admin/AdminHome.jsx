@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { useEffect } from "react";
-import StudentList from "../../components/admin/StudentList";
+import GetAllStudents from "../../API/GetAllStudentsApi";
 
 function AdminHome() {
+  const apiUrl = "/api/v1/users/get-user";
+  const { students } = GetAllStudents(apiUrl);
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -14,12 +16,12 @@ function AdminHome() {
     <>
       <div className="flex w-full flex-col h-screen ">
         <Navbar />
-        <h1 className="ml-8 mt-8 text-blue-500 font-semibold text-xl ">
-          User Dashboard
-        </h1>
-        <div className=" ml-4 mt-4 h-[600px] bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
-          <div>
-            <StudentList />
+        <div className="ml-4 flex justify-center place-items-center h-screen">
+          <div className="place-items-center flex">
+            Welcome,
+            <strong className="text-blue-500 text-3xl">
+              {students.fullName}
+            </strong>
           </div>
         </div>
       </div>

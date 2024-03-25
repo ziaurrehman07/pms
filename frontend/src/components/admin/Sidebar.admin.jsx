@@ -38,7 +38,7 @@ function SidebarAdmin() {
           <div
             className={`flex place-items-center mt-12 cursor-pointer ${
               activeLink === "admindashboard"
-                ? "text-blue-400"
+                ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
             onClick={() => handleLinkClick("admindashboard")}
@@ -51,7 +51,9 @@ function SidebarAdmin() {
         <Link to="/adminstudents">
           <div
             className={`flex place-items-center mt-3 cursor-pointer ${
-              activeLink === "adminstudents" ? "text-blue-400" : "text-gray-500"
+              activeLink === "adminstudents"
+                ? "text-blue-500 font-bold"
+                : "text-gray-500"
             }`}
             onClick={() => handleLinkClick("adminstudents")}
           >
@@ -64,7 +66,7 @@ function SidebarAdmin() {
           <div
             className={`flex place-items-center mt-3 cursor-pointer ${
               activeLink === "admincompanies"
-                ? "text-blue-400"
+                ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
             onClick={() => handleLinkClick("admincompanies")}
@@ -78,7 +80,7 @@ function SidebarAdmin() {
           <div
             className={`flex place-items-center mt-3 cursor-pointer ${
               activeLink === "adminregisterstudent"
-                ? "text-blue-400"
+                ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
             onClick={() => handleLinkClick("adminregisterstudent")}
@@ -92,7 +94,7 @@ function SidebarAdmin() {
           <div
             className={`flex place-items-center mt-3 cursor-pointer ${
               activeLink === "adminregistercompanies"
-                ? "text-blue-400"
+                ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
             onClick={() => handleLinkClick("adminregistercompanies")}
@@ -106,7 +108,7 @@ function SidebarAdmin() {
           <div
             className={`flex place-items-center mt-10 cursor-pointer ${
               activeLink === "adminfeedbacks"
-                ? "text-blue-400"
+                ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
             onClick={() => handleLinkClick("adminfeedbacks")}
