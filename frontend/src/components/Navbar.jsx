@@ -47,7 +47,7 @@ function Navbar() {
                 alt="logo"
               />
             ) : (
-              <CgProfile className="text-[34px] cursor-pointer text-gray-300 mr-3" />
+              <CgProfile className="h-10 w-10 cursor-pointer text-blue-500 mr-3" />
             )}
           </div>
           <div className="flex place-items-center">

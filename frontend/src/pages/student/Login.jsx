@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { RiUserLine } from "react-icons/ri";
+import { RiEyeCloseFill, RiEyeFill, RiUserLine } from "react-icons/ri";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,12 @@ function Login() {
   const { loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
   const handleChange = (e) => {
     setFormData({ ...FormData, [e.target.id]: e.target.value.trim() });
   };
@@ -74,14 +80,21 @@ function Login() {
               onChange={handleChange}
             />
             <input
-              className="m-5 p-3 shadow-sm bg-gray-100 outline-none rounded-lg mt-0.5"
-              type="password"
+              className="m-5 p-3 shadow-sm bg-gray-100 outline-none rounded-lg mt-0.5 pr-10"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               id="password"
               autoComplete="password"
               value={FormData.password}
               onChange={handleChange}
+              style={{ paddingRight: "40px" }}
             />
+            <span
+              className="text-blue-500 absolute right-8 top-[46.5%] transform -translate-y-1/2 cursor-pointer" // Position the icon vertically centered within the input
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
+            </span>
             <button
               className="bg-gray-100 text-gray-500 mx-auto mt-3 pl-5 pr-5 p-0.5 rounded-md"
               disabled={loading}
