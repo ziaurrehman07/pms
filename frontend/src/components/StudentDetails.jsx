@@ -1,4 +1,12 @@
-function StudentDetails() {
+import GetAllStudents from "../API/GetAllStudentsApi";
+
+function StudentDetails(student) {
+  const apiUrl = `/api/v1/users/get-student-details/:${student._id}`;
+  const { students, loading, error } = GetAllStudents(apiUrl);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+
   return (
     <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-3 flex place-items-center h-10">

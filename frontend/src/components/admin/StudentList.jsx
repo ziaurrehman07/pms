@@ -4,6 +4,7 @@ import { CgProfile } from "react-icons/cg";
 function StudentList() {
   const apiUrl = "/api/v1/users/get-students-detail";
   const { students, loading, error } = GetAllStudents(apiUrl);
+  
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
