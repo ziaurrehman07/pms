@@ -90,7 +90,7 @@ function Login() {
               style={{ paddingRight: "40px" }}
             />
             <span
-              className="text-blue-500 absolute right-8 top-[46.5%] transform -translate-y-1/2 cursor-pointer" // Position the icon vertically centered within the input
+              className="text-blue-500 text-xl absolute right-8 top-[46.5%] transform -translate-y-1/2 cursor-pointer" // Position the icon vertically centered within the input
               onClick={togglePasswordVisibility}
             >
               {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
