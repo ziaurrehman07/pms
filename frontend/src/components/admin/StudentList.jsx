@@ -1,13 +1,6 @@
-import GetAllStudents from "../../API/GetAllStudentsApi";
 import { CgProfile } from "react-icons/cg";
 
-function StudentList() {
-  const apiUrl = "/api/v1/users/get-students-detail";
-  const { students, loading, error } = GetAllStudents(apiUrl);
-  
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+function StudentList({ students, onStudentClick }) {
   return (
     <div className=" ml-4 mt-4 h-[550px]  bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-3 flex place-items-center h-10">
@@ -19,7 +12,8 @@ function StudentList() {
         {students.map((student) => (
           <div
             key={student._id}
-            className="bg-[#e9f1ef] mt-2 ml-2 mr-2 rounded-lg p-1 flex place-items-center"
+            className="bg-[#e9f1ef] mt-2 ml-2 mr-2 rounded-lg p-1 flex place-items-center cursor-pointer"
+            onClick={() => onStudentClick(student._id)}
           >
             {student.avatar ? (
               <img
