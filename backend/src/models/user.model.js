@@ -46,10 +46,6 @@ const userSchema = new mongoose.Schema({
   refreshToken:{
     type:String
   },
-  job:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Job"
-  },
   branch:{
     type:String,
     enum:["CSE","CSIT","IOT"]
@@ -71,6 +67,10 @@ const userSchema = new mongoose.Schema({
   },
   address:{
     type:String
+  },
+  designation:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Job"
   }
 
 },{timestamps:true})

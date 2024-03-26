@@ -14,7 +14,6 @@ import {
   previewResume,
   previewAvatar,
   placedStudentsDetails,
-  getPlacedCurrentStudentDetails,
   deleteStudent,
   deleteCompany,
   getAllStudents,
@@ -41,10 +40,6 @@ router
   .patch(verifyJWT, upload.single("resume"), updateStudentResume);
 router.route("/preview-resume").get(verifyJWT, previewResume);
 router.route("/preview-avatar").get(verifyJWT, previewAvatar);
-
-router
-  .route("/placed-current-student-details")
-  .get(verifyJWT, getPlacedCurrentStudentDetails);
 router
   .route("/placed-students-details")
   .get(verifyAdmin, placedStudentsDetails);

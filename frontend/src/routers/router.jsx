@@ -50,7 +50,7 @@ function MyRoutes() {
 
   return (
     <BrowserRouter>
-      <main className="flex bg-[#e9f1ef]  min-h-screen">
+      <main className="flex bg-[#e9f1ef]  h-screen">
         <Routes>
           {/* Student routes */}
           {userRole === "student" && (
@@ -167,7 +167,7 @@ function MyRoutes() {
                   <>
                     <div className="flex w-full">
                       <SidebarAdmin />
-                      <div className="w-full">
+                      <div className="w-full ">
                         <Navbar />
                         <AdminStudents />
                       </div>

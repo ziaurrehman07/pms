@@ -339,7 +339,7 @@ const downloadResume = asyncHandler(async (req, res) => {
 
 const placedStudentsDetails = asyncHandler(async (req, res) => {
   const students = await User.find({
-    isPalced: true,
+    isPlaced: true,
   }).select("-password -refreshToken");
 
   return res
@@ -353,44 +353,11 @@ const placedStudentsDetails = asyncHandler(async (req, res) => {
     );
 });
 
-const getPlacedCurrentStudentDetails = asyncHandler(async (req, res) => {
-  try {
-    const studentId = req.user._id;
-    const student = await User.findById(studentId)
-      .populate({
-        path: "job",
-        populate: {
-          path: "company",
-        },
-      })
-      .select("-password -refreshToken");
-
-    if (!student || !student.isPalced) {
-      throw new ApiError(404, "Student not placed or record not found");
-    }
-
-    return res
-      .status(200)
-      .json(
-        new ApiResponse(
-          200,
-          student,
-          "Successfully fetched placed student details"
-        )
-      );
-  } catch (error) {
-    throw new ApiError(
-      500,
-      "Something went wrong while fetching current details of student"
-    );
-  }
-});
-
 const deleteStudent = asyncHandler(async (req, res) => {
   try {
     const { studentId } = req.params;
-    const folder1 = "avatar"
-    const folder2 = "resume"
+    const folder1 = "avatar";
+    const folder2 = "resume";
     const student = await User.findByIdAndDelete(studentId);
     if (!student) {
       throw new ApiError(404, "Student doesn't exist ");
@@ -412,11 +379,11 @@ const deleteStudent = asyncHandler(async (req, res) => {
         }
       ).select("-password -refreshToken");
     }
-    if(student.avatar){
-      const response =await deleteFromCloudinary(student.avatar,folder1)
+    if (student.avatar) {
+      const response = await deleteFromCloudinary(student.avatar, folder1);
     }
-    if(student.resume){
-      const response = await deleteFromCloudinary(student.resume,folder2)
+    if (student.resume) {
+      const response = await deleteFromCloudinary(student.resume, folder2);
     }
 
     return res
@@ -430,8 +397,8 @@ const deleteStudent = asyncHandler(async (req, res) => {
 const deleteCompany = asyncHandler(async (req, res) => {
   try {
     const { companyId } = req.params;
-    const folder = "avatar"
-    const company = await Company.findByIdAndDelete(companyId)
+    const folder = "avatar";
+    const company = await Company.findByIdAndDelete(companyId);
     if (!company) {
       throw new ApiError(404, "Company not doesn't exist!");
     }
@@ -453,8 +420,8 @@ const deleteCompany = asyncHandler(async (req, res) => {
         })
       );
     }
-    if(company.avatar){
-      const response =await deleteFromCloudinary(company.avatar,folder)
+    if (company.avatar) {
+      const response = await deleteFromCloudinary(company.avatar, folder);
     }
 
     return res
@@ -488,13 +455,15 @@ const getStudentDetails = asyncHandler(async (req, res) => {
   }
 
   const student = await User.findById(studentId)
-  .populate({
-    path: 'job',
-    populate: { path: 'company' } // Specify the path to the nested field you want to populate
-  })
-  .select(
-    "-password -refreshToken"
-  );
+    .populate({
+      path: "designation",
+      select: "company salaryPackage designation",
+      populate: {
+        path: "company",
+        select: "name",
+      },
+    })
+    .select("-password -refreshToken");
   if (!student) {
     throw new ApiError(404, "Student not found!");
   }
@@ -520,7 +489,6 @@ export {
   previewAvatar,
   downloadResume,
   placedStudentsDetails,
-  getPlacedCurrentStudentDetails,
   deleteStudent,
   deleteCompany,
   getAllStudents,

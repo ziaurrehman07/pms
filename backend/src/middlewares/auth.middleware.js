@@ -13,7 +13,16 @@ import { Company } from "../models/company.model.js"
     }
     const decodedToken = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET_KEY)
   
-    const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
+    const user = await User.findById(decodedToken?._id)
+    .populate({
+      path: "designation",
+      select: "company salaryPackage designation",
+      populate: {
+        path: "company",
+        select: "name",
+      },
+    })
+    .select("-password -refreshToken")
   
     if(!user){
       throw new ApiError(400, 'Invalid access token')

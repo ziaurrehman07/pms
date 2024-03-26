@@ -234,11 +234,11 @@ const getAllCompanyDetails = asyncHandler(async(req,res)=>{
 
 const hireStudent = asyncHandler(async(req,res)=>{
   const {studentId,jobId} = req.params
-  const company = await Company.findOneAndUpdate(
+  const company = await Company.findByIdAndUpdate(
     req.company?._id,
     {
-      selectedStudents:{
-        $push:studentId
+      $push:{
+        selectedStudents:studentId
       }
     },
     {
@@ -246,11 +246,13 @@ const hireStudent = asyncHandler(async(req,res)=>{
     }
   ).select("-password -refreshToken")
 
-  const student = await User.findOneAndUpdate(
+  const student = await User.findByIdAndUpdate(
     studentId,
     {
       isPlaced:true,
-      designation:jobId
+      $set:{
+        designation:jobId
+      }
     },
     {
       new:true
