@@ -487,7 +487,12 @@ const getStudentDetails = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Student id is required!");
   }
 
-  const student = await User.findById(studentId).select(
+  const student = await User.findById(studentId)
+  .populate({
+    path: 'job',
+    populate: { path: 'company' } // Specify the path to the nested field you want to populate
+  })
+  .select(
     "-password -refreshToken"
   );
   if (!student) {
