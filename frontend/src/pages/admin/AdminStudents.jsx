@@ -17,7 +17,7 @@ function AdminStudents() {
     );
   };
   return (
-    <div className="flex place-items-center">
+    <div className=" flex place-items-center">
       <div>
         <StudentList students={students} onStudentClick={handleStudentClick} />
       </div>

@@ -8,14 +8,18 @@ const initialState = {
 
 const userSlice = createSlice({
   name: "user",
+  userRole: null,
   initialState,
   reducers: {
     loginStart: (state) => {
       state.loading = true;
       state.error = null;
     },
+    setUserRole: (state, action) => {
+      state.userRole = action.payload;
+    },
     loginSuccess: (state, action) => {
-      state.currentUser = action.payload;
+      state.currentUser = action.payload.currentUser;
       state.loading = false;
       state.error = null;
     },
