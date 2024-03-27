@@ -200,6 +200,7 @@ const updateStudentAccountDetails = asyncHandler(async (req, res) => {
     result_12,
     address,
     college_cgpa,
+    dob
   } = req.body;
   const isUserAvailable = await User.findOne({ email: email });
   if (isUserAvailable) {
@@ -218,6 +219,7 @@ const updateStudentAccountDetails = asyncHandler(async (req, res) => {
         result_10,
         result_12,
         address,
+        dob
       },
     },
     {
@@ -241,6 +243,7 @@ const updateStudentDetailsByAdmin = asyncHandler(async(req,res)=>{
     result_12,
     address,
     college_cgpa,
+    dob
   } = req.body;
   const isUserAvailable = await User.findOne({ email: email });
   if (isUserAvailable) {
@@ -258,6 +261,7 @@ const updateStudentDetailsByAdmin = asyncHandler(async(req,res)=>{
         result_10,
         result_12,
         address,
+        dob
       },
     },
     {

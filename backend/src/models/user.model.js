@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema({
     required:true,
     trim:true
   },
+  dob:{
+    type:String,
+  },
   enrollment:{
     type:String,
     unique: true,
