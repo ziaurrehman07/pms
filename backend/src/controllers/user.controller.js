@@ -206,6 +206,7 @@ const updateStudentAccountDetails = asyncHandler(async (req, res) => {
     result_12,
     address,
     college_cgpa,
+    dob
   } = req.body;
   const isUserAvailable = await User.findOne({ email: email });
   if (isUserAvailable) {
@@ -224,6 +225,7 @@ const updateStudentAccountDetails = asyncHandler(async (req, res) => {
         result_10,
         result_12,
         address,
+        dob
       },
     },
     {
@@ -235,6 +237,50 @@ const updateStudentAccountDetails = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, user, "Account details updated Successfully"));
 });
+
+const updateStudentDetailsByAdmin = asyncHandler(async(req,res)=>{
+  const {studentId} =  req.params;
+  const {
+    fullName,
+    mobile,
+    email,
+    branch,
+    result_10,
+    result_12,
+    address,
+    college_cgpa,
+    dob
+  } = req.body;
+  const isUserAvailable = await User.findOne({ email: email });
+  if (isUserAvailable) {
+    throw new ApiError(400, "Email already exist enter another one");
+  }
+  const user = await User.findByIdAndUpdate(
+    studentId,
+    {
+      $set: {
+        fullName,
+        email,
+        branch,
+        mobile,
+        college_cgpa,
+        result_10,
+        result_12,
+        address,
+        dob
+      },
+    },
+    {
+      new: true,
+    }
+  ).select("-password -refreshToken");
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,user,"Account details updated Successfully")
+  )
+})
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
   const avatarLocalPath = req.file?.path;
@@ -499,4 +545,5 @@ export {
   deleteCompany,
   getAllStudents,
   getStudentDetails,
+  updateStudentDetailsByAdmin,
 };

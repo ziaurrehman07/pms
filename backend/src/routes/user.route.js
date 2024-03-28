@@ -18,6 +18,7 @@ import {
   deleteCompany,
   getAllStudents,
   getStudentDetails,
+  updateStudentDetailsByAdmin,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -32,6 +33,9 @@ router.route("/get-students-detail").get(verifyAdmin, getAllStudents);
 router
   .route("/update-student-account-details")
   .patch(verifyJWT, updateStudentAccountDetails);
+router
+  .route("/update-student-details/:studentId")
+  .patch(verifyAdmin, updateStudentDetailsByAdmin);
 router
   .route("/update-user-avatar")
   .patch(verifyJWT, upload.single("avatar"), updateUserAvatar);
