@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
 function StudentDetails({ studentId }) {
   const [student, setStudent] = useState(null);
@@ -24,6 +25,22 @@ function StudentDetails({ studentId }) {
 
   if (!student) {
     return;
+  }
+
+  const handleEdit = () => {
+    // Placeholder function for editing the student
+    console.log("Editing student:", student);
+    // Implement your logic for editing here
+  };
+
+  const handleDelete = () => {
+    // Placeholder function for deleting the student
+    console.log("Deleting student:", student);
+    // Implement your logic for deleting here
+  };
+
+  if (!student) {
+    return null;
   }
 
   return (
@@ -124,10 +141,16 @@ function StudentDetails({ studentId }) {
       </div>
 
       <div className="btns flex  justify-evenly mt-4 mb-4">
-        <button className="bg-blue-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
+        <button
+          onClick={handleEdit}
+          className="bg-blue-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
+        >
           EDIT
         </button>
-        <button className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
+        <button
+          onClick={handleDelete}
+          className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
+        >
           DELETE
         </button>
       </div>

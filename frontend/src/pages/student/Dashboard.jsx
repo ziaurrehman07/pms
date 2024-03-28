@@ -3,11 +3,13 @@ import { useEffect } from "react";
 
 function Dashboard() {
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    const token = localStorage.getItem("token");
+    if (!token) {
       navigate("/");
     }
-  });
+  }, []);
   return (
     <>
       <h1 className="ml-8 mt-8 text-blue-500 font-semibold text-xl ">

@@ -165,9 +165,9 @@ function MyRoutes() {
                 path="/adminstudents"
                 element={
                   <>
-                    <div className="flex w-full">
+                    <div className="flex w-full ">
                       <SidebarAdmin />
-                      <div className="w-full ">
+                      <div className="w-full">
                         <Navbar />
                         <AdminStudents />
                       </div>
@@ -255,6 +255,7 @@ function MyRoutes() {
           {/* Default routes */}
           <Route path="/companylogin" element={<CompanyLogin />} />
           <Route path="/" element={<Login />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
     </BrowserRouter>

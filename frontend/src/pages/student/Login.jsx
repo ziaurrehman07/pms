@@ -39,15 +39,16 @@ function Login() {
         // console.log(data);
       } else {
         dispatch(loginSuccess(data));
-        localStorage.setItem("token", data.data.token);
-
         const userRole = data.data.loggedInUser.role;
         // console.log(userRole);
         if (userRole === "student") {
           navigate("/studenthome");
+          localStorage.setItem("token", data.data.accessToken);
           window.location.reload();
         } else if (userRole === "admin") {
           navigate("/adminhome");
+          localStorage.setItem("token", data.data.accessToken);
+
           window.location.reload();
         } else {
           console.error("unexpected user role: "), userRole;

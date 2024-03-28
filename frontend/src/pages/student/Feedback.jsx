@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 function Feedback() {
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    const token = localStorage.getItem("token");
+    if (!token) {
       navigate("/");
     }
-  });
+  }, []);
   return <div></div>;
 }
 

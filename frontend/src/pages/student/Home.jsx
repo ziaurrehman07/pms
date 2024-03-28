@@ -7,14 +7,16 @@ function Home() {
   const apiUrl = "/api/v1/users/get-user";
   const { students } = GetAllStudents(apiUrl);
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    const token = localStorage.getItem("token");
+    if (!token) {
       navigate("/");
     }
-  });
+  }, []);
   return (
     <>
-      <div className="ml-4 flex justify-center place-items-center h-screen">
+      <div className="ml-4 flex justify-center place-items-center mt-32">
         <div>
           Welcome, <strong>{students.fullName}</strong>
         </div>

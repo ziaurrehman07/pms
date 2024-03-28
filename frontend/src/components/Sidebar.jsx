@@ -65,7 +65,7 @@ function Sidebar() {
           onClick={() => handleLinkClick("resume")}
         >
           <IoIosPaper className="mr-1 text-lg" />
-          <h1 className=" text-sm         whitespace-nowrap ">Resume</h1>
+          <h1 className=" text-sm whitespace-nowrap ">Resume</h1>
         </div>
       </Link>
 
