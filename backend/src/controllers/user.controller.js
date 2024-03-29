@@ -30,10 +30,10 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerStudent = asyncHandler(async (req, res) => {
-  const { fullName, username, email, password, enrollment } = req.body;
+  const { fullName , email, password, enrollment } = req.body;
 
   if (
-    [fullName, username, email, password, enrollment].some(
+    [fullName, email, password, enrollment].some(
       (field) => field?.trim() === ""
     )
   ) {
@@ -41,15 +41,14 @@ const registerStudent = asyncHandler(async (req, res) => {
   }
 
   const existedUser = await User.findOne({
-    $or: [{ enrollment }, { email }, { username }],
+    $or: [{ enrollment }, { email }],
   });
   if (existedUser) {
-    throw new ApiError(400, "User with email or username is already exist");
+    throw new ApiError(400, "User with email or enrollment is already exist");
   }
 
   const user = await User.create({
     fullName: fullName,
-    username: username,
     password: password,
     email: email,
     enrollment: enrollment,
@@ -208,9 +207,11 @@ const updateStudentAccountDetails = asyncHandler(async (req, res) => {
     college_cgpa,
     dob,
   } = req.body;
-  const isUserAvailable = await User.findOne({ email: email });
-  if (isUserAvailable) {
-    throw new ApiError(400, "Email already exist enter another one");
+  if (email && email !== req.user.email) {
+    const isUserAvailable = await User.findOne({ email: email });
+    if (isUserAvailable) {
+      throw new ApiError(400, "Email already exist enter another one");
+    }
   }
 
   const user = await User.findByIdAndUpdate(
@@ -251,11 +252,15 @@ const updateStudentDetailsByAdmin = asyncHandler(async (req, res) => {
     address,
     college_cgpa,
     dob,
+    enrollment
   } = req.body;
-  if (email && email !== student.email) {
-    const isUserAvailable = await User.findOne({ email: email });
+  
+  if ((email && email !== student.email) ||(enrollment && enrollment !==student.enrollment)) {
+    const isUserAvailable = await User.findOne({
+      $or: [{ enrollment }, { email }],
+    });
     if (isUserAvailable) {
-      throw new ApiError(400, "Email already exist enter another one");
+      throw new ApiError(400, "Email or Enrollment already exist enter another one");
     }
   }
   const user = await User.findByIdAndUpdate(
@@ -271,6 +276,7 @@ const updateStudentDetailsByAdmin = asyncHandler(async (req, res) => {
         result_12,
         address,
         dob,
+        enrollment
       },
     },
     {
