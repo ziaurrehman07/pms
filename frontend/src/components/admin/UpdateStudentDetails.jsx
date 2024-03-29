@@ -4,11 +4,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function UpdateStudentDetails({ studentId, onCancel }) {
-  const navigate = useNavigate();
   const [values, setValues] = useState({
     id: studentId,
     fullName: "",
-    username: "",
     enrollment: "",
     email: "",
     branch: "",
@@ -49,7 +47,6 @@ function UpdateStudentDetails({ studentId, onCancel }) {
     try {
       const updatedData = {
         fullName: values.fullName,
-        username: values.username,
         enrollment: values.enrollment,
         email: values.email,
         branch: values.branch,
@@ -65,6 +62,7 @@ function UpdateStudentDetails({ studentId, onCancel }) {
         updatedData
       );
       console.log("Student details updated successfully");
+      onCancel();
     } catch (error) {
       console.error("Error updating student details:", error);
     }
@@ -100,20 +98,6 @@ function UpdateStudentDetails({ studentId, onCancel }) {
                       onChange={handleChange}
                       value={values.fullName}
                       className=" shadow-sm bg-gray-100 outline-none rounded-md px-2 font-semibold text-sm "
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    Username :
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="username"
-                      onChange={handleChange}
-                      value={values.username}
-                      className=" shadow-sm bg-gray-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "
                     />
                   </td>
                 </tr>

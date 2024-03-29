@@ -20,6 +20,7 @@ function AdminStudents() {
   const { students, loading, error } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isEditClicked, setIsEditClicked] = useState(false);
+
   if (loading)
     return (
       <button

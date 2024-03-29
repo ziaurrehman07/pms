@@ -58,14 +58,7 @@ function StudentDetails({ studentId, onEditClick }) {
                   {student.fullName}
                 </td>
               </tr>
-              <tr>
-                <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                  Username :
-                </td>
-                <td className="font-semibold text-sm p-1">
-                  {student.username}
-                </td>
-              </tr>
+
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   Enrollment :
