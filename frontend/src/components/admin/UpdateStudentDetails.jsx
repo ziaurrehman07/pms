@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function UpdateStudentDetails({ studentId, onCancel }) {
-  // const { studentId } = useParams();
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     id: studentId,
     fullName: "",
@@ -45,10 +45,24 @@ function UpdateStudentDetails({ studentId, onCancel }) {
 
   const handleSave = async (e) => {
     e.preventDefault(); // Prevent default form submission
+
     try {
-      await axios.put(
+      const updatedData = {
+        fullName: values.fullName,
+        username: values.username,
+        enrollment: values.enrollment,
+        email: values.email,
+        branch: values.branch,
+        result_10: values.result_10,
+        result_12: values.result_12,
+        college_cgpa: values.college_cgpa,
+        mobile: values.mobile,
+        address: values.address,
+      };
+
+      await axios.patch(
         `/api/v1/users/update-student-details/${studentId}`,
-        values
+        updatedData
       );
       console.log("Student details updated successfully");
     } catch (error) {
@@ -57,7 +71,7 @@ function UpdateStudentDetails({ studentId, onCancel }) {
   };
 
   return (
-    <form onSubmit={handleSave}>
+    <form>
       <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
         <div className="sticky top-0 bg-white border-b border-black  mx-3 flex place-items-center h-10">
           <h2 className="pl-3 font-bold text-blue-400">
