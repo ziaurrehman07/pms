@@ -3,7 +3,10 @@ import { Job } from "../models/job.model.js";
 import { asyncHandler } from "../utils/asnycHandler.util.js";
 import { ApiError } from "../utils/ApiError.util.js";
 import { ApiResponse } from "../utils/ApiResponse.util.js";
-import { uploadOnCloudinary,deleteFromCloudinary } from "../utils/cloudinary.util.js";
+import {
+  uploadOnCloudinary,
+  deleteFromCloudinary,
+} from "../utils/cloudinary.util.js";
 import { User } from "../models/user.model.js";
 import mongoose from "mongoose";
 
@@ -84,187 +87,229 @@ const loginCompany = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, loggedInCompany, "Logged in Successfully"));
 });
 
-const logOutCompany = asyncHandler(async(req,res)=>{
+const logOutCompany = asyncHandler(async (req, res) => {
   await Company.findByIdAndUpdate(
     req.user?._id,
     {
-      $unset:{refreshToken:1}
+      $unset: { refreshToken: 1 },
     },
     {
-      new:true
+      new: true,
     }
-  )
+  );
 
   return res
-  .status(200)
-  .clearCookie("refreshToken")
-  .clearCookie("accessToken")
-  .json(
-    new ApiResponse(200,{},"User Logged Out")
-  )
-})
+    .status(200)
+    .clearCookie("refreshToken")
+    .clearCookie("accessToken")
+    .json(new ApiResponse(200, {}, "User Logged Out"));
+});
 
-const updateCompanyDetails = asyncHandler(async(req,res)=>{
-  const {name,email,description,address,website} = req.body
+const updateCompanyDetails = asyncHandler(async (req, res) => {
+  const { name, email, description, address, website } = req.body;
 
-  const isCompanyAvailable = await Company.findOne({
-    $or:[{name},{email}]
-  })
-  if(!isCompanyAvailable){
-    throw new ApiError(400,"Name and email already exist fill another one")
+  if (
+    (name && name !== req.company.name) ||
+    (email && email !== req.company.email)
+  ) {
+    const isCompanyAvailable = await Company.findOne({
+      $or: [{ name }, { email }],
+    });
+    if (isCompanyAvailable) {
+      throw new ApiError(400, "Name and email already exist fill another one");
+    }
   }
-
   const company = await Company.findByIdAndUpdate(
-    req.company?._id,  
+    req.company?._id,
     {
-      $set:{
+      $set: {
         name,
         email,
         description,
         address,
-        website
-      }
+        website,
+      },
     },
     {
-      new:true
+      new: true,
     }
-  ).select("-password -refreshToken")
+  ).select("-password -refreshToken");
 
-  return res 
-  .status(200)
-  .json(
-    new ApiResponse(200,company, "Company Details Updated Successfully!")
-  )
-})
-
-const getCurrentCompanyDetails = asyncHandler(async(req,res)=>{
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,req.company,"Company details fetched successfully")
-  )
-})
+    .status(200)
+    .json(
+      new ApiResponse(200, company, "Company Details Updated Successfully!")
+    );
+});
 
-const updateCompanyAvatar = asyncHandler(async(req,res)=>{
-  const avatarLocalPath = req.file?.path 
-  const folder = "companyAvatar"
-  if(!avatarLocalPath){
-    throw new ApiError(400,"Avatar file is missing")
+const updateCompanyDetailsByAmin = asyncHandler(async (req, res) => {
+  const {companyId} = req.params
+  const { name, email, description, address, website } = req.body;
+  const comp = await Company.findById(companyId)
+  if (
+    (name && name !== comp.name) ||
+    (email && email !== comp.email)
+  ) {
+    const isCompanyAvailable = await Company.findOne({
+      $or: [{ name }, { email }],
+    });
+    if (isCompanyAvailable) {
+      throw new ApiError(400, "Name and email already exist fill another one");
+    }
   }
-  const oldAvatar = req.company?.avatar
-  const avatar = await uploadOnCloudinary(avatarLocalPath,req.company._id,folder)
-  if(!avatar.url){
-    throw new ApiError(401,"Error while uploading on cloudinary")
+  const company = await Company.findByIdAndUpdate(
+    req.company?._id,
+    {
+      $set: {
+        name,
+        email,
+        description,
+        address,
+        website,
+      },
+    },
+    {
+      new: true,
+    }
+  ).select("-password -refreshToken");
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, company, "Company Details Updated Successfully!")
+    );
+});
+
+const getCurrentCompanyDetails = asyncHandler(async (req, res) => {
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, req.company, "Company details fetched successfully")
+    );
+});
+
+const updateCompanyAvatar = asyncHandler(async (req, res) => {
+  const avatarLocalPath = req.file?.path;
+  const folder = "companyAvatar";
+  if (!avatarLocalPath) {
+    throw new ApiError(400, "Avatar file is missing");
+  }
+  const oldAvatar = req.company?.avatar;
+  const avatar = await uploadOnCloudinary(
+    avatarLocalPath,
+    req.company._id,
+    folder
+  );
+  if (!avatar.url) {
+    throw new ApiError(401, "Error while uploading on cloudinary");
   }
   const company = await Company.findByIdAndUpdate(
     req.company._id,
     {
-      $set:{
-        avatar:avatar.url
-      }
+      $set: {
+        avatar: avatar.url,
+      },
     },
     {
-      new:true
+      new: true,
     }
-  )
-  if(oldAvatar){
-    await deleteFromCloudinary(oldAvatar,folder)
+  );
+  if (oldAvatar) {
+    await deleteFromCloudinary(oldAvatar, folder);
   }
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,company,"Company avatar updated successfully")
-  )
+    .status(200)
+    .json(new ApiResponse(200, company, "Company avatar updated successfully"));
+});
 
-})
-
-const getApplyStudentList = asyncHandler(async(req,res)=>{
-  const {jobId} = req.params
-  const studentList =await Job.aggregate(
-    [
-      {
-        $match: {
-          _id:mongoose.Types.ObjectId(jobId)
-        }
+const getApplyStudentList = asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  const studentList = await Job.aggregate([
+    {
+      $match: {
+        _id: mongoose.Types.ObjectId(jobId),
       },
-      {
-        $lookup: {
-          from:"users",
-          localField:"students",
-          foreignField:"_id",
-          as:"studentsList" 
-        }
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "students",
+        foreignField: "_id",
+        as: "studentsList",
       },
-      {
-        $unwind: "$studentsList"
+    },
+    {
+      $unwind: "$studentsList",
+    },
+    {
+      $project: {
+        _id: "$studentsList._id",
+        fullName: "$studentsList.fullName",
+        mobile: "$studentsList.mobile",
+        email: "$studentsList.email",
+        resume: "$studentsList.resume",
       },
-      {
-        $project: {
-          _id:"$studentsList._id",
-          fullName: "$studentsList.fullName",
-          mobile:"$studentsList.mobile",
-          email:"$studentsList.email",
-          resume:"$studentsList.resume"
-        }
-      }
-    ]
-  )
+    },
+  ]);
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,studentList,"Applied students details fetched successfully")
-  )
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        studentList,
+        "Applied students details fetched successfully"
+      )
+    );
+});
 
-})
-
-const getAllCompanyDetails = asyncHandler(async(req,res)=>{
-  const companies = await Company.find({})
-  if(!companies){
-    throw new ApiError(400,"Company details is not available")
+const getAllCompanyDetails = asyncHandler(async (req, res) => {
+  const companies = await Company.find({});
+  if (!companies) {
+    throw new ApiError(400, "Company details is not available");
   }
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,companies,"Companies details fetched successfully")
-  )
-})
+    .status(200)
+    .json(
+      new ApiResponse(200, companies, "Companies details fetched successfully")
+    );
+});
 
-const hireStudent = asyncHandler(async(req,res)=>{
-  const {studentId,jobId} = req.params
+const hireStudent = asyncHandler(async (req, res) => {
+  const { studentId, jobId } = req.params;
   const company = await Company.findByIdAndUpdate(
     req.company?._id,
     {
-      $push:{
-        selectedStudents:studentId
-      }
+      $push: {
+        selectedStudents: studentId,
+      },
     },
     {
-      new:true
+      new: true,
     }
-  ).select("-password -refreshToken")
+  ).select("-password -refreshToken");
 
   const student = await User.findByIdAndUpdate(
     studentId,
     {
-      isPlaced:true,
-      $set:{
-        designation:jobId
-      }
+      isPlaced: true,
+      $set: {
+        designation: jobId,
+      },
     },
     {
-      new:true
+      new: true,
     }
-  ).select("-password -refreshToken")
+  ).select("-password -refreshToken");
 
-    return res
+  return res
     .status(200)
     .json(
-      new ApiResponse(200,{student,company},"Student Hired Successfully")
-    )
-})
+      new ApiResponse(200, { student, company }, "Student Hired Successfully")
+    );
+});
 
 const changeCompanyCurrentPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
@@ -284,7 +329,7 @@ const changeCompanyCurrentPassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Password updated successfully"));
 });
 
-export { 
+export {
   registerCompany,
   loginCompany,
   logOutCompany,
@@ -295,5 +340,5 @@ export {
   getAllCompanyDetails,
   hireStudent,
   changeCompanyCurrentPassword,
-  
- };
+  updateCompanyDetailsByAmin,
+};
