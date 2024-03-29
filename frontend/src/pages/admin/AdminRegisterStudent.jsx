@@ -46,7 +46,7 @@ function AdminRegisterStudent() {
           </label>
           <input
             className="p-2 my-0.5  bg-gray-100 outline-none rounded-md "
-            type="text"
+            type="password"
             placeholder="Password"
           />
         </div>

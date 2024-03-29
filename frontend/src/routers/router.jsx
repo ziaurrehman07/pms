@@ -20,6 +20,7 @@ import AdminRegisterStudent from "../pages/admin/AdminRegisterStudent";
 import AdminRegisterCompanies from "../pages/admin/AdminRegisterCompanies";
 import AdminFeedbacks from "../pages/admin/AdminFeedbacks";
 import Navbar from "../components/Navbar";
+import CompanyHome from "../pages/company/CompanyHome";
 
 function MyRoutes() {
   const [userRole, setUserRole] = useState("");
@@ -251,7 +252,8 @@ function MyRoutes() {
               <Route path="*" element={<Navigate to="/adminhome" />} />
             </>
           )}
-
+          {/* company Routes */}
+          <Route path="/companyHome" element={<CompanyHome />} />
           {/* Default routes */}
           <Route path="/companylogin" element={<CompanyLogin />} />
           <Route path="/" element={<Login />} />
