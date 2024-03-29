@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function AdminRegisterStudent() {
   const navigate = useNavigate();
 
@@ -34,9 +35,9 @@ function AdminRegisterStudent() {
         "/api/v1/users/register-student",
         studentData
       );
-
-      console.log("Student created:", response.data.data);
-      // Reset form fields or do any other necessary actions
+      response.data;
+      toast.success("Student created successfully!");
+      // console.log("Student created:", response.data.data);
       setStudentData({
         fullName: "",
         enrollment: "",
@@ -45,7 +46,7 @@ function AdminRegisterStudent() {
       });
     } catch (error) {
       console.error("Error creating student:", error.response.data.message);
-      // Handle error feedback to the user if needed
+      toast.error("Error creating student. Please try again.");
     }
   };
   return (
@@ -103,7 +104,7 @@ function AdminRegisterStudent() {
             onChange={handleChange}
             value={studentData.password}
             className="p-2 my-0.5  bg-gray-100 outline-none rounded-md "
-            type="password"
+            type="text"
             placeholder="Password"
             required
           />
