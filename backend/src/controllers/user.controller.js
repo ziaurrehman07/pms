@@ -74,13 +74,13 @@ const registerStudent = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const { username, email, password } = req.body;
-  if (!(username || email)) {
+  const {  email, password } = req.body;
+  if (!email) {
     throw new ApiError(400, "Username or Email field must be filled");
   }
-  const user = await User.findOne({
-    $or: [{ username }, { email }],
-  });
+  const user = await User.findOne(
+     { email }
+  );
   if (!user) {
     throw new ApiError(401, "Invalid username or email");
   }
@@ -94,7 +94,7 @@ const loginUser = asyncHandler(async (req, res) => {
   user.accessToken = accessToken;
   user.refreshToken = refreshToken;
   const loggedInUser = await User.findById(user._id).select(
-    "-password -refreshToken -accessToken"
+    "-password -refreshToken "
   );
 
   const options = {
