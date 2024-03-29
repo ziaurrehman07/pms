@@ -19,6 +19,7 @@ function AdminStudents() {
   const apiUrl = "/api/v1/users/get-students-detail";
   const { students, loading, error } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [isEditClicked, setIsEditClicked] = useState(false);
   if (loading)
     return (
       <button
@@ -52,6 +53,10 @@ function AdminStudents() {
     setSelectedStudent((prevStudent) =>
       prevStudent === studentId ? null : studentId
     );
+    setIsEditClicked(false);
+  };
+  const handleEditClick = () => {
+    setIsEditClicked(true);
   };
   return (
     <div className=" flex place-items-cente">
@@ -59,10 +64,20 @@ function AdminStudents() {
         <StudentList students={students} onStudentClick={handleStudentClick} />
       </div>
       <div className="ml-20">
-        {selectedStudent && <StudentDetails studentId={selectedStudent} />}
+        {selectedStudent && !isEditClicked && (
+          <StudentDetails
+            studentId={selectedStudent}
+            onEditClick={handleEditClick}
+          />
+        )}
       </div>
       <div>
-        <UpdateStudentDetails />
+        {isEditClicked && (
+          <UpdateStudentDetails
+            studentId={selectedStudent}
+            onCancel={() => setIsEditClicked(false)}
+          />
+        )}
       </div>
     </div>
   );

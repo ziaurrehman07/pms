@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
 
-function StudentDetails({ studentId }) {
+function StudentDetails({ studentId, onEditClick }) {
   const [student, setStudent] = useState(null);
 
   useEffect(() => {
@@ -27,18 +26,6 @@ function StudentDetails({ studentId }) {
     return;
   }
 
-  const handleEdit = () => {
-    // Placeholder function for editing the student
-    console.log("Editing student:", student);
-    // Implement your logic for editing here
-  };
-
-  const handleDelete = () => {
-    // Placeholder function for deleting the student
-    console.log("Deleting student:", student);
-    // Implement your logic for deleting here
-  };
-
   if (!student) {
     return null;
   }
@@ -46,7 +33,7 @@ function StudentDetails({ studentId }) {
   return (
     <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-3 flex place-items-center h-10">
-        <h2 className="pl-3 font-bold text-blue-400">Student Details</h2>
+        <h2 className="pl-3 font-bold text-blue-400">Student details</h2>
       </div>
       <div className="flex justify-center mt-3 mb-2  ">
         {student.avatar ? (
@@ -142,15 +129,12 @@ function StudentDetails({ studentId }) {
 
       <div className="btns flex  justify-evenly mt-4 mb-4">
         <button
-          onClick={handleEdit}
+          onClick={onEditClick}
           className="bg-blue-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
         >
           EDIT
         </button>
-        <button
-          onClick={handleDelete}
-          className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
-        >
+        <button className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
           DELETE
         </button>
       </div>
