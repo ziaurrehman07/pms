@@ -206,7 +206,7 @@ const updateStudentAccountDetails = asyncHandler(async (req, res) => {
     result_12,
     address,
     college_cgpa,
-    dob
+    dob,
   } = req.body;
   const isUserAvailable = await User.findOne({ email: email });
   if (isUserAvailable) {
@@ -225,7 +225,7 @@ const updateStudentAccountDetails = asyncHandler(async (req, res) => {
         result_10,
         result_12,
         address,
-        dob
+        dob,
       },
     },
     {
@@ -238,8 +238,9 @@ const updateStudentAccountDetails = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "Account details updated Successfully"));
 });
 
-const updateStudentDetailsByAdmin = asyncHandler(async(req,res)=>{
-  const {studentId} =  req.params;
+const updateStudentDetailsByAdmin = asyncHandler(async (req, res) => {
+  const { studentId } = req.params;
+  const student = await User.findById(studentId);
   const {
     fullName,
     mobile,
@@ -249,11 +250,13 @@ const updateStudentDetailsByAdmin = asyncHandler(async(req,res)=>{
     result_12,
     address,
     college_cgpa,
-    dob
+    dob,
   } = req.body;
-  const isUserAvailable = await User.findOne({ email: email });
-  if (isUserAvailable) {
-    throw new ApiError(400, "Email already exist enter another one");
+  if (email && email !== student.email) {
+    const isUserAvailable = await User.findOne({ email: email });
+    if (isUserAvailable) {
+      throw new ApiError(400, "Email already exist enter another one");
+    }
   }
   const user = await User.findByIdAndUpdate(
     studentId,
@@ -267,7 +270,7 @@ const updateStudentDetailsByAdmin = asyncHandler(async(req,res)=>{
         result_10,
         result_12,
         address,
-        dob
+        dob,
       },
     },
     {
@@ -276,11 +279,9 @@ const updateStudentDetailsByAdmin = asyncHandler(async(req,res)=>{
   ).select("-password -refreshToken");
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,user,"Account details updated Successfully")
-  )
-})
+    .status(200)
+    .json(new ApiResponse(200, user, "Account details updated Successfully"));
+});
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
   const avatarLocalPath = req.file?.path;
