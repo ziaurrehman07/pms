@@ -14,7 +14,6 @@ function AdminRegisterStudent() {
 
   const [studentData, setStudentData] = useState({
     fullName: "",
-    username: "",
     enrollment: "",
     email: "",
     password: "",
@@ -40,7 +39,6 @@ function AdminRegisterStudent() {
       // Reset form fields or do any other necessary actions
       setStudentData({
         fullName: "",
-        username: "",
         enrollment: "",
         email: "",
         password: "",
@@ -68,19 +66,6 @@ function AdminRegisterStudent() {
             className="p-2 my-0.5  bg-gray-100 outline-none rounded-md mb-2"
             type="text"
             placeholder="Full Name"
-            required
-          />
-          <label className="text-xs text-blue-500 font-bold font-sans">
-            Username
-          </label>
-          <input
-            id="username"
-            name="username"
-            onChange={handleChange}
-            value={studentData.username}
-            className="p-2 my-0.5  bg-gray-100 outline-none rounded-md mb-2"
-            type="text"
-            placeholder="Username"
             required
           />
           <label className="text-xs text-blue-500 font-bold font-sans">

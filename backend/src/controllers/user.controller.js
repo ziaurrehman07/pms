@@ -76,13 +76,13 @@ const registerStudent = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const {  email, password } = req.body;
   if (!email) {
-    throw new ApiError(400, "Username or Email field must be filled");
+    throw new ApiError(400, "Email field must be filled");
   }
   const user = await User.findOne(
      { email }
   );
   if (!user) {
-    throw new ApiError(401, "Invalid username or email");
+    throw new ApiError(401, "Invalid email");
   }
   const isPasswordCorrect = await user.isPasswordCorrect(password);
   if (!isPasswordCorrect) {

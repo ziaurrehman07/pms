@@ -53,7 +53,7 @@ function Navbar() {
           <div className="flex place-items-center">
             {students.role === "admin" && (
               <div className=" cursor-pointer">
-                <h2 className="font-medium text-sm">{students.username}</h2>
+                <h2 className="font-medium text-sm">{students.fullName}</h2>
                 <p className="text-xs text-gray-500">{students.role}</p>
               </div>
             )}
