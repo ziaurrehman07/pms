@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function AdminRegisterStudent() {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -30,6 +30,7 @@ function AdminRegisterStudent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(
         "/api/v1/users/register-student",
@@ -48,6 +49,7 @@ function AdminRegisterStudent() {
       console.error("Error creating student:", error.response.data.message);
       toast.error("Error creating student. Please try again.");
     }
+    setLoading(false);
   };
   return (
     <div className=" m-auto mt-4 h-[550px] bg-white mb-4 w-[480px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
@@ -110,12 +112,18 @@ function AdminRegisterStudent() {
           />
         </div>
         <div className=" flex  justify-evenly mt-4 mb-4">
-          <button
-            type="submit"
-            className="bg-blue-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
-          >
-            CREATE STUDENT ACCOUNT
-          </button>
+          {loading ? (
+            <div className="loader bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
+              CREATING...
+            </div> // Add your loading spinner here
+          ) : (
+            <button
+              type="submit"
+              className="bg-blue-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
+            >
+              CREATE STUDENT ACCOUNT
+            </button>
+          )}
         </div>
       </form>
     </div>

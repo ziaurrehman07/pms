@@ -40,6 +40,7 @@ function StudentDetails({ studentId, onEditClick }) {
         await axios.get(`/api/v1/users/delete-student/${studentId}`);
         console.log("Student deleted successfully");
         // Close the component after successful deletion
+        oncancel();
       } catch (error) {
         console.log("Error deleting student:", error);
       }
