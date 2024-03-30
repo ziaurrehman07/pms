@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { CgProfile } from "react-icons/cg";
+import { MdEdit } from "react-icons/md";
 function UpdateStudentDetails({ studentId, onCancel }) {
   const [values, setValues] = useState({
     id: studentId,
@@ -73,14 +75,25 @@ function UpdateStudentDetails({ studentId, onCancel }) {
             Update student details
           </h2>
         </div>
-        <div className="flex justify-center mt-3 mb-2  ">
-          <img
-            src={values.avatar}
-            className="h-20 w-20 rounded-full border "
-            alt="image"
-          />
+        <div className="flex flex-col place-items-center mt-3 mb-2">
+          <div>
+            {values.avatar ? (
+              <img
+                src={values.avatar}
+                className="h-16 w-16 rounded-full "
+                alt="image"
+              />
+            ) : (
+              <CgProfile className="h-16 w-16 text-blue-500" />
+            )}
+          </div>
+          <div className="flex place-items-cente">
+            <p className="text-blue-500 font-mono font-semibold mr-2">Edit</p>
+            <MdEdit className="text-md hover:text-blue-500 hover:text-lg" />
+          </div>
         </div>
-        <div className=" h-[330px] custom-scrollbar overflow-y-scroll">
+
+        <div className=" h-[330px] custom-scrollbar overflow-y-scroll ">
           <div className="flex justify-evenly mt-3 ml-6 ">
             <table className="w-full mt-3">
               <tbody>
