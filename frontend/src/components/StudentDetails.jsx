@@ -4,7 +4,6 @@ import { CgProfile } from "react-icons/cg";
 
 function StudentDetails({ studentId, onEditClick }) {
   const [student, setStudent] = useState(null);
-
   useEffect(() => {
     const fetchStudentDetails = async () => {
       try {
@@ -39,7 +38,7 @@ function StudentDetails({ studentId, onEditClick }) {
       try {
         await axios.get(`/api/v1/users/delete-student/${studentId}`);
         console.log("Student deleted successfully");
-        // Close the component after successful deletion
+        window.location.reload();
       } catch (error) {
         console.log("Error deleting student:", error);
       }

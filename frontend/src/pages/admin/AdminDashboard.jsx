@@ -10,7 +10,11 @@ function AdminDashboard() {
       navigate("/");
     }
   }, []);
-  return <div>AdminDashboard</div>;
+  return (
+    <div className="bg-white h-[550px] shadow-md rounded-lg  w-[1080px] m-4 ">
+      <div></div>
+    </div>
+  );
 }
 
 export default AdminDashboard;

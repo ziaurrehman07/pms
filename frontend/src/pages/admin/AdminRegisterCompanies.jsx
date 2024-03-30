@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,14 +45,17 @@ function AdminRegisterCompanies() {
         password: "",
       });
     } catch (error) {
-      console.error("Error while creating company:", error.response.data.message);
+      console.error(
+        "Error while creating company:",
+        error.response.data.message
+      );
       toast.error("Error creating company. Please try again.");
     }
     setLoading(false);
   };
 
   return (
-    <div className=" ml-64 mt-4 h-[550px] bg-white mb-4 w-[480px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
+    <div className=" m-auto mt-4 h-[550px] bg-white mb-4 w-[480px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black justify-center mx-3 flex place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-500">Register Company</h2>
       </div>
@@ -99,7 +102,7 @@ function AdminRegisterCompanies() {
           />
         </div>
         <div className=" flex  justify-evenly mt-4 mb-4">
-        {loading ? (
+          {loading ? (
             <div className="loader bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
               CREATING...
             </div> // Add your loading spinner here
