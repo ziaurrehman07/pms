@@ -31,9 +31,13 @@ function CompanyLogin() {
     }
     try {
       dispatch(loginStart());
-      const res = await axios.post("/api/v2/companies/login-company", FormData, {
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await axios.post(
+        "/api/v2/companies/login-company",
+        FormData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       const data = res.data; // Access data directly from the response
       if (data.success === false) {
         // console.log(data);
@@ -41,8 +45,8 @@ function CompanyLogin() {
         dispatch(loginSuccess(data));
         // console.log(userRole);
         navigate("/companyhome");
-          localStorage.setItem("token", data.data.accessToken);
-          window.location.reload();
+        localStorage.setItem("token", data.data.accessToken);
+        window.location.reload();
       }
     } catch (error) {
       dispatch(loginFailure("Email or Password is Invalid"));
@@ -51,7 +55,7 @@ function CompanyLogin() {
 
   return (
     <div className=" w-full grid place-items-center">
-      <div className="bg-white h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
+      <div className="bg-transparent border border-black h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
         <div className="flex place-items-center justify-center  mt-12 ">
           <RiUserLine className="text-xl text-[#33363F] font-semibold" />
           <h4 className="text-blue-500 ml-2">Company Login</h4>
@@ -102,7 +106,9 @@ function CompanyLogin() {
           <p className="mx-auto mt-8 text-gray-500">
             For College!
             <Link to="/">
-              <span className="text-blue-500 ml-1 font-semibold">Login</span>
+              <span className="text-blue-500 ml-1 hover:text-blue-600 font-semibold">
+                Login
+              </span>
             </Link>
           </p>
 

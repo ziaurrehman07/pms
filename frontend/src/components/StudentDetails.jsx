@@ -30,6 +30,23 @@ function StudentDetails({ studentId, onEditClick }) {
     return null;
   }
 
+  const handleDelete = async () => {
+    // Show confirmation dialog before deleting
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this student?"
+    );
+    if (confirmDelete) {
+      try {
+        await axios.get(`/api/v1/users/delete-student/${studentId}`);
+        console.log("Student deleted successfully");
+        // Close the component after successful deletion
+        oncancel();
+      } catch (error) {
+        console.log("Error deleting student:", error);
+      }
+    }
+  };
+
   return (
     <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-3 flex place-items-center h-10">
@@ -127,7 +144,11 @@ function StudentDetails({ studentId, onEditClick }) {
         >
           EDIT
         </button>
-        <button className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
+
+        <button
+          onClick={handleDelete}
+          className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
+        >
           DELETE
         </button>
       </div>

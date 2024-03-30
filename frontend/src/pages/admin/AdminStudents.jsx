@@ -59,6 +59,7 @@ function AdminStudents() {
   const handleEditClick = () => {
     setIsEditClicked(true);
   };
+
   return (
     <div className=" flex place-items-cente">
       <div>
