@@ -40,7 +40,7 @@ function CompanyDetails({ companyId, onEditClick }) {
         await axios.get(`/api/v1/users/delete-company/${companyId}`);
         console.log("Company deleted successfully");
         // Close the component after successful deletion
-        oncancel();
+        window.location.reload();
       } catch (error) {
         console.log("Error deleting company:", error);
       }
@@ -84,7 +84,8 @@ function CompanyDetails({ companyId, onEditClick }) {
                   Website :
                 </td>
                 <td className="font-semibold text-sm p-1">
-                  <a href={company.website} target="_blank" rel="noreferrer">{/*to update the link tag not working properly*/}
+                  <a href={company.website} target="_blank" rel="noreferrer">
+                    {/*to update the link tag not working properly*/}
                     {company.website}
                   </a>
                 </td>

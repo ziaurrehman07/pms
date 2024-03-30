@@ -55,7 +55,7 @@ function CompanyLogin() {
 
   return (
     <div className=" w-full grid place-items-center">
-      <div className="bg-transparent border border-black h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
+      <div className="bg-white h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
         <div className="flex place-items-center justify-center  mt-12 ">
           <RiUserLine className="text-xl text-[#33363F] font-semibold" />
           <h4 className="text-blue-500 ml-2">Company Login</h4>

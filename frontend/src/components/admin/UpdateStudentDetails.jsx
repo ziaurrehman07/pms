@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function UpdateStudentDetails({ studentId, onCancel }) {
   const [values, setValues] = useState({
     id: studentId,
@@ -59,16 +61,20 @@ function UpdateStudentDetails({ studentId, onCancel }) {
         `/api/v1/users/update-student-details/${studentId}`,
         updatedData
       );
-      console.log("Student details updated successfully");
+      toast.success("Student details updated successfully");
+
+      // console.log("Student details updated successfully");
       onCancel();
+      window.location.reload();
     } catch (error) {
       console.error("Error updating student details:", error);
+      toast.error("Error updating student details. Please try again.");
     }
   };
 
   return (
     <form>
-      <div className=" ml-4 mt-4 h-[550px] bg-transparent mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
+      <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
         <div className="sticky top-0 bg-transparent border-b mt-1 border-black  mx-3 flex place-items-center h-10">
           <h2 className="pl-3 font-bold text-blue-400">
             Update student details
