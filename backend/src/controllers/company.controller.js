@@ -84,7 +84,13 @@ const loginCompany = asyncHandler(async (req, res) => {
     .status(200)
     .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
-    .json(new ApiResponse(200, {loggedInCompany,accessToken}, "Logged in Successfully"));
+    .json(
+      new ApiResponse(
+        200,
+        { loggedInCompany, accessToken },
+        "Logged in Successfully"
+      )
+    );
 });
 
 const logOutCompany = asyncHandler(async (req, res) => {
@@ -143,13 +149,10 @@ const updateCompanyDetails = asyncHandler(async (req, res) => {
 });
 
 const updateCompanyDetailsByAmin = asyncHandler(async (req, res) => {
-  const {companyId} = req.params
+  const { companyId } = req.params;
   const { name, email, description, address, website } = req.body;
-  const comp = await Company.findById(companyId)
-  if (
-    (name && name !== comp.name) ||
-    (email && email !== comp.email)
-  ) {
+  const comp = await Company.findById(companyId);
+  if ((name && name !== comp.name) || (email && email !== comp.email)) {
     const isCompanyAvailable = await Company.findOne({
       $or: [{ name }, { email }],
     });
@@ -185,6 +188,26 @@ const getCurrentCompanyDetails = asyncHandler(async (req, res) => {
     .status(200)
     .json(
       new ApiResponse(200, req.company, "Company details fetched successfully")
+    );
+});
+
+const getCompanyDetails = asyncHandler(async (req, res) => {
+  const { companyId } = req.params;
+  if (!companyId) {
+    throw new ApiError(400, "Company id is required!");
+  }
+
+  const company = await Company.findById(companyId).select(
+    "-password -refreshToken"
+  );
+  if (!company) {
+    throw new ApiError(404, "Company not found!");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, company, "Student Details Fetched Successfully")
     );
 });
 
@@ -265,7 +288,7 @@ const getApplyStudentList = asyncHandler(async (req, res) => {
 });
 
 const getAllCompanyDetails = asyncHandler(async (req, res) => {
-  const companies = await Company.find({});
+  const companies = await Company.find({},{name:1,avatar:1});
   if (!companies) {
     throw new ApiError(400, "Company details is not available");
   }
@@ -335,6 +358,7 @@ export {
   logOutCompany,
   updateCompanyDetails,
   getCurrentCompanyDetails,
+  getCompanyDetails,
   updateCompanyAvatar,
   getApplyStudentList,
   getAllCompanyDetails,

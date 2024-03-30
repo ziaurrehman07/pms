@@ -421,8 +421,8 @@ const deleteStudent = asyncHandler(async (req, res) => {
     if (!student) {
       throw new ApiError(404, "Student doesn't exist ");
     }
-    if (!student.isPlaced) {
-      const jobId = student.job;
+    if (student.isPlaced) {
+      const jobId = student.designation;
       const job = await Job.findById(jobId);
       if (!job) {
         throw new ApiError(404, "Job does not exists");
@@ -459,14 +459,14 @@ const deleteCompany = asyncHandler(async (req, res) => {
     const folder = "avatar";
     const company = await Company.findByIdAndDelete(companyId);
     if (!company) {
-      throw new ApiError(404, "Company not doesn't exist!");
+      throw new ApiError(404, "Company doesn't exist!");
     }
     const selectedStudents = company.selectedStudents;
     if (selectedStudents) {
       await Promise.all(
         selectedStudents.map(async (studentId) => {
           await User.findByIdAndUpdate(studentId, {
-            job: null,
+            designation: null,
           });
         })
       );
