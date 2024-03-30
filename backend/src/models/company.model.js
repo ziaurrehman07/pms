@@ -11,6 +11,10 @@ const companySchema = new mongoose.Schema(
       unique: true,
       trim: true,
     },
+    role:{
+      type :String ,
+      default:"company"
+    },
     email: {
       type: String,
       required: true,

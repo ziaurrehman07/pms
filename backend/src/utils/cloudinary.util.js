@@ -15,7 +15,7 @@ cloudinary.config({
   api_secret: 'RQNxuGEtMoH94bkE6L9wytdnHaA' 
 });
 
-const uploadOnCloudinary = async (localPath,folder) => {
+const uploadOnCloudinary = async (localPath,id,folder) => {
   try {
     if (!localPath){
       return null;
@@ -24,7 +24,7 @@ const uploadOnCloudinary = async (localPath,folder) => {
     const response = await cloudinary.uploader.upload(localPath, {
       resource_type: "auto",
       folder:`${folder}`,
-      public_id:`${folder}_${currentDateTime}`
+      public_id:`${id}_${folder}_${currentDateTime}`
     });
     fs.unlinkSync(localPath);
     return response;
