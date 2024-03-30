@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 
-function StudentDetails({ studentId, onEditClick, onClose }) {
+function StudentDetails({ studentId, onEditClick }) {
   const [student, setStudent] = useState(null);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function StudentDetails({ studentId, onEditClick, onClose }) {
       try {
         await axios.get(`/api/v1/users/delete-student/${studentId}`);
         console.log("Student deleted successfully");
-        onClose(); // Close the component after successful deletion
+        // Close the component after successful deletion
       } catch (error) {
         console.log("Error deleting student:", error);
       }
@@ -146,10 +146,9 @@ function StudentDetails({ studentId, onEditClick, onClose }) {
 
         <button
           onClick={handleDelete}
-          disabled={loading}
           className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
         >
-          {loading ? "Deleting..." : "DELETE"}
+          DELETE
         </button>
       </div>
     </div>
