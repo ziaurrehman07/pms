@@ -83,7 +83,11 @@ function CompanyDetails({ companyId, onEditClick }) {
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   Website :
                 </td>
-                <td className="font-semibold text-sm p-1">{company.website}</td>
+                <td className="font-semibold text-sm p-1">
+                  <a href={company.website} target="_blank" rel="noreferrer">{/*to update the link tag not working properly*/}
+                    {company.website}
+                  </a>
+                </td>
               </tr>
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">

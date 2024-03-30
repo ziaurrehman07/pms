@@ -161,7 +161,7 @@ const updateCompanyDetailsByAmin = asyncHandler(async (req, res) => {
     }
   }
   const company = await Company.findByIdAndUpdate(
-    req.company?._id,
+    companyId,
     {
       $set: {
         name,
