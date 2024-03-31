@@ -23,7 +23,25 @@ const newFeedback = asyncHandler(async(req,res)=>{
   )
 })
 
+const getAllFeedbacks = asyncHandler(async(req,res)=>{
+  const feedbacks = await Feedback.find({})
+  .populate({
+    path: 'owner',
+    select:"fullName enrollment"
+  })
+
+  if(!feedbacks.length){
+    throw new ApiError(400,"No feedback found.")
+  }
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,feedbacks,"Feedbacks fetched successfully")
+  )
+})
+
 export {
   newFeedback,
-  
+  getAllFeedbacks,
 }
