@@ -5,7 +5,7 @@ function ResumeShow() {
       <div className=" flex-col  h-[450px] w-[880px] p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
         <div className="resume h-[380px] ">
           <div className="pdf shows here p-8 outline-none w-[350px] rounded-lg bg-gray-100 h-[350px] mb-8 font-medium">
-            hello
+            Your Resume Display here....!
           </div>
         </div>
         <button className="bg-blue-600 px-8 rounded-lg text-xs font-semibold mt-4 text-white py-2">

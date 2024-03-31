@@ -1,15 +1,21 @@
 import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 function CompanyList({ companies, onCompanyClick }) {
   return (
     <div className=" ml-4 mt-4 h-[550px]  bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
-      <div className="sticky top-0 bg-white border-b border-black  mx-2 flex place-items-center h-10">
+      <div className="sticky top-0 justify-between  bg-white border-b border-black  mx-2 flex place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-400">
           Company :
           <span className="ml-2 text-black text-nowrap font-normal">
             {companies.length}
           </span>
         </h2>
+        <Link to="/adminregistercompanies">
+          <div className="bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
+            CREATE
+          </div>
+        </Link>
       </div>
       <div>
         {companies.map((company) => (
