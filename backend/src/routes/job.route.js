@@ -6,8 +6,8 @@ const router = Router()
 
 router.route("/new-job-profile").post(verifyJwtForCompany,newJobProfile)
 router.route("/update-job-profile").post(verifyJwtForCompany,updateJobProfile)
-router.route("/get-all-jobs").get(getAllJobProfile)
 router.route("/update-job-profile").patch(verifyJwtForCompany,updateJobProfile)
 router.route("/apply-for-job/:jobId").get(verifyJWT,applyForJob)
+router.route("/get-all-jobs").get(getAllJobProfile)
 
 export  default router;

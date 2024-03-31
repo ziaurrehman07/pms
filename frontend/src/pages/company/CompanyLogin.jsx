@@ -43,10 +43,14 @@ function CompanyLogin() {
         // console.log(data);
       } else {
         dispatch(loginSuccess(data));
-        // console.log(userRole);
-        navigate("/companyhome");
-        localStorage.setItem("token", data.data.accessToken);
-        window.location.reload();
+        const companyRole = data.data.loggedInCompany.role;
+        if (companyRole === "company") {
+          navigate("/companyhome");
+          localStorage.setItem("token", data.data.accessToken);
+          window.location.reload();
+        }else {
+          console.error("unexpected company role: "), companyRole;
+        }
       }
     } catch (error) {
       dispatch(loginFailure("Email or Password is Invalid"));

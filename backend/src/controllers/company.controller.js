@@ -95,7 +95,7 @@ const loginCompany = asyncHandler(async (req, res) => {
 
 const logOutCompany = asyncHandler(async (req, res) => {
   await Company.findByIdAndUpdate(
-    req.user?._id,
+    req.company?._id,
     {
       $unset: { refreshToken: 1 },
     },
@@ -108,7 +108,7 @@ const logOutCompany = asyncHandler(async (req, res) => {
     .status(200)
     .clearCookie("refreshToken")
     .clearCookie("accessToken")
-    .json(new ApiResponse(200, {}, "User Logged Out"));
+    .json(new ApiResponse(200, {}, "Company Logged Out"));
 });
 
 const updateCompanyDetails = asyncHandler(async (req, res) => {
