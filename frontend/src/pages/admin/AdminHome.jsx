@@ -8,7 +8,7 @@ function AdminHome() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("adminToken");
     if (!token) {
       navigate("/");
     }

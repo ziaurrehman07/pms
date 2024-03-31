@@ -35,8 +35,10 @@ function Sidebar() {
       </Link>
       <Link to="/dashboard">
         <div
-          className={`flex place-items-center mt-12 cursor-pointer ${
-            activeLink === "dashboard" ? "text-blue-400" : "text-gray-500"
+          className={`flex place-items-center hover:text-blue-500 mt-12 cursor-pointer ${
+            activeLink === "dashboard"
+              ? "text-blue-500 font-bold"
+              : "text-gray-500"
           }`}
           onClick={() => handleLinkClick("dashboard")}
         >
@@ -47,8 +49,10 @@ function Sidebar() {
 
       <Link to="/updates">
         <div
-          className={`flex place-items-center mt-3 cursor-pointer ${
-            activeLink === "updates" ? "text-blue-400" : "text-gray-500"
+          className={`flex place-items-center hover:text-blue-500 mt-3 cursor-pointer ${
+            activeLink === "updates"
+              ? "text-blue-500 font-bold"
+              : "text-gray-500"
           }`}
           onClick={() => handleLinkClick("updates")}
         >
@@ -59,8 +63,10 @@ function Sidebar() {
 
       <Link to="/resume">
         <div
-          className={`flex place-items-center mt-3 cursor-pointer ${
-            activeLink === "resume" ? "text-blue-400" : "text-gray-500"
+          className={`flex place-items-center hover:text-blue-500 mt-3 cursor-pointer ${
+            activeLink === "resume"
+              ? "text-blue-500 font-bold"
+              : "text-gray-500"
           }`}
           onClick={() => handleLinkClick("resume")}
         >
@@ -71,8 +77,10 @@ function Sidebar() {
 
       <Link to="/companies">
         <div
-          className={`flex place-items-center mt-3 cursor-pointer ${
-            activeLink === "companies" ? "text-blue-400" : "text-gray-500"
+          className={`flex place-items-center hover:text-blue-500 mt-3 cursor-pointer ${
+            activeLink === "companies"
+              ? "text-blue-500 font-bold"
+              : "text-gray-500"
           }`}
           onClick={() => handleLinkClick("companies")}
         >
@@ -83,8 +91,10 @@ function Sidebar() {
 
       <Link to="/feedback">
         <div
-          className={`flex mb-4 place-items-center mt-10 cursor-pointer ${
-            activeLink === "feedback" ? "text-blue-400" : "text-gray-500"
+          className={`flex mb-4 place-items-center hover:text-blue-500 nter mt-10 cursor-pointer ${
+            activeLink === "feedback"
+              ? "text-blue-500 font-bold"
+              : "text-gray-500"
           }`}
           onClick={() => handleLinkClick("feedback")}
         >

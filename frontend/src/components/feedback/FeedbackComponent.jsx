@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 function FeedbackComponent({ students }) {
   return (
     <div className="grid grid-cols-3 gap-3">
@@ -27,5 +28,19 @@ function FeedbackComponent({ students }) {
     </div>
   );
 }
+
+FeedbackComponent.propTypes = {
+  students: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      owner: PropTypes.shape({
+        avatar: PropTypes.string.isRequired,
+        fullName: PropTypes.string.isRequired,
+        enrollment: PropTypes.string.isRequired,
+      }).isRequired,
+      content: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 export default FeedbackComponent;

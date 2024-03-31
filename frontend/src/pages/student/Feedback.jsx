@@ -9,7 +9,7 @@ function Feedback() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("studenToken");
     if (!token) {
       navigate("/");
     }
@@ -57,7 +57,7 @@ function Feedback() {
             className="flex  flex-col justify-center place-items-center"
           >
             <textarea
-              className="p-8 outline-none bg-gray-100 rounded-lg  font-medium"
+              className="p-8 outline-none bg-gray-100 rounded-lg mb-8 font-medium"
               name="content"
               id="content"
               onChange={handleChange}
@@ -68,7 +68,7 @@ function Feedback() {
               placeholder="Write your feedback here..."
             ></textarea>
             {loading ? (
-              <div className="loader bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
+              <div className="loader  bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
                 SUBMITTING...
               </div>
             ) : (

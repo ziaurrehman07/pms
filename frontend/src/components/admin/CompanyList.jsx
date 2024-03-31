@@ -15,7 +15,7 @@ function CompanyList({ companies, onCompanyClick }) {
         {companies.map((company) => (
           <div
             key={company._id}
-            className="bg-[#e9f1ef] mt-2 ml-2 mr-2 rounded-lg p-1 flex place-items-center cursor-pointer"
+            className="bg-[#e9f1ef] hover:bg-blue-200 mt-2 ml-2 mr-2 rounded-lg p-1 flex place-items-center cursor-pointer"
             onClick={() => onCompanyClick(company._id)}
           >
             {company.avatar ? (

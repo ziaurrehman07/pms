@@ -5,7 +5,7 @@ function CompanyStudents() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("companyToken");
     if (!token) {
       navigate("/");
     }

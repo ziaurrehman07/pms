@@ -10,7 +10,7 @@ function AdminCompanies() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("adminToken");
     if (!token) {
       navigate("/");
     }
@@ -52,7 +52,7 @@ function AdminCompanies() {
 
   const handleCompanyClick = (companyId) => {
     setSelectedCompany((prevCompany) =>
-    prevCompany === companyId ? null : companyId
+      prevCompany === companyId ? null : companyId
     );
     setIsEditClicked(false);
   };
@@ -63,7 +63,10 @@ function AdminCompanies() {
   return (
     <div className=" flex place-items-cente">
       <div>
-        <CompanyList companies={companies} onCompanyClick={handleCompanyClick} />
+        <CompanyList
+          companies={companies}
+          onCompanyClick={handleCompanyClick}
+        />
       </div>
       <div className="ml-20">
         {selectedCompany && !isEditClicked && (
@@ -84,6 +87,5 @@ function AdminCompanies() {
     </div>
   );
 }
-
 
 export default AdminCompanies;

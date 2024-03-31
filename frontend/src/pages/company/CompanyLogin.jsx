@@ -46,9 +46,9 @@ function CompanyLogin() {
         const companyRole = data.data.loggedInCompany.role;
         if (companyRole === "company") {
           navigate("/companyhome");
-          localStorage.setItem("token", data.data.accessToken);
+          localStorage.setItem("companyToken", data.data.accessToken);
           window.location.reload();
-        }else {
+        } else {
           console.error("unexpected company role: "), companyRole;
         }
       }

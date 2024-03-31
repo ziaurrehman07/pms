@@ -8,7 +8,7 @@ function AdminRegisterCompanies() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("adminToken");
     if (!token) {
       navigate("/");
     }

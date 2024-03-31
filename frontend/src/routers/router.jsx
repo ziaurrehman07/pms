@@ -51,7 +51,9 @@ function MyRoutes() {
   useEffect(() => {
     const companyFetchData = async () => {
       try {
-        const response = await axios.get("/api/v2/companies/get-current-company-details");
+        const response = await axios.get(
+          "/api/v2/companies/get-current-company-details"
+        );
         setCompanyRole(response.data.data.role);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -64,11 +66,7 @@ function MyRoutes() {
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="text-blue-500  flex place-items-center justify-center h-screen">
-        <div className=" text-3xl">Loading...</div>
-      </div>
-    );
+    return;
   }
 
   return (
@@ -290,7 +288,7 @@ function MyRoutes() {
                     </div>
                   </>
                 }
-              />            
+              />
               <Route
                 path="/companydashboard"
                 element={
@@ -304,7 +302,7 @@ function MyRoutes() {
                     </div>
                   </>
                 }
-              />            
+              />
               <Route
                 path="/companyjobprofiles"
                 element={
@@ -318,7 +316,7 @@ function MyRoutes() {
                     </div>
                   </>
                 }
-              />            
+              />
               <Route
                 path="/companyStudents"
                 element={
@@ -332,7 +330,7 @@ function MyRoutes() {
                     </div>
                   </>
                 }
-              />            
+              />
               <Route
                 path="/companyfeedback"
                 element={
@@ -346,14 +344,14 @@ function MyRoutes() {
                     </div>
                   </>
                 }
-              />            
-              <Route path="*" element={<Navigate to="/studenthome" />} />
+              />
+              <Route path="*" element={<Navigate to="/companyhome" />} />
             </>
           )}
           {/* Default routes */}
+
           <Route path="/companylogin" element={<CompanyLogin />} />
           <Route path="/" element={<Login />} />
-          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
     </BrowserRouter>
