@@ -27,6 +27,7 @@ import CompanyDashboard from "../pages/company/CompanyDashboard";
 import CompanyJobProfiles from "../pages/company/CompanyJobProfiles";
 import CompanyStudents from "../pages/company/CompanyStudents";
 import CompanyFeedback from "../pages/company/CompanyFeedback";
+import CompanyHireStudent from "../pages/company/CompanyHireStudent";
 
 function MyRoutes() {
   const [userRole, setUserRole] = useState("");
@@ -328,6 +329,20 @@ function MyRoutes() {
                       <div className="w-full">
                         <CompanyNavbar />
                         <CompanyStudents />
+                      </div>
+                    </div>
+                  </>
+                }
+              />            
+              <Route
+                path="/companyhirestudent"
+                element={
+                  <>
+                    <div className="flex w-full">
+                      <SidebarCompany />
+                      <div className="w-full">
+                        <CompanyNavbar />
+                        <CompanyHireStudent />
                       </div>
                     </div>
                   </>

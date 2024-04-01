@@ -75,6 +75,20 @@ function SidebarCompany() {
           </div>
         </Link>
 
+        <Link to="/companyhirestudent">
+          <div
+            className={`flex place-items-center mt-3 cursor-pointer ${
+              activeLink === "companyhirestudent"
+                ? "text-blue-500 font-bold"
+                : "text-gray-500"
+            }`}
+            onClick={() => handleLinkClick("companyhirestudent")}
+          >
+            <RiGalleryLine className="mr-1 text-lg" />
+            <h1 className=" text-sm whitespace-nowrap">Hire Students</h1>
+          </div>
+        </Link>
+
         <Link to="/companyfeedback">
           <div
             className={`flex place-items-center mt-10 cursor-pointer ${
