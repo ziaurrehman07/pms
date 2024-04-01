@@ -26,6 +26,9 @@ import CompanyDashboard from "../pages/company/CompanyDashboard";
 import CompanyJobProfiles from "../pages/company/CompanyJobProfiles";
 import CompanyStudents from "../pages/company/CompanyStudents";
 import CompanyFeedback from "../pages/company/CompanyFeedback";
+import UpdateResume from "../components/student/UpdateResume";
+import PreviewResume from "../components/student/PreviewResume";
+import CompanyHireStudent from "../pages/company/CompanyHireStudent";
 
 function MyRoutes() {
   const [userRole, setUserRole] = useState("");
