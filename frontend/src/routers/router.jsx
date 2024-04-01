@@ -379,7 +379,6 @@ function MyRoutes() {
             </>
           )}
           {/* Default routes */}
-
           <Route path="/companylogin" element={<CompanyLogin />} />
           <Route path="/" element={<Login />} />
         </Routes>
