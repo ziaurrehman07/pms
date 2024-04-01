@@ -63,7 +63,6 @@ function Sidebar() {
           <h1 className=" text-sm  whitespace-nowrap">Job updates</h1>
         </div>
       </Link>
-
       <Link to="/companies">
         <div
           className={`flex place-items-center hover:text-blue-500 mt-3 cursor-pointer ${
@@ -124,19 +123,21 @@ function Sidebar() {
           </div>
         )}
       </div>
-      <Link to="/feedback">
-        <div
-          className={`flex mb-4 place-items-center hover:text-blue-500 nter mt-12 cursor-pointer ${
-            activeLink === "feedback"
-              ? "text-blue-500 font-bold"
-              : "text-gray-500"
-          }`}
-          onClick={() => handleLinkClick("feedback")}
-        >
-          <VscFeedback className="mr-1 text-lg" />
-          <h1 className=" text-sm whitespace-nowrap">Feedback</h1>
-        </div>
-      </Link>
+      <div>
+        <Link to="/feedback">
+          <div
+            className={`flex mb-4 place-items-center hover:text-blue-500 nter mt-12 cursor-pointer ${
+              activeLink === "feedback"
+                ? "text-blue-500 font-bold"
+                : "text-gray-500"
+            }`}
+            onClick={() => handleLinkClick("feedback")}
+          >
+            <VscFeedback className="mr-1 text-lg" />
+            <h1 className=" text-sm whitespace-nowrap">Feedback</h1>
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }

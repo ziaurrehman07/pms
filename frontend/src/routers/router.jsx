@@ -49,7 +49,7 @@ function MyRoutes() {
 
   return (
     <BrowserRouter>
-      <main className="flex bg-[#e9f1ef] w-full min-h-screen">
+      <main className="flex bg-[#e9f1ef]  min-h-screen">
         <Routes>
           {/* Student routes */}
           {userRole === "student" && (
