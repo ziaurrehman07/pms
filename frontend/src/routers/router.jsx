@@ -29,6 +29,7 @@ import CompanyFeedback from "../pages/company/CompanyFeedback";
 import UpdateResume from "../components/student/UpdateResume";
 import PreviewResume from "../components/student/PreviewResume";
 import CompanyHireStudent from "../pages/company/CompanyHireStudent";
+import Profile from "../pages/student/Profile";
 
 function MyRoutes() {
   const [userRole, setUserRole] = useState("");
@@ -101,6 +102,20 @@ function MyRoutes() {
                       <div className="w-full">
                         <Navbar />
                         <Dashboard />
+                      </div>
+                    </div>
+                  </>
+                }
+              />
+              <Route
+                path="/studentprofile"
+                element={
+                  <>
+                    <div className="flex w-full">
+                      <Sidebar />
+                      <div className="w-full">
+                        <Navbar />
+                        <Profile />
                       </div>
                     </div>
                   </>
