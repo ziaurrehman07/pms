@@ -124,12 +124,25 @@ function StudentDetails({ studentId, onEditClick }) {
                 </td>
                 <td className="font-semibold text-sm p-1"> {student.mobile}</td>
               </tr>
-
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   Address :
                 </td>
                 <td className="font-semibold text-sm p-1">{student.address}</td>
+              </tr>
+              <tr>
+                <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                  resume :
+                </td>
+                <td className="font-semibold text-sm p-1">
+                  <a
+                    href={student.resume}
+                    target="_blank"
+                    className="text-blue-500 font-bold hover:underline"
+                  >
+                    Open resume
+                  </a>
+                </td>
               </tr>
             </tbody>
           </table>
