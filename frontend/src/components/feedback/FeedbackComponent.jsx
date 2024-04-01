@@ -4,6 +4,7 @@ function FeedbackComponent({ students }) {
   const formatDate = (dateString) => {
     return dateString.slice(0, 10);
   };
+
   return (
     <div className="grid sm:grid-cols-2 gap-3 lg:grid-cols-3">
       {students.map((student) => (

@@ -11,7 +11,7 @@ function AdminDashboard() {
     }
   }, []);
   return (
-    <div className="bg-white h-[550px] shadow-md rounded-lg  w-[1080px] m-4 ">
+    <div className="bg-white h-[550px] shadow-md rounded-lg  w-[1080px] mt-4 mr-4 mb-4">
       <div></div>
     </div>
   );

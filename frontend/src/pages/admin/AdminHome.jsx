@@ -15,7 +15,7 @@ function AdminHome() {
   }, []);
   return (
     <>
-      <div className="ml-4 flex justify-center place-items-center  mr-10 h-[90%] ">
+      <div className="flex justify-center place-items-center  mr-10 h-[90%] ">
         <div className="place-items-center flex">Welcome</div>
       </div>
     </>
