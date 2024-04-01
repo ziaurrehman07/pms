@@ -38,7 +38,11 @@ const getAllFeedbacks = asyncHandler(async(req,res)=>{
   })
 
   if(!feedbacks.length){
-    throw new ApiError(400,"No feedback found.")
+    return res 
+    .status(404)
+    .json(
+      new ApiResponse(404,{},"No Feedback found!")
+    )
   }
 
   return res
