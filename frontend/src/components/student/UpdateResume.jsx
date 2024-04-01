@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Resume() {
+function UpdateResume() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -75,4 +75,4 @@ function Resume() {
   );
 }
 
-export default Resume;
+export default UpdateResume;

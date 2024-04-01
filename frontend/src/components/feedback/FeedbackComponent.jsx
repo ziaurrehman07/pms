@@ -1,5 +1,9 @@
 import PropTypes from "prop-types";
 function FeedbackComponent({ students }) {
+  // Function to format date
+  const formatDate = (dateString) => {
+    return dateString.slice(0, 10);
+  };
   return (
     <div className="grid grid-cols-3 gap-3">
       {students.map((student) => (
@@ -17,8 +21,9 @@ function FeedbackComponent({ students }) {
               <h1 className="text-sm font-semibold whitespace-nowrap">
                 {student.owner.fullName}
               </h1>
-              <p className="text-xs -mt-1 font-semibold text-blue-500">
+              <p className="flex text-xs -mt-1 gap-1 font-semibold text-blue-500">
                 {student.owner.enrollment}
+                <p className="text-[10px]">{formatDate(student.createdAt)}</p>
               </p>
             </div>
           </div>

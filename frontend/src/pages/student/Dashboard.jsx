@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import ResumeShow from "../../components/admin/student/ResumeShow";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -11,11 +10,7 @@ function Dashboard() {
       navigate("/");
     }
   }, []);
-  return (
-    <>
-      <ResumeShow />
-    </>
-  );
+  return <></>;
 }
 
 export default Dashboard;

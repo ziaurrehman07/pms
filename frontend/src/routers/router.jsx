@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+// Components
 import Dashboard from "../pages/student/Dashboard";
 import Sidebar from "../components/Sidebar";
-import Resume from "../pages/student/Resume";
 import Updates from "../pages/student/Updates";
 import Feedback from "../pages/student/Feedback";
 import Companies from "../pages/student/Companies";
@@ -9,9 +11,6 @@ import Login from "../pages/student/Login";
 import CompanyLogin from "../pages/company/CompanyLogin";
 import Home from "../pages/student/Home";
 import SidebarAdmin from "../components/admin/Sidebar.admin";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
 import AdminHome from "../pages/admin/AdminHome";
 import AdminStudents from "../pages/admin/AdminStudents";
 import AdminCompanies from "../pages/admin/AdminCompanies";
@@ -27,6 +26,8 @@ import CompanyDashboard from "../pages/company/CompanyDashboard";
 import CompanyJobProfiles from "../pages/company/CompanyJobProfiles";
 import CompanyStudents from "../pages/company/CompanyStudents";
 import CompanyFeedback from "../pages/company/CompanyFeedback";
+import UpdateResume from "../components/student/UpdateResume";
+import PreviewResume from "../components/student/PreviewResume";
 import CompanyHireStudent from "../pages/company/CompanyHireStudent";
 
 function MyRoutes() {
@@ -72,7 +73,7 @@ function MyRoutes() {
 
   return (
     <BrowserRouter>
-      <main className="flex bg-[#e9f1ef] min-h-screen">
+      <main className="flex bg-[#e9f1ef] w-full min-h-screen">
         <Routes>
           {/* Student routes */}
           {userRole === "student" && (
@@ -106,14 +107,28 @@ function MyRoutes() {
                 }
               />
               <Route
-                path="/resume"
+                path="/updateresume"
                 element={
                   <>
                     <div className="flex w-full">
                       <Sidebar />
                       <div className="w-full">
                         <Navbar />
-                        <Resume />
+                        <UpdateResume />
+                      </div>
+                    </div>
+                  </>
+                }
+              />
+              <Route
+                path="/previewresume"
+                element={
+                  <>
+                    <div className="flex w-full">
+                      <Sidebar />
+                      <div className="w-full">
+                        <Navbar />
+                        <PreviewResume />
                       </div>
                     </div>
                   </>
@@ -345,7 +360,7 @@ function MyRoutes() {
                     </div>
                   </>
                 }
-              />            
+              />
               <Route
                 path="/companyfeedback"
                 element={
