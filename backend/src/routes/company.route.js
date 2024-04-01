@@ -1,6 +1,6 @@
 import {Router} from "express"
 import { changeCompanyCurrentPassword, getAllCompanyDetails, getApplyStudentList, getCompanyDetails, getCurrentCompanyDetails, hireStudent, loginCompany, logOutCompany,registerCompany, updateCompanyAvatar, updateCompanyDetails, updateCompanyDetailsByAmin } from "../controllers/company.controller.js"
-import { verifyJwtForCompany,verifyAdmin } from "../middlewares/auth.middleware.js"
+import { verifyJwtForCompany,verifyAdmin, verifyJWT } from "../middlewares/auth.middleware.js"
 import { upload } from "../middlewares/multer.middleware.js"
 
 
@@ -18,7 +18,7 @@ router.route("/change-company-password").post(verifyJwtForCompany,changeCompanyC
 
 // Admin Routes for company
 router.route("/update-company-details/:companyId").patch(verifyAdmin,updateCompanyDetailsByAmin)
-router.route("/get-company-details/:companyId").get(verifyAdmin,getCompanyDetails)
-router.route("/get-all-companies-list").get(verifyAdmin,getAllCompanyDetails)
+router.route("/get-company-details/:companyId").get(verifyJWT,getCompanyDetails)
+router.route("/get-all-companies-list").get(verifyJWT,getAllCompanyDetails)
 
 export default router;

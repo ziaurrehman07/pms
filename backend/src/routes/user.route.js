@@ -19,6 +19,8 @@ import {
   getAllStudents,
   getStudentDetails,
   updateStudentDetailsByAdmin,
+  publishNewNotice,
+  getAllNotice,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -50,5 +52,7 @@ router
 router.route("/delete-student/:studentId").delete(verifyAdmin, deleteStudent);
 router.route("/delete-company/:companyId").delete(verifyAdmin, deleteCompany);
 router.route("/get-student-details/:studentId").get(getStudentDetails);
+router.route("/get-all-notices").get(verifyJWT, getAllNotice);
+router.route("/publish-new-notice").post(verifyAdmin,publishNewNotice);
 
 export default router;

@@ -79,14 +79,47 @@ const getCurrentJobProfile = asyncHandler(async(req,res)=>{
 })
 
 const getAllJobProfile = asyncHandler(async (req, res) => {
-  const jobs = await Job.find({});
-  if (!jobs) {
-    throw new ApiError(400, "No Jobs found at this moment");
+  const jobs = await Job.find({})
+  .select("_id company designation salaryPackage").
+  populate({
+    path:"company",
+    select:"name"
+  })
+
+  if (!jobs.length) {
+    return res
+    .status(404)
+    .json(new ApiResponse(404, {}, "Job Profiles not found"));
   }
+
   return res
     .status(200)
     .json(new ApiResponse(200, jobs, "Job Profiles fetched successfully"));
 });
+
+const getJobDetailsById = asyncHandler(async(req,res)=>{
+  const {jobId} =req.params;
+  
+  if(!jobId){
+    throw new ApiError(404,"Job id is required !")
+  }
+
+  const job = await Job.findById(jobId)
+  .populate({
+    path:"company",
+    select:"name address website avatar"
+  })
+
+  if(!job){
+    throw new ApiError(404,"Job profile doesn't exist")
+  }
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,job, "Job Details fetched Successfully!")
+  )
+})
 
 const updateJobProfile = asyncHandler(async (req, res) => {
   const {jobId}= req.params
@@ -190,5 +223,5 @@ export {
   updateJobProfile,
   applyForJob,
   getCurrentJobProfile,
-
+  getJobDetailsById,
 };

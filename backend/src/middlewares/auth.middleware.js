@@ -30,6 +30,7 @@ import { Company } from "../models/company.model.js"
   
     req.user=user
     next()
+    
   } catch (error) {
     throw new ApiError(400,error?.message || "Something went wrong!")
   }
