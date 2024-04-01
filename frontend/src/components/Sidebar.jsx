@@ -2,7 +2,7 @@ import { MdOutlineKeyboardCommandKey } from "react-icons/md";
 import { LuBarChart2 } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
 import { IoIosPaper } from "react-icons/io";
-import { RiArrowDropDownLine, RiGalleryLine } from "react-icons/ri";
+import { RiArrowDropDownLine, RiGalleryLine, RiUserLine } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -47,6 +47,20 @@ function Sidebar() {
         >
           <MdOutlineKeyboardCommandKey className="mr-1 text-lg" />
           <h1 className=" text-sm whitespace-nowrap">Dashboard</h1>
+        </div>
+      </Link>
+
+      <Link to="/studentprofile">
+        <div
+          className={`flex place-items-center hover:text-blue-500 mt-3 cursor-pointer ${
+            activeLink === "studentprofile"
+              ? "text-blue-500 font-bold"
+              : "text-gray-500"
+          }`}
+          onClick={() => handleLinkClick("studentprofile")}
+        >
+          <RiUserLine className="mr-1 text-lg" />
+          <h1 className=" text-sm  whitespace-nowrap">Profile</h1>
         </div>
       </Link>
 

@@ -3,12 +3,13 @@ import { CgProfile } from "react-icons/cg";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import LogoutModal from "./LogoutModal";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiUserLine } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IoExitOutline } from "react-icons/io5";
 import GetAllStudents from "../API/GetAllStudentsApi";
+import StudentProfileUpdate from "./student/StudentProfileUpdate";
 function Navbar() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
@@ -80,18 +81,22 @@ function Navbar() {
                   {isDropdownOpen && (
                     <div className="pr-16 pl-8 absolute right-0 mt-5  bg-white  border border-gray-200 rounded-2xl shadow-lg p-2 space-y-2">
                       <div className="mt-10 mb-32 ">
-                        <div className="flex place-items-center mb-5 ">
-                          <RiUserLine />
-                          <h1 className="text-sm  ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
-                            Profile
-                          </h1>
-                        </div>
-                        <div className="flex place-items-center  mb-5">
-                          <MdEdit />
-                          <h1 className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
-                            Edit primary info
-                          </h1>
-                        </div>
+                        <Link to="/studentprofile">
+                          <div className="flex place-items-center mb-5 ">
+                            <RiUserLine />
+                            <h1 className="text-sm  ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
+                              Profile
+                            </h1>
+                          </div>
+                        </Link>
+                        <Link>
+                          <div className="flex place-items-center  mb-5">
+                            <MdEdit />
+                            <h1 className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
+                              Edit primary info
+                            </h1>
+                          </div>
+                        </Link>
                         <div className="flex place-items-center mb-5 ">
                           <RiLockPasswordLine />
                           <h1 className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
