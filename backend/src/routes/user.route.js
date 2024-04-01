@@ -47,8 +47,8 @@ router.route("/preview-avatar").get(verifyJWT, previewAvatar);
 router
   .route("/placed-students-details")
   .get(verifyAdmin, placedStudentsDetails);
-router.route("/delete-student/:studentId").get(verifyAdmin, deleteStudent);
-router.route("/delete-company/:companyId").get(verifyAdmin, deleteCompany);
+router.route("/delete-student/:studentId").delete(verifyAdmin, deleteStudent);
+router.route("/delete-company/:companyId").delete(verifyAdmin, deleteCompany);
 router.route("/get-student-details/:studentId").get(getStudentDetails);
 
 export default router;

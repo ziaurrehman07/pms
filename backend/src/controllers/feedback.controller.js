@@ -48,7 +48,18 @@ const getAllFeedbacks = asyncHandler(async(req,res)=>{
   )
 })
 
+const deleteAllFeedbacks = asyncHandler(async(req,res)=>{
+  await Feedback.deleteMany({})
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,{},"All feedbacks deleted successfully")
+  )
+})
+
 export {
   newFeedback,
   getAllFeedbacks,
+  deleteAllFeedbacks,
 }

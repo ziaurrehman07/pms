@@ -37,7 +37,7 @@ function CompanyDetails({ companyId, onEditClick }) {
     );
     if (confirmDelete) {
       try {
-        await axios.get(`/api/v1/users/delete-company/${companyId}`);
+        await axios.delete(`/api/v1/users/delete-company/${companyId}`);
         console.log("Company deleted successfully");
         // Close the component after successful deletion
         window.location.reload();

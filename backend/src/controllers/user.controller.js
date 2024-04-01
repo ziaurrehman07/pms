@@ -44,7 +44,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     $or: [{ enrollment }, { email }],
   });
   if (existedUser) {
-    throw new ApiError(400, "User with email or enrollment is already exist");
+    throw new ApiError(400, "Student with email or enrollment is already exist");
   }
 
   const user = await User.create({

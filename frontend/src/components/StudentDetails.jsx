@@ -36,7 +36,7 @@ function StudentDetails({ studentId, onEditClick }) {
     );
     if (confirmDelete) {
       try {
-        await axios.get(`/api/v1/users/delete-student/${studentId}`);
+        await axios.delete(`/api/v1/users/delete-student/${studentId}`);
         console.log("Student deleted successfully");
         window.location.reload();
       } catch (error) {
