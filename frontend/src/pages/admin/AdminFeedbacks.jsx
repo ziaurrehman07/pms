@@ -21,6 +21,9 @@ function AdminFeedbacks() {
         {/* feedback component */}
         <FeedbackComponent students={students} />
       </div>
+      <button className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
+        DELETE ALL FEEDBACKS
+      </button>
     </div>
   );
 }
