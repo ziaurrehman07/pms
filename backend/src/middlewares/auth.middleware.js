@@ -31,7 +31,7 @@ import { Company } from "../models/company.model.js"
     req.user=user
     next()
   } catch (error) {
-    throw new ApiError(400,error?.message || "Invalid access token")
+    throw new ApiError(400,error?.message || "Something went wrong!")
   }
 })
 
@@ -51,7 +51,7 @@ import { Company } from "../models/company.model.js"
    req.company = company
    next()
  } catch (error) {
-    throw new ApiError(400,error?.message || "Invalid access token ")
+    throw new ApiError(400,error?.message || "Something went wrong!")
  }
 })
 
@@ -73,7 +73,7 @@ import { Company } from "../models/company.model.js"
     next()
     
   } catch (error) {
-    throw new ApiError(400,error?.message || "Invalid access token")
+    throw new ApiError(400,error?.message || "Something went wrong!")
   }
 
 })
