@@ -124,6 +124,7 @@ function StudentDetails({ studentId, onEditClick }) {
                 </td>
                 <td className="font-semibold text-sm p-1"> {student.mobile}</td>
               </tr>
+
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   Address :

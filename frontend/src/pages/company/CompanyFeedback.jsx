@@ -5,7 +5,7 @@ function CompanyFeedback() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("companyToken");
     if (!token) {
       navigate("/");
     }
@@ -17,7 +17,7 @@ function CompanyFeedback() {
         <div className="forming h-[380px] w-[460px]">
           <form className="flex  flex-col justify-center place-items-center">
             <textarea
-              className="p-8 outline-none bg-gray-100 rounded-lg  font-medium"
+              className="p-8 outline-none bg-gray-100 rounded-lg mb-8 font-medium"
               name=""
               id=""
               cols="50"

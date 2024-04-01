@@ -5,7 +5,7 @@ function Updates() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("studenToken");
     if (!token) {
       navigate("/");
     }
