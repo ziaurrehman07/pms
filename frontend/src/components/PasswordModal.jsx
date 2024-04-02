@@ -38,8 +38,8 @@ const PasswordModal = ({ isOpen, onClose }) => {
       {isOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white flex place-items-center justify-center h-[500px] w-[750px] p-4 rounded-md">
-            <div className="bg-gray-100 h-[465px] w-[300px] flex flex-col place-items-center rounded-lg shadow-md shadow-gray-400">
-              <p className="text-lg font-bold mt-4  mb-4 flex justify-center text-blue-500">
+            <div className="bg-gray-100 h-[440px] w-[330px] flex flex-col place-items-center rounded-lg shadow-md shadow-gray-400">
+              <p className="text-lg font-bold mt-4  mb-8 flex justify-center text-blue-500">
                 CHANGE YOUR PASSWORD
               </p>
               <form onSubmit={handleSubmit}>
@@ -69,7 +69,7 @@ const PasswordModal = ({ isOpen, onClose }) => {
                     required
                   />
                 </div>
-                <div className="mb-4">
+                <div>
                   <label className="block text-xs  font-bold text-blue-500">
                     Confirm new password
                   </label>
