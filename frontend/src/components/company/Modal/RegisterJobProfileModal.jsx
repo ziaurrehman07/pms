@@ -48,7 +48,7 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed top-0 left-0 w-full z-10 h-full bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white flex flex-col place-items-center p-12 h-[600px] w-[950px] rounded-md">
             <div
               className="text-xl cursor-pointer hover:text-red-700 duration-700"
