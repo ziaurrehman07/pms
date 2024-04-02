@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import UpdateStudentDetails from "../../components/admin/UpdateStudentDetails";
 import { useNavigate } from "react-router-dom";
 import CompanyJobList from "../../components/company/CompanyJobList";
 import CompanyJobDetails from "../../components/company/CompanyJobDetails";
 import GetAllJobs from "../../API/GetAllJobsApi";
 import CompanyJobUpdateDetails from "../../components/company/CompanyJobUpdateDetails";
-// import UpdateStudentDetails from "../../components/admin/UpdateStudentDetails";
-
 function CompanyJobProfiles() {
   const navigate = useNavigate();
 
@@ -52,9 +49,7 @@ function CompanyJobProfiles() {
   if (error) return <p>Error: {error.message}</p>;
 
   const handleStudentClick = (jobId) => {
-    setSelectedJob((prevJob) =>
-    prevJob === jobId ? null : jobId
-    );
+    setSelectedJob((prevJob) => (prevJob === jobId ? null : jobId));
     setIsEditClicked(false);
   };
   const handleEditClick = () => {

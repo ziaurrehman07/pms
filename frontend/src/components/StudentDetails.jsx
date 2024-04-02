@@ -2,9 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import PropTypes from "prop-types";
+import Warning from "./Warning";
 
 function StudentDetails({ studentId, onEditClick }) {
   const [student, setStudent] = useState(null);
+  const [isWarningModalOpen, setWarningModalOpen] = useState(false);
+
   useEffect(() => {
     const fetchStudentDetails = async () => {
       try {
@@ -31,24 +34,18 @@ function StudentDetails({ studentId, onEditClick }) {
   }
 
   const handleDelete = async () => {
-    // Show confirmation dialog before deleting
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this student?"
-    );
-    if (confirmDelete) {
-      try {
-        await axios.delete(`/api/v1/users/delete-student/${studentId}`);
-        console.log("Student deleted successfully");
-        window.location.reload();
-      } catch (error) {
-        console.log("Error deleting student:", error);
-      }
+    try {
+      await axios.delete(`/api/v1/users/delete-student/${studentId}`);
+      console.log("Student deleted successfully");
+      window.location.reload();
+    } catch (error) {
+      console.log("Error deleting student:", error);
     }
   };
 
   return (
     <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
-      <div className="sticky top-0 bg-white border-b border-black  mx-3 flex place-items-center h-10">
+      <div className="bg-white border-b border-black  mx-3 flex place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-400">Student details</h2>
       </div>
       <div className="flex justify-center mt-3 mb-2  ">
@@ -163,12 +160,18 @@ function StudentDetails({ studentId, onEditClick }) {
         </button>
 
         <button
-          onClick={handleDelete}
+          // onClick={handleDelete}
+          onClick={() => setWarningModalOpen(true)}
           className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
         >
           DELETE
         </button>
       </div>
+      <Warning
+        isOpen={isWarningModalOpen}
+        onClose={() => setWarningModalOpen(false)}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }

@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FeedbackComponent from "../../components/feedback/FeedbackComponent";
 import GetAllStudents from "../../API/GetAllStudentsApi";
 import axios from "axios";
+import Warning from "../../components/Warning";
 
 function AdminFeedbacks() {
   const navigate = useNavigate();
+  const [isWarningModalOpen, setWarningModalOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
@@ -39,11 +41,16 @@ function AdminFeedbacks() {
         <FeedbackComponent students={students} />
       </div>
       <button
-        onClick={handleDelete}
+        onClick={() => setWarningModalOpen(true)}
         className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
       >
         DELETE ALL FEEDBACKS
       </button>
+      <Warning
+        isOpen={isWarningModalOpen}
+        onClose={() => setWarningModalOpen(false)}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
