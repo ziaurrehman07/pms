@@ -109,10 +109,6 @@ const getJobDetailsById = asyncHandler(async(req,res)=>{
     path:"company",
     select:"name address website avatar"
   })
-  .populate({
-    path:"students",
-    select:"fullName enrollment"
-  })
 
   if(!job){
     throw new ApiError(404,"Job profile doesn't exist")
@@ -220,6 +216,52 @@ const applyForJob = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, job, "Successfully applied for the job "));
 });
 
+const getCompanyAllJobs = asyncHandler(async(req,res)=>{
+  const companyId = req.company?._id
+  if(!companyId){
+    throw new ApiError(404,"Unauthorized access")
+  }
+
+  const jobs = await Job.find({company:companyId})
+  .select("designation lastDate")
+
+  if(!jobs.length){
+    return res
+    .status(404)
+    .json(
+      new ApiResponse(404,{},"No Jobs found!")
+    )
+  }
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,jobs,"Jobs fetched successfully!")
+  )
+})
+
+const getCompanyJobDetailsById = asyncHandler(async(req,res)=>{
+  const {jobId} = req.params
+  if(!jobId){
+    throw new ApiError(404,"Job id is required!")
+  }
+
+  const job = await Job.findById(jobId)
+  .populate({
+    path:"students",
+    select:"fullName enrollment"
+  })
+  if(!job){
+    throw new ApiError(404,"Job not found!")
+  }
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,job,"Job details fetched successfully!")
+  )
+})
+
 export {
   newJobProfile,
   deleteJobProfile,
@@ -228,4 +270,6 @@ export {
   applyForJob,
   getCurrentJobProfile,
   getJobDetailsById,
+  getCompanyAllJobs,
+  getCompanyJobDetailsById
 };
