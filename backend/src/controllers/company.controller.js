@@ -268,7 +268,9 @@ const getApplyStudentList = asyncHandler(async (req, res) => {
     {
       $project: {
         _id: "$studentsList._id",
-        fullName: "$studentsList.fullName"
+        fullName: "$studentsList.fullName",
+        avatar:"$studentsList.avatar" ,
+        enrollment:"$studentsList.enrollment" ,
       },
     },
   ]);
