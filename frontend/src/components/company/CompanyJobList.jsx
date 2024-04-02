@@ -28,7 +28,7 @@ function CompanyJobList({ jobs, onJobClick }) {
                 {job.designation}
               </h1>
               <p className="text-blue-500 text-xs font-bold ">
-                Last date for Submission:{job.lastDate}
+                Last date: <span className="text-black text-[10px]">{job.lastDate}</span>
               </p>
             </div>
           </div>
