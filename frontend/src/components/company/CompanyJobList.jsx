@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import RegisterJobProfileModal from "./Modal/RegisterJobProfileModal";
 
 function CompanyJobList({ jobs, onJobClick }) {
+  const [isRegisterCompanyModalOpen, setIsRegisterCompanyModalOpen] =
+    useState(false);
   return (
     <div className="mt-4 h-[550px]  bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-2 flex justify-between place-items-center h-10">
@@ -10,11 +14,13 @@ function CompanyJobList({ jobs, onJobClick }) {
             {jobs.length}
           </span>
         </h2>
-        <Link to="/adminregisterstudent">
-          <div className="bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
-            CREATE
-          </div>
-        </Link>
+
+        <div
+          onClick={() => setIsRegisterCompanyModalOpen(true)}
+          className="bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center"
+        >
+          CREATE
+        </div>
       </div>
       <div>
         {jobs.map((job) => (
@@ -28,12 +34,17 @@ function CompanyJobList({ jobs, onJobClick }) {
                 {job.designation}
               </h1>
               <p className="text-blue-500 text-xs font-bold ">
-                Last date: <span className="text-black text-[10px]">{job.lastDate}</span>
+                Last date:{" "}
+                <span className="text-black text-[10px]">{job.lastDate}</span>
               </p>
             </div>
           </div>
         ))}
       </div>
+      <RegisterJobProfileModal
+        isOpen={isRegisterCompanyModalOpen}
+        onClose={() => setIsRegisterCompanyModalOpen(false)}
+      />
     </div>
   );
 }

@@ -160,13 +160,19 @@ function Navbar() {
                       <div className="mt-10 mb-32 ">
                         <div className="flex place-items-center mb-5 ">
                           <MdEdit />
-                          <h1 className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
+                          <h1
+                            onClick={() => setProfileModalOpen(true)}
+                            className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer"
+                          >
                             Change avatar
                           </h1>
                         </div>
                         <div className="flex place-items-center mb-5 ">
                           <RiLockPasswordLine />
-                          <h1 className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
+                          <h1
+                            onClick={() => setPasswordModalOpen(true)}
+                            className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer"
+                          >
                             Change password
                           </h1>
                         </div>

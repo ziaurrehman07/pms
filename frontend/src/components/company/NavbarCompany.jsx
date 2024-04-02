@@ -51,7 +51,7 @@ function CompanyNavbar() {
 
   return (
     <>
-      <div className=" sticky top-0 z-10 flex h-12 justify-between   mr-10 mt-4 bg-white   rounded-md place-items-center p-6 shadow-sm ">
+      <div className=" sticky top-0 flex h-12 justify-between   mr-10 mt-4 bg-white   rounded-md place-items-center p-6 shadow-sm ">
         <div className="cursor-pointer">
           <h2 className="font-medium whitespace-nowrap text-sm">
             Hello, {companies.name}

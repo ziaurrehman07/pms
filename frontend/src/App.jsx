@@ -22,12 +22,12 @@ import SidebarCompany from "./components/company/SidebarCompany";
 import CompanyNavbar from "./components/company/NavbarCompany";
 import CompanyDashboard from "./pages/company/CompanyDashboard";
 import CompanyJobProfiles from "./pages/company/CompanyJobProfiles";
-import CompanyStudents from "./pages/company/CompanyStudents";
 import CompanyFeedback from "./pages/company/CompanyFeedback";
 import UpdateResume from "./components/student/UpdateResume";
 import PreviewResume from "./components/student/PreviewResume";
 import Profile from "./pages/student/Profile";
 import CollegeApi from "./API/CollegeApi";
+import CompanyAppliedStudents from "./pages/company/CompanyAppliedStudents";
 function App() {
   const { userRole, companyRole, isLoading } = CollegeApi();
 
@@ -311,14 +311,14 @@ function App() {
                 }
               />
               <Route
-                path="/companyStudents"
+                path="/appliedStudents"
                 element={
                   <>
                     <div className="flex w-full">
                       <SidebarCompany />
                       <div className="w-full">
                         <CompanyNavbar />
-                        <CompanyStudents />
+                        <CompanyAppliedStudents />
                       </div>
                     </div>
                   </>
