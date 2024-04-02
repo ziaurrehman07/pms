@@ -126,7 +126,6 @@ const updateJobProfile = asyncHandler(async (req, res) => {
   const {
     designation,
     description,
-    experiance,
     salaryPackage,
     criteria_10,
     criteria_12,
@@ -146,7 +145,6 @@ const updateJobProfile = asyncHandler(async (req, res) => {
     {
       designation,
       description,
-      experiance,
       salaryPackage,
       criteria_10,
       criteria_12,
