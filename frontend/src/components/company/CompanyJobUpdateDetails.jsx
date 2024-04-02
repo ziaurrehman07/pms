@@ -68,15 +68,15 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
 
   return (
     <form>
-      <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
+      <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[480px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
         <div className="sticky top-0 bg-transparent border-b mt-1 border-black  mx-3 flex place-items-center h-10">
           <h2 className="pl-3 font-bold text-blue-400">
             Update Job Profile details
           </h2>
         </div>
 
-        <div className=" h-[330px] custom-scrollbar overflow-y-scroll">
-          <div className="flex justify-evenly mt-3 ml-6 ">
+        <div className=" h-[420px] m-4 custom-scrollbar overflow-y-scroll">
+          <div className="flex justify-evenly mt-8 ml-4 ">
             <table className="w-full mt-3">
               <tbody>
                 <tr>
@@ -89,7 +89,7 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
                       name="designation"
                       onChange={handleChange}
                       value={values.designation}
-                      className=" shadow-sm bg-gray-100 outline-none rounded-md px-2 font-semibold text-sm "
+                      className="shadow-sm bg-gray-100 outline-none rounded-md px-2 font-semibold text-sm "
                     />
                   </td>
                 </tr>
@@ -170,6 +170,8 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
                   <td>
                     <textarea
                       type="text"
+                      cols="22"
+                      rows="5"
                       name="description"
                       value={values.description}
                       onChange={handleChange}

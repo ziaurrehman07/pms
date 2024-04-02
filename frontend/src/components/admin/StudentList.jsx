@@ -1,5 +1,6 @@
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function StudentList({ students, onStudentClick }) {
   return (
@@ -47,5 +48,8 @@ function StudentList({ students, onStudentClick }) {
     </div>
   );
 }
-
+StudentList.propTypes = {
+  students: PropTypes.string.isRequired,
+  onStudentClick: PropTypes.func.isRequired,
+};
 export default StudentList;

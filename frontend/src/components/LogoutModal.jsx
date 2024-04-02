@@ -11,7 +11,7 @@ const LogoutModal = ({ isOpen, onClose, onLogout }) => {
       {isOpen && (
         <div
           onClick={handleCloseModal}
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center"
+          className="fixed  top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center"
         >
           <div className="bg-white p-4 rounded-md">
             <p className="text-lg font-semibold mb-4">

@@ -52,7 +52,7 @@ function AdminRegisterStudent() {
     setLoading(false);
   };
   return (
-    <div className="mt-4 h-[550px] bg-white mb-4 w-[480px] rounded-lg shadow-md">
+    <div className="mt-4 h-[550px] ml-64 bg-white mb-4 w-[480px] rounded-lg shadow-md">
       <div className="bg-white border-b border-black justify-center mx-3 flex place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-500">Register student</h2>
       </div>

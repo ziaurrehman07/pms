@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import PropTypes from "prop-types";
+import TruncatedText from "../../services/TruncatedText";
+import Warning from "../Warning";
 function CompanyJobDetails({ jobId, onEditClick }) {
   const [job, setJob] = useState(null);
+  const [isWarningModalOpen, setWarningModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchCompanyJobDetails = async () => {
@@ -30,31 +33,21 @@ function CompanyJobDetails({ jobId, onEditClick }) {
   }
 
   const handleDelete = async () => {
-    // Show confirmation dialog before deleting
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this Job Profile?"
-    );
-    if (confirmDelete) {
-      try {
-        await axios.delete(`/api/v3/companies/job/delete-job-profile/${jobId}`);
-        console.log("Job Profile deleted successfully");
-        // Close the component after successful deletion
-        window.location.reload();
-      } catch (error) {
-        console.log("Error deleting job profile:", error);
-      }
+    try {
+      await axios.delete(`/api/v3/companies/job/delete-job-profile/${jobId}`);
+      console.log("Job Profile deleted successfully");
+      window.location.reload();
+    } catch (error) {
+      console.log("Error deleting job profile:", error);
     }
   };
 
   return (
-    <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
+    <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[480px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-3 flex place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-400">Job Profile details</h2>
       </div>
-      <div className="flex justify-center mt-3 mb-2  ">
-        
-      </div>
-      <div className=" h-[330px] custom-scrollbar overflow-y-scroll">
+      <div className=" h-[350px]  mt-8 mx-4 mb-12 custom-scrollbar overflow-y-scroll">
         <div className="flex justify-evenly mt-3 ml-6 ">
           <table className="w-full mt-3">
             <tbody>
@@ -68,23 +61,21 @@ function CompanyJobDetails({ jobId, onEditClick }) {
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   Salary Package(in Lakhs) :
                 </td>
-                <td className="font-semibold text-sm p-1">{job.salaryPackage}</td>
+                <td className="font-semibold text-sm p-1">
+                  {job.salaryPackage}
+                </td>
               </tr>
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   10th criteria :
                 </td>
-                <td className="font-semibold text-sm p-1">
-                  {job.criteria_10}
-                </td>
+                <td className="font-semibold text-sm p-1">{job.criteria_10}</td>
               </tr>
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   12th criteria :
                 </td>
-                <td className="font-semibold text-sm p-1">
-                  {job.criteria_12}
-                </td>
+                <td className="font-semibold text-sm p-1">{job.criteria_12}</td>
               </tr>
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
@@ -98,15 +89,16 @@ function CompanyJobDetails({ jobId, onEditClick }) {
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   Last submission date :
                 </td>
-                <td className="font-semibold text-sm p-1">
-                  {job.lastDate}
-                </td>
+                <td className="font-semibold text-sm p-1">{job.lastDate}</td>
               </tr>
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   Description :
                 </td>
-                <td className="font-semibold text-sm p-1">{job.description}</td>
+                <td className="font-semibold text-sm p-1">
+                  {" "}
+                  <TruncatedText text={job.description} maxLength={50} />
+                </td>
               </tr>
             </tbody>
           </table>
@@ -122,14 +114,23 @@ function CompanyJobDetails({ jobId, onEditClick }) {
         </button>
 
         <button
-          onClick={handleDelete}
+          onClick={() => setWarningModalOpen(true)}
           className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
         >
           DELETE
         </button>
       </div>
+      <Warning
+        isOpen={isWarningModalOpen}
+        onClose={() => setWarningModalOpen(false)}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
+CompanyJobDetails.propTypes = {
+  jobId: PropTypes.string.isRequired,
+  onEditClick: PropTypes.func.isRequired,
+};
 
 export default CompanyJobDetails;

@@ -2,7 +2,6 @@ import { MdOutlineKeyboardCommandKey } from "react-icons/md";
 import { LuBarChart2 } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
 import { RiGalleryLine } from "react-icons/ri";
-import { PiStudent } from "react-icons/pi";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -23,7 +22,7 @@ function SidebarCompany() {
 
   return (
     <>
-      <div className="ml-3 rounded-lg border shadow-md border-[#d2d8d6] mb-4 mt-4  bg-white   flex-col w-60 pt-8 p-8 lg:p-8 lg:w-64">
+      <div className="ml-3 mr-4 rounded-lg border shadow-md border-[#d2d8d6] mb-4 mt-4  bg-white   flex-col w-60 pt-8 p-8 lg:p-8 lg:w-64">
         <Link to="/companyhome">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
@@ -73,19 +72,6 @@ function SidebarCompany() {
           >
             <RiGalleryLine className="mr-1 text-lg" />
             <h1 className=" text-sm whitespace-nowrap">Applied Students</h1>
-          </div>
-        </Link>
-        <Link to="/hirestudent">
-          <div
-            className={`flex place-items-center mt-3 cursor-pointer ${
-              activeLink === "hirestudent"
-                ? "text-blue-500 font-bold"
-                : "text-gray-500"
-            }`}
-            onClick={() => handleLinkClick("hirestudent")}
-          >
-            <PiStudent className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Hire Students</h1>
           </div>
         </Link>
         <Link to="/companyfeedback">
