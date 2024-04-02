@@ -562,7 +562,7 @@ const publishNewNotice = asyncHandler(async (req, res) => {
 });
 
 const getAllNotice = asyncHandler(async (req, res) => {
-  const notices = await Notice.find({});
+  const notices = await Notice.find({}).sort({createdAt:-1});
   if (!notices.length) {
     return res.status(404).json(new ApiResponse(404, {}, "No Notices Found"));
   }

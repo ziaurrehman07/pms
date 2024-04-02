@@ -251,7 +251,7 @@ const getApplyStudentList = asyncHandler(async (req, res) => {
   const studentList = await Job.aggregate([
     {
       $match: {
-        _id: mongoose.Types.ObjectId(jobId),
+        _id: new mongoose.Types.ObjectId(jobId),
       },
     },
     {

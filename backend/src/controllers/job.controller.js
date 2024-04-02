@@ -79,7 +79,7 @@ const getCurrentJobProfile = asyncHandler(async(req,res)=>{
 })
 
 const getAllJobProfile = asyncHandler(async (req, res) => {
-  const jobs = await Job.find({})
+  const jobs = await Job.find({}).sort({createdAt:-1})
   .select("_id company designation salaryPackage").
   populate({
     path:"company",
@@ -108,6 +108,10 @@ const getJobDetailsById = asyncHandler(async(req,res)=>{
   .populate({
     path:"company",
     select:"name address website avatar"
+  })
+  .populate({
+    path:"students",
+    select:"fullName enrollment"
   })
 
   if(!job){
@@ -180,8 +184,8 @@ const applyForJob = asyncHandler(async (req, res) => {
     students: { $in: [student._id] }
   });
 
-  if(!existingApplication){
-    throw new ApiError(400,"You have already aplied in this company")
+  if(existingApplication){
+    throw new ApiError(400,"You have already applied in this company")
   }
 
   if (
