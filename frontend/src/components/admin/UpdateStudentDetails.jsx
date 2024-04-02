@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PropTypes from "prop-types";
 function UpdateStudentDetails({ studentId, onCancel }) {
   const [values, setValues] = useState({
     id: studentId,
@@ -248,5 +249,8 @@ function UpdateStudentDetails({ studentId, onCancel }) {
     </form>
   );
 }
-
+UpdateStudentDetails.propTypes = {
+  studentId: PropTypes.string.isRequired,
+  onCancel: PropTypes.func.isRequired,
+};
 export default UpdateStudentDetails;

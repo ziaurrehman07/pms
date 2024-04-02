@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 const LogoutModal = ({ isOpen, onClose, onLogout }) => {
   const handleCloseModal = (e) => {
     // Check if the click event happened on the background overlay
@@ -37,4 +38,9 @@ const LogoutModal = ({ isOpen, onClose, onLogout }) => {
   );
 };
 
+LogoutModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
+};
 export default LogoutModal;

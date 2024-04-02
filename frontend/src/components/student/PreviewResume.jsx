@@ -14,7 +14,7 @@ function PreviewResume() {
   const apiUrl = "/api/v1/users/get-user";
   const { students } = GetAllStudents(apiUrl);
   return (
-    <div className="bg-white flex-col m-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
+    <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
       <h1 className="text-blue-600 font-bold text-lg">YOUR RESUME</h1>
       <div className=" flex-col  h-[450px] w-[880px] p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
         <div className="pdf shows here flex flex-col  p-8 w-[380px] rounded-lg bg-gray-100 h-[370px] mb-8 font-medium">

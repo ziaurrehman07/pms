@@ -23,7 +23,7 @@ function SidebarAdmin() {
 
   return (
     <>
-      <div className="ml-3 rounded-lg border shadow-md border-[#d2d8d6] mb-4 mt-4 mr-4 flex-col w-60 pt-8 p-8 lg:p-8 lg:w-64">
+      <div className="ml-3 rounded-lg border shadow-lg bg-white  mb-4 mt-4 mr-4 flex-col w-60 pt-8 p-8 lg:p-8 lg:w-64">
         <Link to="/adminhome">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
