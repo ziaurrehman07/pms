@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
+import PropTypes from "prop-types";
 
 function StudentDetails({ studentId, onEditClick }) {
   const [student, setStudent] = useState(null);
@@ -132,16 +133,20 @@ function StudentDetails({ studentId, onEditClick }) {
               </tr>
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                  resume :
+                  Resume :
                 </td>
                 <td className="font-semibold text-sm p-1">
-                  <a
-                    href={student.resume}
-                    target="_blank"
-                    className="text-blue-500 font-bold hover:underline"
-                  >
-                    Open resume
-                  </a>
+                  {student.resume ? (
+                    <a
+                      href={student.resume}
+                      target="_blank"
+                      className="text-blue-500 font-bold hover:underline"
+                    >
+                      Open resume
+                    </a>
+                  ) : (
+                    <span>No resume available</span>
+                  )}
                 </td>
               </tr>
             </tbody>
@@ -167,5 +172,9 @@ function StudentDetails({ studentId, onEditClick }) {
     </div>
   );
 }
+StudentDetails.propTypes = {
+  studentId: PropTypes.string.isRequired,
+  onEditClick: PropTypes.func.isRequired,
+};
 
 export default StudentDetails;

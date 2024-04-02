@@ -46,12 +46,12 @@ const StudentProfileModal = ({ isOpen, onClose }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Student details updated successfully");
+      toast.success("Student avatar updated successfully");
       onClose();
       window.location.reload();
     } catch (error) {
       console.error("Error updating student details:", error);
-      toast.error("Error updating student details. Please try again.");
+      toast.error("Error updating avatar. Please try again.");
     } finally {
       setIsLoading(false);
     }

@@ -63,7 +63,7 @@ function Login() {
       <div className="bg-white h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
         <div className="flex place-items-center justify-center  mt-12 ">
           <RiUserLine className="text-xl text-[#33363F] font-semibold" />
-          <h4 className="text-blue-500 ml-2">College Login</h4>
+          <h4 className="text-blue-500 font-bold ml-2">College Login</h4>
         </div>
         <div className="flex flex-col place-content-center">
           <form
@@ -96,7 +96,7 @@ function Login() {
               {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
             </span>
             <button
-              className="bg-gray-100 text-gray-500 mx-auto mt-3 pl-5 pr-5 p-0.5 rounded-md"
+              className="bg-blue-500 text-white font-semibold mx-auto mt-3 pl-5 pr-5 p-0.5 rounded-md"
               disabled={loading}
             >
               {loading ? (
@@ -111,7 +111,7 @@ function Login() {
           <p className="mx-auto mt-8 text-gray-500">
             For Company!
             <Link to="/companyLogin">
-              <span className="text-blue-500 hover:text-blue-600  ml-1 font-semibold">
+              <span className="text-blue-500 font-bold hover:text-blue-600  ml-1">
                 Login
               </span>
             </Link>
