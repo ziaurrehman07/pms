@@ -51,9 +51,6 @@ function CompanyJobDetails({ jobId, onEditClick }) {
       <div className="sticky top-0 bg-white border-b border-black  mx-3 flex place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-400">Job Profile details</h2>
       </div>
-      <div className="flex justify-center mt-3 mb-2  ">
-        
-      </div>
       <div className=" h-[330px] custom-scrollbar overflow-y-scroll">
         <div className="flex justify-evenly mt-3 ml-6 ">
           <table className="w-full mt-3">

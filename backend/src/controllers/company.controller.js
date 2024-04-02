@@ -268,10 +268,7 @@ const getApplyStudentList = asyncHandler(async (req, res) => {
     {
       $project: {
         _id: "$studentsList._id",
-        fullName: "$studentsList.fullName",
-        mobile: "$studentsList.mobile",
-        email: "$studentsList.email",
-        resume: "$studentsList.resume",
+        fullName: "$studentsList.fullName"
       },
     },
   ]);
