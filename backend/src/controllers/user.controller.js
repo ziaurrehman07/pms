@@ -10,6 +10,7 @@ import {
 } from "../utils/cloudinary.util.js";
 import jwt from "jsonwebtoken";
 import { sendMail } from "../utils/emailSender.util.js";
+import { Notice } from "../models/notification.model.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -30,7 +31,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerStudent = asyncHandler(async (req, res) => {
-  const { fullName , email, password, enrollment } = req.body;
+  const { fullName, email, password, enrollment } = req.body;
 
   if (
     [fullName, email, password, enrollment].some(
@@ -44,7 +45,10 @@ const registerStudent = asyncHandler(async (req, res) => {
     $or: [{ enrollment }, { email }],
   });
   if (existedUser) {
-    throw new ApiError(400, "Student with email or enrollment is already exist");
+    throw new ApiError(
+      400,
+      "Student with email or enrollment is already exist"
+    );
   }
 
   const user = await User.create({
@@ -74,13 +78,11 @@ const registerStudent = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const {  email, password } = req.body;
+  const { email, password } = req.body;
   if (!email) {
     throw new ApiError(400, "Email field must be filled");
   }
-  const user = await User.findOne(
-     { email }
-  );
+  const user = await User.findOne({ email });
   if (!user) {
     throw new ApiError(401, "Invalid email");
   }
@@ -252,15 +254,21 @@ const updateStudentDetailsByAdmin = asyncHandler(async (req, res) => {
     address,
     college_cgpa,
     dob,
-    enrollment
+    enrollment,
   } = req.body;
-  
-  if ((email && email !== student.email) ||(enrollment && enrollment !==student.enrollment)) {
+
+  if (
+    (email && email !== student.email) ||
+    (enrollment && enrollment !== student.enrollment)
+  ) {
     const isUserAvailable = await User.findOne({
       $or: [{ enrollment }, { email }],
     });
     if (isUserAvailable) {
-      throw new ApiError(400, "Email or Enrollment already exist enter another one");
+      throw new ApiError(
+        400,
+        "Email or Enrollment already exist enter another one"
+      );
     }
   }
   const user = await User.findByIdAndUpdate(
@@ -276,7 +284,7 @@ const updateStudentDetailsByAdmin = asyncHandler(async (req, res) => {
         result_12,
         address,
         dob,
-        enrollment
+        enrollment,
       },
     },
     {
@@ -534,6 +542,38 @@ const getStudentDetails = asyncHandler(async (req, res) => {
     );
 });
 
+const publishNewNotice = asyncHandler(async (req, res) => {
+  const { message } = req.body;
+  if (!message) {
+    throw new ApiError(400, "Message is required! ");
+  }
+
+  const notice = await Notice.create({
+    message: message,
+  });
+
+  if (!notice) {
+    throw new ApiError(500, "Error while creating the notice ");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { notice }, "Notice created successfully"));
+});
+
+const getAllNotice = asyncHandler(async (req, res) => {
+  const notices = await Notice.find({}).sort({createdAt:-1});
+  if (!notices.length) {
+    return res.status(404).json(new ApiResponse(404, {}, "No Notices Found"));
+  }
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200, notices, "All notices fetched successfully")
+  )
+});
+
 export {
   registerStudent,
   loginUser,
@@ -553,4 +593,6 @@ export {
   getAllStudents,
   getStudentDetails,
   updateStudentDetailsByAdmin,
+  publishNewNotice,
+  getAllNotice,
 };
