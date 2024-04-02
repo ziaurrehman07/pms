@@ -26,9 +26,9 @@ import CompanyStudents from "./pages/company/CompanyStudents";
 import CompanyFeedback from "./pages/company/CompanyFeedback";
 import UpdateResume from "./components/student/UpdateResume";
 import PreviewResume from "./components/student/PreviewResume";
-import CompanyHireStudent from "./pages/company/CompanyHireStudent";
 import Profile from "./pages/student/Profile";
 import CollegeApi from "./API/CollegeApi";
+import HireStudent from "./pages/company/HireStudent";
 
 function App() {
   const { userRole, companyRole, isLoading } = CollegeApi();
@@ -326,20 +326,7 @@ function App() {
                   </>
                 }
               />
-              <Route
-                path="/companyhirestudent"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarCompany />
-                      <div className="w-full">
-                        <CompanyNavbar />
-                        <CompanyHireStudent />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
+
               <Route
                 path="/companyfeedback"
                 element={
@@ -349,6 +336,20 @@ function App() {
                       <div className="w-full">
                         <CompanyNavbar />
                         <CompanyFeedback />
+                      </div>
+                    </div>
+                  </>
+                }
+              />
+              <Route
+                path="/hirestudent"
+                element={
+                  <>
+                    <div className="flex w-full">
+                      <SidebarCompany />
+                      <div className="w-full">
+                        <CompanyNavbar />
+                        <HireStudent />
                       </div>
                     </div>
                   </>
