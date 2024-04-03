@@ -356,7 +356,7 @@ const unHiredAllStudent = asyncHandler(async(req,res)=>{
   if(!jobId){
     throw new ApiError(404,"Job id is required!")
   }
-  const job=await Job.findById(
+  const job=await Job.findByIdAndUpdate(
     jobId,
     {
       $unset:{
