@@ -6,9 +6,7 @@ import HireModal from "./Modal/HireModal";
 function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
   const [job, setJob] = useState(null);
   const [hiredStudents, setHiredStudents] = useState([]);
-  const [unhireAllStudentModalOpen, setUnhireAllStudentModalOpen] = useState(
-    []
-  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchCompanyJobDetails = async () => {
@@ -64,12 +62,7 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
           </span>
         </h1>
         <div className="mr-8 text-sm font-bold text-red-600 border border-red-500 px-2 py-1 rounded-lg">
-          <button
-            onClick={() => setUnhireAllStudentModalOpen(true)}
-            // onClick={() => unHireStudents(jobId)}>
-          >
-            UNHIRE ALL
-          </button>
+          <button onClick={() => setIsModalOpen(true)}>UNHIRE ALL</button>
         </div>
       </div>
       {job.map((student) => (
@@ -99,19 +92,22 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
             </div>
             <button
               onClick={() => hireStudent(student._id, jobId)}
-              className="mr-12 text-white bg-blue-500 px-3 py-1 text-sm font-bold rounded-lg"
+              className="mr-10 text-white bg-blue-500 px-3 py-1 text-sm font-bold rounded-lg"
               disabled={hiredStudents.includes(student._id)}
             >
               {hiredStudents.includes(student._id) ? "HIRED" : "HIRE"}
             </button>
           </div>
-          <HireModal
-            isOpen={unhireAllStudentModalOpen}
-            onClose={() => setUnhireAllStudentModalOpen(false)}
-            unHireAll={() => unHireStudents(jobId)}
-          />
         </div>
       ))}
+      <HireModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        unHireAll={() => {
+          unHireStudents(jobId);
+          setIsModalOpen(false);
+        }}
+      />
     </div>
   );
 }
