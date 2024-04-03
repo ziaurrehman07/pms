@@ -54,10 +54,10 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
 
   return (
     <div className="mt-4 h-[550px]  bg-white mb-4 w-[500px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
-      <div className="sticky top-0 bg-white border-b border-black  mx-4 flex justify-between place-items-center h-12">
-        <h1 className="pl-3 font-bold text-blue-500 text-lg">
-          Applied Student List :
-          <span className="ml-2 text-black text-nowrap font-bold">
+      <div className="sticky top-0 bg-white border-b border-black  mx-4 flex justify-between place-items-center h-10">
+        <h1 className="pl-3  font-bold text-blue-500 ">
+          APPLIED STUDENTS :
+          <span className="ml-2 text-black whitespace-nowrap font-semibold text-md">
             {job.length}
           </span>
         </h1>
