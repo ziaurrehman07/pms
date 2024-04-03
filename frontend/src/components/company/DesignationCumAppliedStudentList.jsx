@@ -92,7 +92,11 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
             </div>
             <button
               onClick={() => hireStudent(student._id, jobId)}
-              className="mr-10 text-white bg-blue-500 px-3 py-1 text-sm font-bold rounded-lg"
+              className={`mr-10 text-white px-3 py-1 text-sm font-bold rounded-lg ${
+                hiredStudents.includes(student._id)
+                  ? "bg-green-500"
+                  : "bg-blue-500"
+              }`}
               disabled={hiredStudents.includes(student._id)}
             >
               {hiredStudents.includes(student._id) ? "HIRED" : "HIRE"}

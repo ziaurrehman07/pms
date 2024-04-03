@@ -10,16 +10,16 @@ const HireModal = ({ isOpen, onClose, unHireAll }) => {
             </p>
             <div className="flex justify-end">
               <button
-                className="text-red-500 mr-2 py-1 px-2 rounded-full border border-red-600 hover:font-bold hover:underline cursor-pointer"
+                className="text-white mr-2 py-1 px-2 rounded-lg border bg-red-400 hover:font-semibold  cursor-pointer"
                 onClick={unHireAll}
               >
-                UNHIRE All
+                YES
               </button>
               <button
-                className="text-blue-500 py-1 px-2 rounded-full border border-blue-600  hover:underline hover:font-bold cursor-pointer"
+                className="text-white py-1 px-2 rounded-lg border bg-blue-400 hover:font-semibold cursor-pointer"
                 onClick={onClose}
               >
-                Cancel
+                NO
               </button>
             </div>
           </div>

@@ -38,7 +38,6 @@ class TruncatedText extends React.Component {
           <div>
             <span>{text}</span>
             <button className="text-red-500" onClick={this.toggleTruncate}>
-              {" "}
               Show less
             </button>
           </div>
