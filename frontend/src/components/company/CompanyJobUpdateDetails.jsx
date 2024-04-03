@@ -142,7 +142,7 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
                   <td>
                     <input
                       type="text"
-                      name="criteria_12"
+                      name="criteria_cllg_cgpa"
                       onChange={handleChange}
                       value={values.criteria_cllg_cgpa}
                       className=" shadow-sm bg-gray-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "

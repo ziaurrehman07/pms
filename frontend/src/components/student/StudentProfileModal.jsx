@@ -117,7 +117,6 @@ const StudentProfileModal = ({ isOpen, onClose }) => {
 StudentProfileModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default StudentProfileModal;

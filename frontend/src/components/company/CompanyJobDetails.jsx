@@ -96,7 +96,6 @@ function CompanyJobDetails({ jobId, onEditClick }) {
                   Description :
                 </td>
                 <td className="font-semibold text-sm p-1">
-                  {" "}
                   <TruncatedText text={job.description} maxLength={50} />
                 </td>
               </tr>
