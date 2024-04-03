@@ -50,7 +50,7 @@ function CompanyJobList({ jobs, onJobClick }) {
   );
 }
 CompanyJobList.propTypes = {
-  jobs: PropTypes.string.isRequired,
+  jobs: PropTypes.array.isRequired,
   onJobClick: PropTypes.func.isRequired,
 };
 
