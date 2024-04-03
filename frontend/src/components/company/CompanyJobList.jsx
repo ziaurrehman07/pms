@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import RegisterJobProfileModal from "./Modal/RegisterJobProfileModal";
-
+import PropTypes from "prop-types";
 function CompanyJobList({ jobs, onJobClick }) {
   const [isRegisterCompanyModalOpen, setIsRegisterCompanyModalOpen] =
     useState(false);
@@ -34,8 +33,10 @@ function CompanyJobList({ jobs, onJobClick }) {
                 {job.designation}
               </h1>
               <p className="text-blue-500 text-xs font-bold ">
-                Last date:{" "}
-                <span className="text-black text-[10px]">{job.lastDate}</span>
+                Last date :
+                <span className="text-black text-[10px] ml-1">
+                  {job.lastDate}
+                </span>
               </p>
             </div>
           </div>
@@ -48,5 +49,9 @@ function CompanyJobList({ jobs, onJobClick }) {
     </div>
   );
 }
+CompanyJobList.propTypes = {
+  jobs: PropTypes.string.isRequired,
+  onJobClick: PropTypes.func.isRequired,
+};
 
 export default CompanyJobList;

@@ -7,16 +7,19 @@ import { MdExitToApp } from "react-icons/md";
 const RegisterJobProfileModal = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
 
-  const [studentData, setStudentData] = useState({
-    fullName: "",
-    enrollment: "",
-    email: "",
-    password: "",
+  const [jobData, setJobData] = useState({
+    designation: "",
+    salaryPackage: "",
+    criteria_10: "",
+    criteria_12: "",
+    criteria_cllg_cgpa: "",
+    lastDate: "",
+    description: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setStudentData((prevState) => ({
+    setJobData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -28,16 +31,19 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
     try {
       const response = await axios.post(
         "/api/v3/companies/job/new-job-profile",
-        studentData
+        jobData
       );
       response.data;
       toast.success("Job Profile created successfully!");
-      // console.log("Student created:", response.data.data);
-      setStudentData({
-        fullName: "",
-        enrollment: "",
-        email: "",
-        password: "",
+      window.location.reload();
+      setJobData({
+        designation: "",
+        salaryPackage: "",
+        criteria_10: "",
+        criteria_12: "",
+        criteria_cllg_cgpa: "",
+        lastDate: "",
+        description: "",
       });
     } catch (error) {
       console.error("Error creating student:", error.response.data.message);
@@ -49,11 +55,8 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
     <>
       {isOpen && (
         <div className="fixed top-0 left-0 w-full z-10 h-full bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white flex flex-col place-items-center p-12 h-[600px] w-[950px] rounded-md">
-            <div
-              className="text-xl cursor-pointer hover:text-red-700 duration-700"
-              style={{ tooltip: "EXIT" }}
-            >
+          <div className="bg-white flex flex-col place-items-center p-4 h-[600px] w-[950px] rounded-md">
+            <div className="text-xl cursor-pointer hover:text-red-700 duration-300">
               <span>
                 <MdExitToApp onClick={onClose} />
               </span>
@@ -65,67 +68,106 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
             </div>
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col place-items-center h-[800px] bg-gray-100 rounded-lg mt-3 w-[450px] p-4   mb-2 "
+              className="flex flex-col place-items-center h-[500px] bg-gray-100 rounded-lg mt-3 w-[450px] p-4   mb-2 "
             >
               <div className="h-[380px] w-[400px] flex flex-col">
-                <label className="text-xs mt-8  flex text-blue-500 font-bold font-sans">
-                  Full Name
+                <label className="text-xs  flex text-blue-500 font-bold font-sans">
+                  Designation
                 </label>
                 <input
-                  id="fullName"
-                  name="fullName"
+                  id="designation"
+                  name="designation"
                   onChange={handleChange}
-                  value={studentData.fullName}
-                  className="p-2 my-0.5  bg-blue-100 outline-none rounded-md mb-2"
+                  value={jobData.designation}
+                  className=" p-1 bg-blue-100 outline-none rounded-md mb-2"
                   type="text"
-                  placeholder="Full Name"
+                  placeholder="Designation"
                   required
                 />
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
-                  Enrollment
+                  Salary Package (In Lakhs)
                 </label>
                 <input
-                  id="enrollment"
-                  name="enrollment"
+                  id="salaryPackage"
+                  name="salaryPackage"
                   onChange={handleChange}
-                  value={studentData.enrollment}
-                  className="p-2 my-0.5  bg-blue-100 outline-none rounded-md mb-2"
+                  value={jobData.salaryPackage}
+                  className=" p-1  bg-blue-100 outline-none rounded-md mb-2"
                   type="text"
-                  placeholder="Erollment"
+                  placeholder="Salary Package (In Lakhs)"
                   required
                 />
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
-                  Email
+                  Criteria 10
                 </label>
                 <input
-                  id="email"
-                  name="email"
+                  id="criteria_10"
+                  name="criteria_10"
                   onChange={handleChange}
-                  value={studentData.email}
-                  className="p-2 my-0.5  bg-blue-100 outline-none rounded-md mb-2"
+                  value={jobData.criteria_10}
+                  className=" p-1  bg-blue-100 outline-none rounded-md mb-2"
                   type="text"
-                  placeholder="Email"
+                  placeholder="Criteria 10"
                   required
                 />
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
-                  Password
+                  Criteria 12
                 </label>
                 <input
-                  id="password"
-                  name="password"
+                  id="criteria_12"
+                  name="criteria_12"
                   onChange={handleChange}
-                  value={studentData.password}
-                  className="p-2 my-0.5 mb-12  bg-blue-100 outline-none rounded-md "
+                  value={jobData.criteria_12}
+                  className="p-1  bg-blue-100 outline-none rounded-md mb-2"
                   type="text"
-                  placeholder="Password"
+                  placeholder=" Criteria 12"
+                  required
+                />
+                <label className="text-xs flex text-blue-500 font-bold font-sans">
+                  Critera College
+                </label>
+                <input
+                  id="criteria_cllg_cgpa"
+                  name="criteria_cllg_cgpa"
+                  onChange={handleChange}
+                  value={jobData.criteria_cllg_cgpa}
+                  className=" p-1  bg-blue-100 outline-none rounded-md mb-2"
+                  type="text"
+                  placeholder=" Critera College"
+                  required
+                />{" "}
+                <label className="text-xs flex text-blue-500 font-bold font-sans">
+                  Last Date to Apply
+                </label>
+                <input
+                  id="lastDate"
+                  name="lastDate"
+                  onChange={handleChange}
+                  value={jobData.lastDate}
+                  className=" px-1 py-4 bg-blue-100  outline-none rounded-md mb-2"
+                  type="date"
+                  placeholder="Last Date to Apply"
+                  required
+                />
+                <label className="text-xs flex text-blue-500 font-bold font-sans">
+                  Description
+                </label>
+                <input
+                  id="description"
+                  name="description"
+                  onChange={handleChange}
+                  value={jobData.description}
+                  className=" p-1 mb-12 bg-blue-100 outline-none rounded-md "
+                  type="text"
+                  placeholder="Description"
                   required
                 />
               </div>
-              <div className="mb-8">
+              <div className="mb-8 mt-8">
                 {loading ? (
-                  <div className="loader bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
+                  <div className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
                     CREATING...
-                  </div> // Add your loading spinner here
+                  </div>
                 ) : (
                   <button
                     type="submit"

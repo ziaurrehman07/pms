@@ -37,8 +37,8 @@ const PasswordModal = ({ isOpen, onClose }) => {
     <>
       {isOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white flex place-items-center justify-center h-[500px] w-[750px] p-4 rounded-md">
-            <div className="bg-gray-100 h-[440px] w-[330px] flex flex-col place-items-center rounded-lg shadow-md shadow-gray-400">
+          <div className="bg-white flex place-items-center justify-center h-[600px] w-[850px] p-4 rounded-md">
+            <div className="bg-gray-100 h-[540px] w-[330px] flex flex-col place-items-center rounded-lg shadow-md shadow-gray-400">
               <p className="text-lg font-bold mt-4  mb-8 flex justify-center text-blue-500">
                 CHANGE YOUR PASSWORD
               </p>
@@ -50,7 +50,7 @@ const PasswordModal = ({ isOpen, onClose }) => {
                   <input
                     placeholder="Current password"
                     type="password"
-                    className="mt-0.5 p-2 text-xs outline-none rounded-lg block w-full "
+                    className="mt-0.5 p-2  outline-none rounded-lg block w-full "
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
                     required
@@ -63,7 +63,7 @@ const PasswordModal = ({ isOpen, onClose }) => {
                   <input
                     placeholder="New password"
                     type="password"
-                    className="mt-0.5 p-2 text-xs outline-none rounded-lg block w-full"
+                    className="mt-0.5 p-2  outline-none rounded-lg block w-full"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     required
@@ -76,7 +76,7 @@ const PasswordModal = ({ isOpen, onClose }) => {
                   <input
                     placeholder="Confirm new password"
                     type="password"
-                    className="mt-0.5 p-2 text-xs outline-none rounded-lg block w-full"
+                    className="mt-0.5 p-2  outline-none rounded-lg block w-full"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
