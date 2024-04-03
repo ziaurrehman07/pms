@@ -6,7 +6,7 @@ function JobUpdatesList({ jobs, onJobClick }) {
       <div className="sticky top-0 bg-white border-b border-black  mx-2 flex justify-between place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-500">
           JOB LIST :
-          <span className="ml-2 text-black text-nowrap font-normal">
+          <span className="ml-2 text-black whitespace-nowrap text-xs font-semibold">
             {jobs.length}
           </span>
         </h2>

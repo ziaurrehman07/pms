@@ -36,14 +36,13 @@ function Feedback() {
         studentData
       );
       response.data;
-      toast.success("Student created successfully!");
-      // console.log("Student created:", response.data.data);
+      toast.success("Feedback created successfully!");
       setStudentData({
         content: "",
       });
     } catch (error) {
-      console.error("Error creating student:", error.response.data.message);
-      toast.error("Error creating student. Please try again.");
+      console.error("Error creating feedback:", error.response.data.message);
+      toast.error("Error creating feedback. Please try again.");
     }
     setLoading(false);
   };
