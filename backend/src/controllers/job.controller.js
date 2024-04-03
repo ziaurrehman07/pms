@@ -174,8 +174,7 @@ const applyForJob = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Job profile is not available");
   }
   const existingApplication = await Job.findOne({
-    companyId: isJobAvailable.company,
-    students: { $in: [student._id] }
+    $and:[{_id:jobId},{students:{$in:[student._id]}}]
   });
 
   if(existingApplication){

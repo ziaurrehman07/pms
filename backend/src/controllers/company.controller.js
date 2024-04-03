@@ -326,12 +326,48 @@ const hireStudent = asyncHandler(async (req, res) => {
     }
   ).select("-password -refreshToken");
 
+  const job = await Job.findByIdAndUpdate(
+    jobId,
+    {
+      $pull:{
+        students:studentId
+      }
+    },
+    {
+      new:true
+    }
+  )
+
   return res
     .status(200)
     .json(
-      new ApiResponse(200, { student, company }, "Student Hired Successfully")
+      new ApiResponse(200, { student, company,job }, "Student Hired Successfully")
     );
 });
+
+const unHiredAllStudent = asyncHandler(async(req,res)=>{
+  const {jobId} = req.params
+  if(!jobId){
+    throw new ApiError(404,"Job id is required!")
+  }
+  const job=await Job.findById(
+    jobId,
+    {
+      $unset:{
+        students:1
+      }
+    },
+    {
+      new:true
+    }
+  )
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,job,"Successfully removed students from job .")
+  )
+})
 
 const changeCompanyCurrentPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
@@ -362,6 +398,7 @@ export {
   getApplyStudentList,
   getAllCompanyDetails,
   hireStudent,
+  unHiredAllStudent,
   changeCompanyCurrentPassword,
   updateCompanyDetailsByAmin,
 };
