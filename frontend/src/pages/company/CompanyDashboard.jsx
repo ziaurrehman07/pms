@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 function CompanyDashboard() {
   const navigate = useNavigate();
 
@@ -10,11 +9,7 @@ function CompanyDashboard() {
       navigate("/");
     }
   }, []);
-  return (
-    <div className="bg-white h-[550px] shadow-md rounded-lg  w-[1080px] m-4 ">
-      <div></div>
-    </div>
-  );
+  return <div></div>;
 }
 
 export default CompanyDashboard;

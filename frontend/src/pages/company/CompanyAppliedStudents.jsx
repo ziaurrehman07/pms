@@ -2,12 +2,14 @@ import { useState } from "react";
 import GetAllJobs from "../../API/GetAllJobsApi";
 import AppliedDesigationList from "../../components/company/AppliedDesigationList";
 import DesignationCumAppliedStudentList from "../../components/company/DesignationCumAppliedStudentList";
-import StudentDetails from "../../components/StudentDetails";
+import CompanyStudentListDetailsModal from "../../components/company/CompanyStudentListDetailsModal";
 function CompanyAppliedStudents() {
   const apiUrl = "/api/v3/companies/job/get-current-company-all-jobs";
   const { jobs, loading, error } = GetAllJobs(apiUrl);
   const [selectedJob, setSelectedJob] = useState(null);
-  const [isClicked, setIsClicked] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [isComapnyStudetnModalOpen, setIsComapnyStudetnModalOpen] =
+    useState(null);
 
   if (loading)
     return (
@@ -40,10 +42,13 @@ function CompanyAppliedStudents() {
 
   const handleStudentClick = (jobId) => {
     setSelectedJob((prevJob) => (prevJob === jobId ? null : jobId));
-    setIsClicked(false);
   };
-  const handleClick = () => {
-    setIsClicked(true);
+
+  const handleStudentDetailsClick = (studentId) => {
+    setSelectedStudent((prevStudentId) =>
+      prevStudentId === studentId ? null : studentId
+    );
+    setIsComapnyStudetnModalOpen(true);
   };
 
   return (
@@ -52,18 +57,19 @@ function CompanyAppliedStudents() {
         <AppliedDesigationList jobs={jobs} onJobClick={handleStudentClick} />
       </div>
       <div className="ml-20">
-        {selectedJob && !isClicked && (
+        {selectedJob && (
           <DesignationCumAppliedStudentList
             jobId={selectedJob}
-            onEditClick={handleClick}
+            onStudentClick={handleStudentDetailsClick}
           />
         )}
       </div>
       <div>
-        {setIsClicked && (
-          <StudentDetails
-            jobId={selectedJob}
-            onCancel={() => setIsClicked(false)}
+        {selectedStudent && (
+          <CompanyStudentListDetailsModal
+            studentId={selectedStudent}
+            isOpen={isComapnyStudetnModalOpen}
+            onClose={() => setIsComapnyStudetnModalOpen(false)}
           />
         )}
       </div>

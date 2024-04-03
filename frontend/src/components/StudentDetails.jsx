@@ -160,7 +160,6 @@ function StudentDetails({ studentId, onEditClick }) {
         </button>
 
         <button
-          // onClick={handleDelete}
           onClick={() => setWarningModalOpen(true)}
           className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
         >
