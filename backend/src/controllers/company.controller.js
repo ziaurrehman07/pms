@@ -301,6 +301,12 @@ const getAllCompanyDetails = asyncHandler(async (req, res) => {
 
 const hireStudent = asyncHandler(async (req, res) => {
   const { studentId, jobId } = req.params;
+  const existedStudentInCompany = await Company.findOne({
+    $and:[{selectedStudents:{$in:studentId}},{_id:req.company._id}]
+  })
+  if(existedStudentInCompany){
+    throw new ApiError(400,"Student already hired!")
+  }
   const company = await Company.findByIdAndUpdate(
     req.company?._id,
     {
