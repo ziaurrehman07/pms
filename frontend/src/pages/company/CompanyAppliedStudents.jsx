@@ -1,22 +1,13 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import GetAllJobs from "../../API/GetAllJobsApi";
 import AppliedDesigationList from "../../components/company/AppliedDesigationList";
 import DesignationCumAppliedStudentList from "../../components/company/DesignationCumAppliedStudentList";
+import StudentDetails from "../../components/StudentDetails";
 function CompanyAppliedStudents() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("companyToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
   const apiUrl = "/api/v3/companies/job/get-current-company-all-jobs";
   const { jobs, loading, error } = GetAllJobs(apiUrl);
   const [selectedJob, setSelectedJob] = useState(null);
-  const [isEditClicked, setIsEditClicked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   if (loading)
     return (
@@ -49,10 +40,10 @@ function CompanyAppliedStudents() {
 
   const handleStudentClick = (jobId) => {
     setSelectedJob((prevJob) => (prevJob === jobId ? null : jobId));
-    setIsEditClicked(false);
+    setIsClicked(false);
   };
-  const handleEditClick = () => {
-    setIsEditClicked(true);
+  const handleClick = () => {
+    setIsClicked(true);
   };
 
   return (
@@ -60,25 +51,22 @@ function CompanyAppliedStudents() {
       <div>
         <AppliedDesigationList jobs={jobs} onJobClick={handleStudentClick} />
       </div>
-      <div className="ml-8">
-        <DesignationCumAppliedStudentList />
-      </div>
-      {/* <div className="ml-20">
-        {selectedJob && !isEditClicked && (
-          <CompanyJobDetails
+      <div className="ml-20">
+        {selectedJob && !isClicked && (
+          <DesignationCumAppliedStudentList
             jobId={selectedJob}
-            onEditClick={handleEditClick}
+            onEditClick={handleClick}
           />
         )}
       </div>
       <div>
-        {isEditClicked && (
-          <CompanyJobUpdateDetails
+        {setIsClicked && (
+          <StudentDetails
             jobId={selectedJob}
-            onCancel={() => setIsEditClicked(false)}
+            onCancel={() => setIsClicked(false)}
           />
         )}
-      </div> */}
+      </div>
     </div>
   );
 }
