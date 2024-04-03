@@ -2,9 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import PropTypes from "prop-types";
+import HireModal from "./Modal/HireModal";
 function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
   const [job, setJob] = useState(null);
   const [hiredStudents, setHiredStudents] = useState([]);
+  const [unhireAllStudentModalOpen, setUnhireAllStudentModalOpen] = useState(
+    []
+  );
+
   useEffect(() => {
     const fetchCompanyJobDetails = async () => {
       try {
@@ -59,7 +64,12 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
           </span>
         </h1>
         <div className="mr-8 text-sm font-bold text-red-600 border border-red-500 px-2 py-1 rounded-lg">
-          <button onClick={() => unHireStudents(jobId)}>UNHIRE ALL</button>
+          <button
+            onClick={() => setUnhireAllStudentModalOpen(true)}
+            // onClick={() => unHireStudents(jobId)}>
+          >
+            UNHIRE ALL
+          </button>
         </div>
       </div>
       {job.map((student) => (
@@ -95,6 +105,11 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
               {hiredStudents.includes(student._id) ? "HIRED" : "HIRE"}
             </button>
           </div>
+          <HireModal
+            isOpen={unhireAllStudentModalOpen}
+            onClose={() => setUnhireAllStudentModalOpen(false)}
+            unHireAll={() => unHireStudents(jobId)}
+          />
         </div>
       ))}
     </div>
