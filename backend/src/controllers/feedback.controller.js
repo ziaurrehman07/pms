@@ -5,19 +5,13 @@ import { ApiResponse } from "../utils/ApiResponse.util.js";
 
 const newFeedback = asyncHandler(async(req,res)=>{
   const {content} = req.body
-  let id;
-  if(req.user){
-   id = req.user._id
-  }
-  if(req.company){
-    id = req.company._id
-  }
   if(!content){
     throw new ApiError(400, 'Content field is required')
   }
   const feedback = await Feedback.create({
     content,
-    owner:id
+    owner:req.user?._id,
+    companyOwner:req.company?._id
   })
   if(!feedback){
     throw new ApiError(400,"Something went wrong while submitting feedback")
@@ -32,9 +26,14 @@ const newFeedback = asyncHandler(async(req,res)=>{
 
 const getAllFeedbacks = asyncHandler(async(req,res)=>{
   const feedbacks = await Feedback.find({})
+  .sort({createdAt: -1})
   .populate({
     path: 'owner',
     select:"fullName enrollment avatar"
+  })
+  .populate({
+    path:"companyOwner",
+    select:"name avatar"
   })
 
   if(!feedbacks.length){

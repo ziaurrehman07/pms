@@ -5,6 +5,10 @@ const feedbackSchema = new mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:"User"
   },
+  companyOwner:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Company"
+  },
   content:{
     type:String,
     required:true
