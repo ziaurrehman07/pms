@@ -115,7 +115,7 @@ function Navbar() {
                               onClick={() => setProfileModalOpen(true)}
                               className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer"
                             >
-                              Change avatar
+                              Change Avatar
                             </h1>
                           </div>
                         </Link>

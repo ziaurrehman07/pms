@@ -15,7 +15,7 @@ router.route("/update-company-avatar").patch(verifyJwtForCompany,upload.single("
 router.route("/get-applied-students-list/:jobId").get(verifyJwtForCompany,getApplyStudentList)
 router.route("/hire-student/:studentId/:jobId").get(verifyJwtForCompany,hireStudent)
 router.route("/unhire-all-student/:jobId").get(verifyJwtForCompany,unHiredAllStudent)
-router.route("/change-company-password").post(verifyJwtForCompany,changeCompanyCurrentPassword)
+router.route("/change-company-password").patch(verifyJwtForCompany,changeCompanyCurrentPassword)
 
 // Admin Routes for company
 router.route("/update-company-details/:companyId").patch(verifyAdmin,updateCompanyDetailsByAmin)

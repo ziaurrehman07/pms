@@ -84,10 +84,9 @@ function CompanyDetails({ companyId, onEditClick }) {
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   Website :
                 </td>
-                <td className="font-semibold text-sm p-1">
-                  <a href={company.website} target="_blank" rel="noreferrer">
-                    {/*to update the link tag not working properly*/}
-                    {company.website}
+                <td className="font-semibold text-blue-500 text-sm p-1 ">
+                  <a href={company.website} target="_blank" rel="noreferrer" className="hover:underline">
+                    Visit Us
                   </a>
                 </td>
               </tr>

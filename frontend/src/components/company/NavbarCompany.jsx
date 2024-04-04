@@ -3,15 +3,19 @@ import { CgProfile } from "react-icons/cg";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import LogoutModal from "../LogoutModal";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiUserLine } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IoExitOutline } from "react-icons/io5";
 import GetAllCompanies from "../../API/GetAllCompaniesApi";
+import CompanyPasswordModel from "./Modal/CompanyPasswordModel";
+import CompanyProfileModal from "./Modal/CompanyProfileModal";
 function CompanyNavbar() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
+  const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
+  const [isProfileModalOpen, setProfileModalOpen] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
@@ -34,8 +38,8 @@ function CompanyNavbar() {
     };
   }, []);
 
-  const apiURL1 = "/api/v2/companies/get-current-company-details";
-  const { companies } = GetAllCompanies(apiURL1);
+  const apiUrl = "/api/v2/companies/get-current-company-details";
+  const { companies } = GetAllCompanies(apiUrl);
 
   const handleLogout = async () => {
     try {
@@ -97,19 +101,29 @@ function CompanyNavbar() {
                     <div className="mt-10 mb-32 ">
                       <div className="flex place-items-center mb-5 ">
                         <RiUserLine />
-                        <h1 className="text-sm  ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
-                          Profile
+                        <h1
+                          onClick={() => setProfileModalOpen(true)}
+                          className="text-sm  ml-2 text-gray-500 hover:text-blue-500 cursor-pointer"
+                        >
+                          Change Avatar
                         </h1>
                       </div>
-                      <div className="flex place-items-center  mb-5">
-                        <MdEdit />
-                        <h1 className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
-                          Edit primary info
-                        </h1>
-                      </div>
+                      <Link to="/companyprofiledetail">
+                        <div className="flex place-items-center  mb-5">
+                          <MdEdit />
+                          <h1
+                            className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer"
+                          >
+                            Edit primary info
+                          </h1>
+                        </div>
+                      </Link>
                       <div className="flex place-items-center mb-5 ">
                         <RiLockPasswordLine />
-                        <h1 className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
+                        <h1
+                          onClick={() => setPasswordModalOpen(true)}
+                          className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer"
+                        >
                           Change password
                         </h1>
                       </div>
@@ -130,6 +144,14 @@ function CompanyNavbar() {
                 isOpen={isLogoutModalOpen}
                 onClose={() => setLogoutModalOpen(false)}
                 onLogout={handleLogout}
+              />
+              <CompanyPasswordModel
+                isOpen={isPasswordModalOpen}
+                onClose={() => setPasswordModalOpen(false)}
+              />
+              <CompanyProfileModal
+                isOpen={isProfileModalOpen}
+                onClose={() => setProfileModalOpen(false)}
               />
             </div>
           </div>

@@ -46,6 +46,19 @@ function SidebarCompany() {
             <h1 className=" text-sm whitespace-nowrap">Dashboard</h1>
           </div>
         </Link>
+        <Link to="/companyprofiledetail">
+          <div
+            className={`flex place-items-center mt-3 cursor-pointer ${
+              activeLink === "companyprofiledetail"
+                ? "text-blue-500 font-bold"
+                : "text-gray-500"
+            }`}
+            onClick={() => handleLinkClick("companyprofiledetail")}
+          >
+            <MdOutlineKeyboardCommandKey className="mr-1 text-lg" />
+            <h1 className=" text-sm whitespace-nowrap">Profile Details</h1>
+          </div>
+        </Link>
 
         <Link to="/companyjobprofiles">
           <div
