@@ -55,6 +55,9 @@ function FeedbackComponent({ students }) {
                 <h1 className="text-sm font-semibold whitespace-nowrap">
                   {student.companyOwner.name}
                 </h1>
+                <p className="flex text-xs -mt-1 gap-1 font-semibold text-blue-500">
+                  <p className="text-[10px]">{formatDate(student.createdAt)}</p>
+                </p>
               </div>
             </div>
             <p className="text-sm p-4">{student.content}</p>
