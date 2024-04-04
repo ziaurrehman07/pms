@@ -98,15 +98,15 @@ function StudentProfileEdit({ onEditClick }) {
                       <td className="font-semibold text-sm p-1 whitespace-nowrap">
                         Company Name :
                       </td>
-                      <td className="font-semibold text-sm p-1">
+                      <td className="font-semibold text-green-500 text-sm p-1">
                         {students.designation.company.name}
                       </td>
                     </tr>
                     <tr>
-                      <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                      <td className="font-semibold  text-sm p-1 whitespace-nowrap">
                         Designation :
                       </td>
-                      <td className="font-semibold text-sm p-1">
+                      <td className="font-semibold text-green-500 text-sm p-1">
                         {students.designation.designation}
                       </td>
                     </tr>
@@ -114,8 +114,8 @@ function StudentProfileEdit({ onEditClick }) {
                       <td className="font-semibold text-sm p-1 whitespace-nowrap">
                         Package :
                       </td>
-                      <td className="font-semibold text-sm p-1">
-                        {students.designation.salaryPackage}
+                      <td className="font-semibold text-green-500 text-sm p-1">
+                        {students.designation.salaryPackage} <span>LPA</span>
                       </td>
                     </tr>
                   </>
