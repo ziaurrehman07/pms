@@ -1,8 +1,8 @@
-import { MdOutlineKeyboardCommandKey } from "react-icons/md";
 import { LuBarChart2 } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
 import { IoIosPaper } from "react-icons/io";
 import { RiArrowDropDownLine, RiGalleryLine, RiUserLine } from "react-icons/ri";
+import { AiOutlineHome } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -25,34 +25,22 @@ function Sidebar() {
     setShowResumeDropdown(!showResumeDropdown);
   };
   return (
-    <div className=" ml-3 mr-4 rounded-lg border shadow-md border-[#d2d8d6] mb-4 mt-4 bg-white  flex  flex-col w-[200px] pt-8 p-8 lg:p-8 lg:w-64">
+    <div className=" ml-3 mr-4 rounded-lg border shadow-md border-[#d2d8d6] mb-4 mt-4 bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
       <Link to="/studenthome">
         <div
-          className={` text-md text-black font-extrabold cursor-pointer ${
-            activeLink === "dashboard" ? "" : ""
+          className={`flex justify-center place-items-center  text-lg text-black font-extrabold cursor-pointer ${
+            activeLink === "studenthome" ? "text-blue-500" : "text-black"
           }`}
-          onClick={() => handleLinkClick("")}
+          onClick={() => handleLinkClick("studenthome")}
         >
-          <h4 className="whitespace-nowrap ">IPS Academy</h4>
-        </div>
-      </Link>
-      <Link to="/dashboard">
-        <div
-          className={`flex place-items-center hover:text-blue-500 mt-12 cursor-pointer ${
-            activeLink === "dashboard"
-              ? "text-blue-500 font-bold"
-              : "text-gray-500"
-          }`}
-          onClick={() => handleLinkClick("dashboard")}
-        >
-          <MdOutlineKeyboardCommandKey className="mr-1 text-lg" />
-          <h1 className=" text-sm whitespace-nowrap">Dashboard</h1>
+          <h4 className="whitespace-nowrap  mr-2">IPS Academy</h4>
+          <AiOutlineHome className="text-xl font-bold" />
         </div>
       </Link>
 
       <Link to="/studentprofile">
         <div
-          className={`flex place-items-center hover:text-blue-500 mt-3 cursor-pointer ${
+          className={`flex place-items-center hover:text-blue-500 mt-14 cursor-pointer ${
             activeLink === "studentprofile"
               ? "text-blue-500 font-bold"
               : "text-gray-500"
