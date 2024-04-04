@@ -54,10 +54,6 @@ function JobDetails({ jobId }) {
   }
 
   const applyHandle = async (jobId) => {
-    if (lastDatePassed) {
-      toast.error("The last date for applying to this job has passed.");
-      return;
-    }
     if (loading) return;
     setLoading(true);
     try {
@@ -201,7 +197,6 @@ function JobDetails({ jobId }) {
     </div>
   );
 }
-
 JobDetails.propTypes = {
   jobId: PropTypes.string.isRequired,
 };
