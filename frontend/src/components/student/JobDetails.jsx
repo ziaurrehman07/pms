@@ -19,9 +19,9 @@ function JobDetails({ jobId }) {
         );
         setJob(res.data.data);
         // Check if the last date has passed
-        const lastDate = new Date(res.data.data.lastDate);
+        const lastDate = res.data.data.lastDate;
         const currentDate = new Date();
-        if (currentDate > lastDate) {
+        if (currentDate.toISOString().slice(0,10) > lastDate) {
           setLastDatePassed(true);
         }
       } catch (error) {
