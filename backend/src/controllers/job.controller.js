@@ -80,7 +80,7 @@ const getCurrentJobProfile = asyncHandler(async(req,res)=>{
 
 const getAllJobProfile = asyncHandler(async (req, res) => {
   const jobs = await Job.find({}).sort({createdAt:-1})
-  .select("_id company designation salaryPackage")
+  .select("_id company designation salaryPackage createdAt")
   .populate({
     path:"company",
     select:"name"
