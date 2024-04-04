@@ -99,10 +99,9 @@ function StudentProfileEdit({ onEditClick }) {
                         Company Name :
                       </td>
                       <td className="font-semibold text-sm p-1">
-                        {students.designation.company}
+                        {students.designation.company.name}
                       </td>
                     </tr>
-
                     <tr>
                       <td className="font-semibold text-sm p-1 whitespace-nowrap">
                         Designation :
@@ -113,7 +112,7 @@ function StudentProfileEdit({ onEditClick }) {
                     </tr>
                     <tr>
                       <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                        Company Name :
+                        Package :
                       </td>
                       <td className="font-semibold text-sm p-1">
                         {students.designation.salaryPackage}
@@ -121,6 +120,7 @@ function StudentProfileEdit({ onEditClick }) {
                     </tr>
                   </>
                 )}
+
                 <tr>
                   <td className="font-semibold text-sm p-1 whitespace-nowrap">
                     Address :
