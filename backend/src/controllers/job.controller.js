@@ -219,13 +219,14 @@ const appliedJobsIdByStudent = asyncHandler(async (req, res) => {
   if (!jobs.length) {
     return res.status(404).json(new ApiResponse(404,{},"Not applied for any jobs yet!"));
   }
+  const jobIds = jobs.map(job => job._id);
 
   return res
     .status(200)
     .json(
       new ApiResponse(
         200,
-        jobs,
+        jobIds,
         "Applied jobs list by a Student fetched successfully!"
       )
     );
