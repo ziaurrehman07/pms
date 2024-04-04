@@ -10,7 +10,7 @@ router.route("/delete-job-profile/:jobId").delete(verifyJwtForCompany,deleteJobP
 router.route("/apply-for-job/:jobId").get(verifyJWT,applyForJob)
 router.route("/applied-jobid-student").get(verifyJWT,appliedJobsIdByStudent)
 router.route("/get-all-jobs").get(verifyJWT,getAllJobProfile)
-router.route("/get-job-details/:jobId").get(verifyJWT,getJobDetailsById)
+router.route("/get-job-details/:jobId").get(getJobDetailsById)
 router.route("/get-current-company-all-jobs").get(verifyJwtForCompany,getCompanyAllJobs)
 router.route("/get-current-company-job-details/:jobId").get(verifyJwtForCompany,getCompanyJobDetailsById)
 
