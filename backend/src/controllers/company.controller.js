@@ -9,6 +9,7 @@ import {
 } from "../utils/cloudinary.util.js";
 import { User } from "../models/user.model.js";
 import mongoose from "mongoose";
+import { sendMail } from "../utils/emailSender.util.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -343,6 +344,15 @@ const hireStudent = asyncHandler(async (req, res) => {
       new:true
     }
   )
+
+  const subject ="Student hire!"
+  const content = `Congratulations! You've Been Hired: ${job.designation} at ${company.name}`
+
+  const mailResponse = sendMail(subject,content,student.email)
+
+  if(!mailResponse){
+    console.log("Mail not sent")
+  }
 
   return res
     .status(200)
