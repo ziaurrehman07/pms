@@ -9,7 +9,7 @@ function Feedback() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("studenToken");
+    const token = localStorage.getItem("studentToken");
     if (!token) {
       navigate("/");
     }
@@ -36,13 +36,13 @@ function Feedback() {
         studentData
       );
       response.data;
-      toast.success("Feedback created successfully!");
+      toast.success("Feedback send successfully!");
       setStudentData({
         content: "",
       });
     } catch (error) {
-      console.error("Error creating feedback:", error.response.data.message);
-      toast.error("Error creating feedback. Please try again.");
+      console.error("Error submitting feedback:", error.response.data.message);
+      toast.error("Error sending feedback. Please try again.");
     }
     setLoading(false);
   };

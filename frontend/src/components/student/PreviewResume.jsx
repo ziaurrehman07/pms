@@ -6,7 +6,7 @@ function PreviewResume() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("studenToken");
+    const token = localStorage.getItem("studentToken");
     if (!token) {
       navigate("/");
     }

@@ -42,7 +42,7 @@ function Login() {
         const userRole = data.data.loggedInUser.role;
         // console.log(userRole);
         if (userRole === "student") {
-          localStorage.setItem("studenToken", data.data.accessToken);
+          localStorage.setItem("studentToken", data.data.accessToken);
           navigate("/studenthome");
           window.location.reload();
         } else if (userRole === "admin") {

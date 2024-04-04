@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
+import PropTypes from "prop-types";
 
 function CompanyDetails({ companyId, onEditClick }) {
   const [company, setCompany] = useState(null);
@@ -127,5 +128,8 @@ function CompanyDetails({ companyId, onEditClick }) {
     </div>
   );
 }
-
+CompanyDetails.propTypes = {
+  companyId: PropTypes.string.isRequired,
+  onEditClick: PropTypes.func.isRequired,
+};
 export default CompanyDetails;

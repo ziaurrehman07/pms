@@ -92,6 +92,35 @@ function StudentProfileEdit({ onEditClick }) {
                     {students.mobile}
                   </td>
                 </tr>
+                {students.isPlaced && (
+                  <>
+                    <tr>
+                      <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                        Company Name :
+                      </td>
+                      <td className="font-semibold text-sm p-1">
+                        {students.designation.company}
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                        Designation :
+                      </td>
+                      <td className="font-semibold text-sm p-1">
+                        {students.designation.designation}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                        Company Name :
+                      </td>
+                      <td className="font-semibold text-sm p-1">
+                        {students.designation.salaryPackage}
+                      </td>
+                    </tr>
+                  </>
+                )}
                 <tr>
                   <td className="font-semibold text-sm p-1 whitespace-nowrap">
                     Address :

@@ -9,7 +9,7 @@ function UpdateResume() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("studenToken");
+    const token = localStorage.getItem("studentToken");
     if (!token) {
       navigate("/");
     }

@@ -7,6 +7,7 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
   const [job, setJob] = useState(null);
   const [hiredStudents, setHiredStudents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [designation, setDesignation] = useState(null);
 
   useEffect(() => {
     const fetchCompanyJobDetails = async () => {
@@ -15,6 +16,11 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
           `/api/v2/companies/get-applied-students-list/${jobId}`
         );
         setJob(res.data.data);
+        const resDesignation = await axios.get(
+          `/api/v3/companies/job/get-job-details/${jobId}`
+        );
+        setDesignation(resDesignation.data.data.designation);
+        console.log("designation ", resDesignation.data.data.designation);
       } catch (error) {
         console.log(error);
       }
@@ -54,12 +60,15 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
 
   return (
     <div className="mt-4 h-[550px]  bg-white mb-4 w-[500px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
-      <div className="sticky top-0 bg-white border-b border-black  mx-4 flex justify-between place-items-center h-10">
+      <div className="sticky top-0 bg-white border-b border-black  mx-4 flex justify-between place-items-center h-14">
         <h1 className="pl-3  font-bold text-blue-500 ">
           APPLIED STUDENTS :
           <span className="ml-2 text-black whitespace-nowrap font-semibold text-md">
             {job.length}
           </span>
+          <p className="text-[13px] font-semibold -mt-2  -mb-2 text-black">
+            {designation}
+          </p>
         </h1>
         <div className="mr-8 text-sm font-bold text-red-600 border border-red-500 px-2 py-1 rounded-lg">
           <button onClick={() => setIsModalOpen(true)}>UNHIRE ALL</button>
