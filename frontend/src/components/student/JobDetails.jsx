@@ -23,6 +23,8 @@ function JobDetails({ jobId }) {
         const currentDate = new Date();
         if (currentDate.toISOString().slice(0,10) > lastDate) {
           setLastDatePassed(true);
+        }else{
+          setLastDatePassed(false)
         }
       } catch (error) {
         console.log(error);
