@@ -3,9 +3,13 @@ import TruncatedText from "../../services/TruncatedText";
 import axios from "axios";
 import { CgProfile } from "react-icons/cg";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 function JobDetails({ jobId }) {
   const [job, setJob] = useState(null);
+  const [applyJob, setApplyJobs] = useState([]);
+  const [lastDatePassed, setLastDatePassed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchCompanyJobDetails = async () => {
@@ -14,6 +18,12 @@ function JobDetails({ jobId }) {
           `/api/v3/companies/job/get-job-details/${jobId}`
         );
         setJob(res.data.data);
+        // Check if the last date has passed
+        const lastDate = new Date(res.data.data.lastDate);
+        const currentDate = new Date();
+        if (currentDate > lastDate) {
+          setLastDatePassed(true);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -24,13 +34,44 @@ function JobDetails({ jobId }) {
     }
   }, [jobId]);
 
-  if (!job) {
-    return;
-  }
+  useEffect(() => {
+    const fetchAppliedJobs = async () => {
+      try {
+        const res = await axios.get(
+          "/api/v3/companies/job/applied-jobid-student"
+        );
+        setApplyJobs(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchAppliedJobs();
+  }, []);
 
   if (!job) {
     return null;
   }
+
+  const applyHandle = async (jobId) => {
+    if (lastDatePassed) {
+      toast.error("The last date for applying to this job has passed.");
+      return;
+    }
+    if (loading) return;
+    setLoading(true);
+    try {
+      await axios.get(`/api/v3/companies/job/apply-for-job/${jobId}`);
+      setApplyJobs([...applyJob, jobId]);
+      toast.success("Applied for the job successfully!");
+      console.log("Applied for the job successfully!");
+    } catch (error) {
+      console.log(error);
+      toast.error("You are not eligible for the job.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[480px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
@@ -134,18 +175,35 @@ function JobDetails({ jobId }) {
           </table>
         </div>
       </div>
-
-      <div className="btns flex  justify-evenly mt-4 mb-4">
-        <button className="bg-blue-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
-          APPLY
-        </button>
-      </div>
+      {!lastDatePassed ? (
+        <div className="btns flex  justify-evenly mt-4 mb-4">
+          <button
+            onClick={() => applyHandle(jobId)}
+            className={`bg-blue-600 px-8 rounded-lg text-xs font-semibold text-white py-2 ${
+              applyJob.includes(jobId) ? "bg-green-500" : "bg-blue-500"
+            }`}
+            disabled={applyJob.includes(jobId) || loading}
+          >
+            {loading
+              ? "APPLYING..."
+              : applyJob.includes(jobId)
+              ? "APPLIED"
+              : "APPLY"}
+          </button>
+        </div>
+      ) : (
+        <div className="btns flex  justify-evenly mt-4 mb-4">
+          <button className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
+            EXPIRED
+          </button>
+        </div>
+      )}
     </div>
   );
 }
 
 JobDetails.propTypes = {
-  jobId: PropTypes.array.isRequired,
+  jobId: PropTypes.string.isRequired,
 };
 
 export default JobDetails;

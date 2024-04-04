@@ -1,12 +1,16 @@
 import { CgProfile } from "react-icons/cg";
 import PropTypes from "prop-types";
 function JobUpdatesList({ jobs, onJobClick }) {
+  // Function to format date
+  const formatDate = (dateString) => {
+    return dateString.slice(0, 10);
+  };
   return (
     <div className="mt-4 h-[550px]  bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-2 flex justify-between place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-500">
           JOB LIST :
-          <span className="ml-2 text-black whitespace-nowrap text-xs font-semibold text-xs">
+          <span className="ml-2 text-black whitespace-nowrap font-semibold text-xs">
             {jobs.length}
           </span>
         </h2>
@@ -36,7 +40,13 @@ function JobUpdatesList({ jobs, onJobClick }) {
               </p>
               <p className="text-xs font-semibold">
                 <span className="mr-1">Package :</span>
-                {job.salaryPackage} <span>LPA</span>
+                {job.salaryPackage} <span>LPA</span>{" "}
+                <p className="text-[10px] font-semibold">
+                  <span> Created Date :</span>{" "}
+                  <span className="text-blue-500">
+                    {formatDate(job.createdAt)}
+                  </span>
+                </p>
               </p>
             </div>
           </div>
