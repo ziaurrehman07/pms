@@ -2,7 +2,7 @@ import { LuBarChart2 } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
 import { IoIosPaper } from "react-icons/io";
 import { RiArrowDropDownLine, RiGalleryLine, RiUserLine } from "react-icons/ri";
-import { AiOutlineHome } from "react-icons/ai";
+// import { AiOutlineHome } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -25,7 +25,7 @@ function Sidebar() {
     setShowResumeDropdown(!showResumeDropdown);
   };
   return (
-    <div className=" ml-3 mr-4 rounded-lg border shadow-md border-[#d2d8d6] mb-4 mt-4 bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
+    <div className=" ml-3 mr-4 rounded-lg border  shadow-md border-[#d2d8d6] mb-4 mt-4 bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
       <Link to="/studenthome">
         <div
           className={`flex justify-center place-items-center  text-lg text-black font-extrabold cursor-pointer ${
@@ -34,7 +34,7 @@ function Sidebar() {
           onClick={() => handleLinkClick("studenthome")}
         >
           <h4 className="whitespace-nowrap  mr-2">Student panel</h4>
-          <AiOutlineHome className="text-xl font-bold" />
+          {/* <AiOutlineHome className="text-xl font-bold" /> */}
         </div>
       </Link>
 

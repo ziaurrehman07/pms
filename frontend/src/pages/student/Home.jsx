@@ -1,11 +1,9 @@
 import { useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
 import GetAllStudents from "../../API/GetAllStudentsApi";
+import NoticeComponent from "../../components/notice/NoticeComponent";
 
 function Home() {
-  const apiUrl = "/api/v1/users/get-user";
-  const { students } = GetAllStudents(apiUrl);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,14 +12,16 @@ function Home() {
       navigate("/");
     }
   }, []);
+  const apiUrl = "/api/v1/users/get-all-notices";
+  const { students } = GetAllStudents(apiUrl);
   return (
-    <>
-      <div className="ml-4 flex justify-center place-items-center mt-32">
-        <div>
-          Welcome, <strong>{students.fullName}</strong>
-        </div>
+    <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
+      <h1 className="text-blue-600 font-bold text-lg">NOTICE</h1>
+      <div className="h-[450px]   p-4 justify-items-center rounded-lg  overflow-y-scroll no-scrollbar">
+        {/* feedback component */}
+        <NoticeComponent admin={students} />
       </div>
-    </>
+    </div>
   );
 }
 

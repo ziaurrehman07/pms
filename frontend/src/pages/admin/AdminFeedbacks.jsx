@@ -19,18 +19,12 @@ function AdminFeedbacks() {
   const { students } = GetAllStudents(apiUrl);
 
   const handleDelete = async () => {
-    // Show confirmation dialog before deleting
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete all feedbacks?"
-    );
-    if (confirmDelete) {
-      try {
-        await axios.delete("/api/v4/feedback/delete-all-feedbacks");
-        console.log("Feedbacks deleted successfully");
-        window.location.reload();
-      } catch (error) {
-        console.log("Error deleting student:", error);
-      }
+    try {
+      await axios.delete("/api/v4/feedback/delete-all-feedbacks");
+      console.log("Feedbacks deleted successfully");
+      window.location.reload();
+    } catch (error) {
+      console.log("Error deleting student:", error);
     }
   };
   return (
