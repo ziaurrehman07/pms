@@ -543,13 +543,14 @@ const getStudentDetails = asyncHandler(async (req, res) => {
 });
 
 const publishNewNotice = asyncHandler(async (req, res) => {
-  const { message } = req.body;
-  if (!message) {
-    throw new ApiError(400, "Message is required! ");
+  const { message ,title} = req.body;
+  if (!message  || !title ) {
+    throw new ApiError(400, "Title and Message is required!");
   }
 
   const notice = await Notice.create({
     message: message,
+    title:title
   });
 
   if (!notice) {
