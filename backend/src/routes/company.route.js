@@ -19,6 +19,8 @@ router.route("/change-company-password").post(verifyJwtForCompany,changeCompanyC
 
 // Admin Routes for company
 router.route("/update-company-details/:companyId").patch(verifyAdmin,updateCompanyDetailsByAmin)
+
+// Admin and Student Routes for company
 router.route("/get-company-details/:companyId").get(verifyJWT,getCompanyDetails)
 router.route("/get-all-companies-list").get(verifyJWT,getAllCompanyDetails)
 

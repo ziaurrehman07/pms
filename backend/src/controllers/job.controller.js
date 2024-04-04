@@ -42,10 +42,10 @@ const newJobProfile = asyncHandler(async (req, res) => {
   if (!job) {
     throw new ApiError(400, "Something went wrong while creating job profile");
   }
-  const email = await getAllStudentEmails()
-  const subject = `Job alert`
-  const content = `New Job profile is added for ${job.designation} in ${req.company?.name} .`
-  const mailResponse = await sendMail(subject,content,email)
+  const email = await getAllStudentEmails();
+  const subject = `Job alert`;
+  const content = `New Job profile is added for ${job.designation} in ${req.company?.name} .`;
+  const mailResponse = await sendMail(subject, content, email);
 
   return res
     .status(200)
@@ -64,32 +64,33 @@ const deleteJobProfile = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, job, "Job Profile is deleted successfully"));
 });
 
-const getCurrentJobProfile = asyncHandler(async(req,res)=>{
-  const {jobId} = req.params
-  const job = await Job.findById(jobId)
-  if(!job){
-    throw new ApiError(404,"Job not found")
+const getCurrentJobProfile = asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  const job = await Job.findById(jobId);
+  if (!job) {
+    throw new ApiError(404, "Job not found");
   }
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,job,"Current job profile fetched successfully")
-  )
-})
+    .status(200)
+    .json(
+      new ApiResponse(200, job, "Current job profile fetched successfully")
+    );
+});
 
 const getAllJobProfile = asyncHandler(async (req, res) => {
-  const jobs = await Job.find({}).sort({createdAt:-1})
-  .select("_id company designation salaryPackage createdAt")
-  .populate({
-    path:"company",
-    select:"name"
-  })
+  const jobs = await Job.find({})
+    .sort({ createdAt: -1 })
+    .select("_id company designation salaryPackage createdAt")
+    .populate({
+      path: "company",
+      select: "name",
+    });
 
   if (!jobs.length) {
     return res
-    .status(404)
-    .json(new ApiResponse(404, {}, "Job Profiles not found"));
+      .status(404)
+      .json(new ApiResponse(404, {}, "Job Profiles not found"));
   }
 
   return res
@@ -97,32 +98,29 @@ const getAllJobProfile = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, jobs, "Job Profiles fetched successfully"));
 });
 
-const getJobDetailsById = asyncHandler(async(req,res)=>{
-  const {jobId} =req.params;
-  
-  if(!jobId){
-    throw new ApiError(404,"Job id is required !")
+const getJobDetailsById = asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+
+  if (!jobId) {
+    throw new ApiError(404, "Job id is required !");
   }
 
-  const job = await Job.findById(jobId)
-  .populate({
-    path:"company",
-    select:"name address website avatar"
-  })
+  const job = await Job.findById(jobId).populate({
+    path: "company",
+    select: "name address website avatar",
+  });
 
-  if(!job){
-    throw new ApiError(404,"Job profile doesn't exist")
+  if (!job) {
+    throw new ApiError(404, "Job profile doesn't exist");
   }
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,job, "Job Details fetched Successfully!")
-  )
-})
+    .status(200)
+    .json(new ApiResponse(200, job, "Job Details fetched Successfully!"));
+});
 
 const updateJobProfile = asyncHandler(async (req, res) => {
-  const {jobId}= req.params
+  const { jobId } = req.params;
   const {
     designation,
     description,
@@ -134,10 +132,7 @@ const updateJobProfile = asyncHandler(async (req, res) => {
   } = req.body;
 
   const job = await Job.findOne({
-    $and: [
-      { company: req.company._id },
-      { _id: jobId }
-    ]
+    $and: [{ company: req.company._id }, { _id: jobId }],
   });
 
   const newJobProfile = await Job.findOneAndUpdate(
@@ -167,18 +162,18 @@ const updateJobProfile = asyncHandler(async (req, res) => {
 
 const applyForJob = asyncHandler(async (req, res) => {
   const student = req.user;
-  const {jobId} = req.params
-  const currentDate = getFormattedDate()
+  const { jobId } = req.params;
+  const currentDate = getFormattedDate();
   const isJobAvailable = await Job.findById(jobId);
   if (!isJobAvailable) {
     throw new ApiError(400, "Job profile is not available");
   }
   const existingApplication = await Job.findOne({
-    $and:[{_id:jobId},{students:{$in:[student._id]}}]
+    $and: [{ _id: jobId }, { students: { $in: [student._id] } }],
   });
 
-  if(existingApplication){
-    throw new ApiError(400,"You have already applied in this company")
+  if (existingApplication) {
+    throw new ApiError(400, "You have already applied in this company");
   }
 
   if (
@@ -186,7 +181,7 @@ const applyForJob = asyncHandler(async (req, res) => {
       student.result_10 >= isJobAvailable.criteria_10 &&
       student.result_12 >= isJobAvailable.criteria_12 &&
       student.college_cgpa >= isJobAvailable.criteria_cllg_cgpa &&
-      student.resume !==""  &&
+      student.resume !== "" &&
       currentDate <= isJobAvailable.lastDate &&
       student.isPlaced === false
     )
@@ -213,51 +208,66 @@ const applyForJob = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, job, "Successfully applied for the job "));
 });
 
-const getCompanyAllJobs = asyncHandler(async(req,res)=>{
-  const companyId = req.company?._id
-  if(!companyId){
-    throw new ApiError(404,"Unauthorized access")
-  }
-
-  const jobs = await Job.find({company:companyId})
-  .select("designation lastDate")
-
-  if(!jobs.length){
-    return res
-    .status(404)
-    .json(
-      new ApiResponse(404,{},"No Jobs found!")
-    )
-  }
-
-  return res
-  .status(200)
-  .json(
-    new ApiResponse(200,jobs,"Jobs fetched successfully!")
-  )
-})
-
-const getCompanyJobDetailsById = asyncHandler(async(req,res)=>{
-  const {jobId} = req.params
-  if(!jobId){
-    throw new ApiError(404,"Job id is required!")
-  }
-
-  const job = await Job.findById(jobId)
-  .populate({
-    path:"students",
-    select:"fullName enrollment"
+const appliedJobsIdByStudent = asyncHandler(async (req, res) => {
+  const jobs = await Job.find({
+    students: {
+      $in:req.user?._id,
+    }
+  },{
+    _id:1
   })
-  if(!job){
-    throw new ApiError(404,"Job not found!")
+  if (!jobs.length) {
+    return res.status(404).json(new ApiResponse(404,{},"Not applied for any jobs yet!"));
   }
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200,job,"Job details fetched successfully!")
-  )
-})
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        jobs,
+        "Applied jobs list by a Student fetched successfully!"
+      )
+    );
+});
+
+const getCompanyAllJobs = asyncHandler(async (req, res) => {
+  const companyId = req.company?._id;
+  if (!companyId) {
+    throw new ApiError(404, "Unauthorized access");
+  }
+
+  const jobs = await Job.find({ company: companyId }).select(
+    "designation lastDate"
+  );
+
+  if (!jobs.length) {
+    return res.status(404).json(new ApiResponse(404, {}, "No Jobs found!"));
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, jobs, "Jobs fetched successfully!"));
+});
+
+const getCompanyJobDetailsById = asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  if (!jobId) {
+    throw new ApiError(404, "Job id is required!");
+  }
+
+  const job = await Job.findById(jobId).populate({
+    path: "students",
+    select: "fullName enrollment",
+  });
+  if (!job) {
+    throw new ApiError(404, "Job not found!");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, job, "Job details fetched successfully!"));
+});
 
 export {
   newJobProfile,
@@ -265,8 +275,9 @@ export {
   getAllJobProfile,
   updateJobProfile,
   applyForJob,
+  appliedJobsIdByStudent,
   getCurrentJobProfile,
   getJobDetailsById,
   getCompanyAllJobs,
-  getCompanyJobDetailsById
+  getCompanyJobDetailsById,
 };

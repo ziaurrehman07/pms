@@ -287,15 +287,15 @@ const getApplyStudentList = asyncHandler(async (req, res) => {
 });
 
 const getAllCompanyDetails = asyncHandler(async (req, res) => {
-  const companies = await Company.find({},{name:1,avatar:1});
-  if (!companies) {
-    throw new ApiError(400, "Company details is not available");
+  const companies = await Company.find({},{name:1,avatar:1}).sort({createdAt:-1});
+  if (!companies.length) {
+    throw new ApiError(400, "No Company Found!");
   }
 
   return res
     .status(200)
     .json(
-      new ApiResponse(200, companies, "Companies details fetched successfully")
+      new ApiResponse(200, companies, "Companies list fetched successfully!")
     );
 });
 
