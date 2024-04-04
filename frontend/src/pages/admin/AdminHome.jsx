@@ -53,7 +53,7 @@ function AdminHome() {
       <h1 className="text-blue-600 font-bold text-lg">
         SEND NOTICE TO ALL STUDENTS
       </h1>
-      <div className="h-[450px] w-[880px] p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
+      <div className="h-[450px] w-full p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
         <div className="forming h-[380px] w-[460px]">
           <form
             onSubmit={handleSubmit}
@@ -67,7 +67,7 @@ function AdminHome() {
               required
               placeholder="Title of the notice..."
               type="text"
-              className="mb-2 w-[640px]  bg-blue-100 p-4 rounded-lg outline-none  "
+              className="mb-2 w-[640px] px-8 font-semibold bg-blue-100 p-4 rounded-lg outline-none  "
             />
             <textarea
               className="p-8 outline-none  w-[640px]  bg-gray-100 rounded-lg mb-8 font-medium"

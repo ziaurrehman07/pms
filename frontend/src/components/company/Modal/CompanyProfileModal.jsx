@@ -15,7 +15,9 @@ const CompanyProfileModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     const fetchStudentDetails = async () => {
       try {
-        const res = await axios.get(`/api/v2/companies/get-current-company-details`);
+        const res = await axios.get(
+          `/api/v2/companies/get-current-company-details`
+        );
         const studentData = res.data.data;
         setValues(studentData); // Set the retrieved student details in the state
       } catch (error) {
