@@ -29,11 +29,11 @@ function Sidebar() {
       <Link to="/studenthome">
         <div
           className={`flex justify-center place-items-center  text-lg text-black font-extrabold cursor-pointer ${
-            activeLink === "studenthome" ? "text-blue-500" : "text-black"
+            activeLink === "studenthome" ? "" : "text-black"
           }`}
           onClick={() => handleLinkClick("studenthome")}
         >
-          <h4 className="whitespace-nowrap  mr-2">IPS Academy</h4>
+          <h4 className="whitespace-nowrap  mr-2">Student panel</h4>
           <AiOutlineHome className="text-xl font-bold" />
         </div>
       </Link>
