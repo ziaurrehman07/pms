@@ -17,10 +17,16 @@ function AdminStudents() {
   }, []);
 
   const apiUrl = "/api/v1/users/get-students-detail";
-  const { students, loading, error } = GetAllStudents(apiUrl);
+  const { students, loading, error, refetch } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isEditClicked, setIsEditClicked] = useState(false);
 
+  useEffect(() => {
+    // Call refetch with a callback function
+    refetch(() => {
+      console.log("Data refetched!"); // Additional actions after data is refetched
+    });
+  }, []);
   if (loading)
     return (
       <button

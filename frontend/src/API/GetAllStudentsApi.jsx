@@ -6,19 +6,21 @@ const GetAllStudents = (url) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(url);
-        setStudents(response.data.data);
-        // console.log(response.data.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(url);
+      setStudents(response.data.data);
+      setError(null); // Clear error if data fetching is successful
+    } catch (error) {
+      setError("An error occurred while fetching data.");
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
 
     // Cleanup function
@@ -28,7 +30,15 @@ const GetAllStudents = (url) => {
     };
   }, [url]); // Re-run effect when URL changes
 
-  return { students, loading, error };
+  const refetch = (callback) => {
+    fetchData().then(() => {
+      if (typeof callback === "function") {
+        callback();
+      }
+    });
+  };
+
+  return { students, loading, error, refetch };
 };
 
 export default GetAllStudents;

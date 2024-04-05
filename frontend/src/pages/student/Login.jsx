@@ -101,7 +101,7 @@ function Login() {
             >
               {loading ? (
                 <>
-                  <span>Loading..</span>
+                  <span>Submitting..</span>
                 </>
               ) : (
                 "Login"
