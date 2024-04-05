@@ -50,8 +50,8 @@ const task = async () => {
   try {
     const jobs = await Job.find({
       lastDate: {
-        $gte: manipulateDate(currentDate, -1),
-        $lt: manipulateDate(currentDate, 1),
+        $lt: manipulateDate(currentDate, -1),
+        $gte: manipulateDate(currentDate, 1),
       },
     }).populate("company");
 
