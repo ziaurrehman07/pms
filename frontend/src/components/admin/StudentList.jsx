@@ -49,7 +49,7 @@ function StudentList({ students, onStudentClick }) {
   );
 }
 StudentList.propTypes = {
-  students: PropTypes.string.isRequired,
+  students: PropTypes.array.isRequired,
   onStudentClick: PropTypes.func.isRequired,
 };
 export default StudentList;

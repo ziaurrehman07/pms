@@ -11,7 +11,7 @@ const GetAllJobs = (url) => {
       try {
         const response = await axios.get(url);
         setJobs(response.data.data);
-        // console.log(response.data.data);
+        console.log(response);
         setLoading(false);
       } catch (error) {
         setError(error);

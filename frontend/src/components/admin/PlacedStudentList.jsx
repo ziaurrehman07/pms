@@ -33,7 +33,7 @@ function PlacedStudentList({ students, onStudentClick }) {
                 {student.fullName}
               </h1>
               <p className="text-blue-500 text-xs font-bold ">
-                {student.branch}
+                {student.enrollment}
               </p>
             </div>
           </div>
@@ -43,7 +43,7 @@ function PlacedStudentList({ students, onStudentClick }) {
   );
 }
 PlacedStudentList.propTypes = {
-  students: PropTypes.string.isRequired,
+  students: PropTypes.array.isRequired,
   onStudentClick: PropTypes.func.isRequired,
 };
 export default PlacedStudentList;
