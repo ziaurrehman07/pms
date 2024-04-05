@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { changeCompanyCurrentPassword, getAllCompanyDetails, getApplyStudentList, getCompanyDetails, getCurrentCompanyDetails, hireStudent, loginCompany, logOutCompany,registerCompany, unHiredAllStudent, updateCompanyAvatar, updateCompanyDetails, updateCompanyDetailsByAmin } from "../controllers/company.controller.js"
+import { changeCompanyCurrentPassword, getAllCompanyDetails, getApplyStudentList, getCompanyDetails, getCurrentCompanyDetails, hireStudent, loginCompany, logOutCompany,registerCompany, unHiredAllStudent, unPlacedStudentByCompany, updateCompanyAvatar, updateCompanyDetails, updateCompanyDetailsByAmin } from "../controllers/company.controller.js"
 import { verifyJwtForCompany,verifyAdmin, verifyJWT } from "../middlewares/auth.middleware.js"
 import { upload } from "../middlewares/multer.middleware.js"
 
@@ -14,6 +14,7 @@ router.route("/get-current-company-details").get(verifyJwtForCompany,getCurrentC
 router.route("/update-company-avatar").patch(verifyJwtForCompany,upload.single("avatar"),updateCompanyAvatar)
 router.route("/get-applied-students-list/:jobId").get(verifyJwtForCompany,getApplyStudentList)
 router.route("/hire-student/:studentId/:jobId").get(verifyJwtForCompany,hireStudent)
+router.route("/unhire-student/:studentId").get(verifyJwtForCompany,unPlacedStudentByCompany)
 router.route("/unhire-all-student/:jobId").get(verifyJwtForCompany,unHiredAllStudent)
 router.route("/change-company-password").patch(verifyJwtForCompany,changeCompanyCurrentPassword)
 

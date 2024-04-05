@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware.js";
-import { verifyJWT, verifyAdmin } from "../middlewares/auth.middleware.js";
+import { verifyJWT, verifyAdmin, verifyJwtForCompany } from "../middlewares/auth.middleware.js";
 import {
   registerStudent,
   loginUser,
@@ -13,7 +13,6 @@ import {
   updateStudentResume,
   previewResume,
   previewAvatar,
-  placedStudentsDetails,
   deleteStudent,
   deleteCompany,
   getAllStudents,
@@ -21,6 +20,10 @@ import {
   updateStudentDetailsByAdmin,
   publishNewNotice,
   getAllNotice,
+  deleteNoticeByAdmin,
+  placedStudentsDetailsById,
+  placedStudentsListByAdmin,
+  placedStudentsListByCompany,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -47,12 +50,19 @@ router
 router.route("/preview-resume").get(verifyJWT, previewResume);
 router.route("/preview-avatar").get(verifyJWT, previewAvatar);
 router
-  .route("/placed-students-details")
-  .get(verifyAdmin, placedStudentsDetails);
+  .route("/placed-students-details/:studentId")
+  .get(placedStudentsDetailsById);
+router
+  .route("/placed-student-list")
+  .get(verifyAdmin ,placedStudentsListByAdmin);
+router
+  .route("/company-placed-student-list")
+  .get(verifyJwtForCompany ,placedStudentsListByCompany);
 router.route("/delete-student/:studentId").delete(verifyAdmin, deleteStudent);
 router.route("/delete-company/:companyId").delete(verifyAdmin, deleteCompany);
 router.route("/get-student-details/:studentId").get(getStudentDetails);
 router.route("/get-all-notices").get(verifyJWT, getAllNotice);
 router.route("/publish-new-notice").post(verifyAdmin,publishNewNotice);
+router.route("/delete-notice/:noticeId").delete(verifyAdmin,deleteNoticeByAdmin);
 
 export default router;

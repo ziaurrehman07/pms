@@ -385,6 +385,34 @@ const unHiredAllStudent = asyncHandler(async(req,res)=>{
   )
 })
 
+const unPlacedStudentByCompany = asyncHandler(async(req,res)=>{
+  const {studentId} = req.params
+  const student = await User.findByIdAndUpdate(
+    studentId,
+    {
+      $unset:{designation:1},
+      isPlaced:false
+    },{
+      new:true
+    }
+  ).select("-password -refreshToken") 
+
+  const company = await Company.findByIdAndUpdate(
+    req.company?._id,
+    {
+      $pull:{
+        selectedStudents:studentId
+      }
+    }
+  )
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,{student},"Student unhired Successfully!")
+  )
+})
+
 const changeCompanyCurrentPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   const company = await Company.findById(req.company._id);
@@ -415,6 +443,7 @@ export {
   getAllCompanyDetails,
   hireStudent,
   unHiredAllStudent,
+  unPlacedStudentByCompany,
   changeCompanyCurrentPassword,
   updateCompanyDetailsByAmin,
 };

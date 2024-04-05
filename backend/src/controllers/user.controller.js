@@ -11,6 +11,7 @@ import {
 import jwt from "jsonwebtoken";
 import { sendMail } from "../utils/emailSender.util.js";
 import { Notice } from "../models/notification.model.js";
+import  mongoose  from "mongoose";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -404,17 +405,92 @@ const downloadResume = asyncHandler(async (req, res) => {
   return res.redirect(resumeUrl);
 });
 
-const placedStudentsDetails = asyncHandler(async (req, res) => {
-  const students = await User.find({
-    isPlaced: true,
-  }).select("-password -refreshToken");
+const placedStudentsListByAdmin = asyncHandler(async (req, res) => {
+  const students = await User.find(
+    {
+      isPlaced: true,
+    },
+    {
+      fullName: 1,
+      avatar: 1,
+      enrollment: 1,
+    }
+  ).select("-password -refreshToken");
+
+  if (!students.length) {
+    return res
+      .status(404)
+      .json(new ApiResponse(404, {}, "No Students Placed Yet!"));
+  }
+  return res
+    .status(200)
+    .json(new ApiResponse(200, students, "No Students Placed Yet!"));
+});
+
+const placedStudentsListByCompany = asyncHandler(async (req, res) => {
+  const students = await Job.aggregate([
+    { $match: { company: req.company?._id }},
+    { $unwind: "$students" },
+    {
+      $lookup: {
+        from: "users",
+        localField: "students",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+    { $unwind: "$user" },
+    { $match: { "user.isPlaced": true } },
+    {
+      $project: {
+        _id: "$user._id",
+        fullName: "$user.fullName",
+        email: "$user.email",
+        resume: "$user.resume",
+        avatar: "$user.avatar",
+        address: "$user.address",
+        mobile: "$user.mobile",
+      },
+    },
+  ]);
+
+  if (!students.length) {
+    return res
+      .status(404)
+      .json(new ApiResponse(404, {}, "No Students Placed Yet!"));
+  }
+  return res
+    .status(200)
+    .json(new ApiResponse(200, students, "No Students Placed Yet!"));
+});
+
+const placedStudentsDetailsById = asyncHandler(async (req, res) => {
+  const { studentId } = req.params;
+  if (!studentId) {
+    throw new ApiError(404, "Student id is required!");
+  }
+
+  const student = await User.findById(studentId)
+    .populate({
+      path: "designation",
+      select: "company salaryPackage designation",
+      populate: {
+        path: "company",
+        select: "name",
+      },
+    })
+    .select("-password -refreshToken");
+
+  if (!student) {
+    throw new ApiError(404, "Student Not Found");
+  }
 
   return res
     .status(200)
     .json(
       new ApiResponse(
         200,
-        { students },
+        student,
         "Placed students details fetched successfully"
       )
     );
@@ -503,7 +579,7 @@ const getAllStudents = asyncHandler(async (req, res) => {
   const students = await User.find(
     { role: "student" },
     { fullName: 1, _id: 1, avatar: 1, branch: 1 }
-  ).sort({"fullName":1});
+  ).sort({ fullName: 1 });
   if (!students) {
     throw new ApiError(400, "Student details is not available");
   }
@@ -543,14 +619,14 @@ const getStudentDetails = asyncHandler(async (req, res) => {
 });
 
 const publishNewNotice = asyncHandler(async (req, res) => {
-  const { message ,title} = req.body;
-  if (!message  || !title ) {
+  const { message, title } = req.body;
+  if (!message || !title) {
     throw new ApiError(400, "Title and Message is required!");
   }
 
   const notice = await Notice.create({
     message: message,
-    title:title
+    title: title,
   });
 
   if (!notice) {
@@ -563,16 +639,26 @@ const publishNewNotice = asyncHandler(async (req, res) => {
 });
 
 const getAllNotice = asyncHandler(async (req, res) => {
-  const notices = await Notice.find({}).sort({createdAt:-1});
+  const notices = await Notice.find({}).sort({ createdAt: -1 });
   if (!notices.length) {
     return res.status(404).json(new ApiResponse(404, {}, "No Notices Found"));
   }
 
   return res
-  .status(200)
-  .json(
-    new ApiResponse(200, notices, "All notices fetched successfully")
-  )
+    .status(200)
+    .json(new ApiResponse(200, notices, "All notices fetched successfully"));
+});
+
+const deleteNoticeByAdmin = asyncHandler(async (req, res) => {
+  const { noticeId } = req.params;
+  if (!noticeId) {
+    throw new ApiError(404, "Notice id is required!");
+  }
+  await Notice.findByIdAndDelete(noticeId);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Notice deleted Successfully!"));
 });
 
 export {
@@ -588,7 +674,9 @@ export {
   previewResume,
   previewAvatar,
   downloadResume,
-  placedStudentsDetails,
+  placedStudentsListByAdmin,
+  placedStudentsListByCompany,
+  placedStudentsDetailsById,
   deleteStudent,
   deleteCompany,
   getAllStudents,
@@ -596,4 +684,5 @@ export {
   updateStudentDetailsByAdmin,
   publishNewNotice,
   getAllNotice,
+  deleteNoticeByAdmin,
 };
