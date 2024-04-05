@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // Components
-import Dashboard from "./pages/student/Dashboard";
 import Sidebar from "./components/Sidebar";
 import Updates from "./pages/student/Updates";
 import Feedback from "./pages/student/Feedback";
@@ -51,20 +50,6 @@ function App() {
                       <div className="w-full">
                         <Navbar />
                         <Home />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/dashboard"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <Sidebar />
-                      <div className="w-full">
-                        <Navbar />
-                        <Dashboard />
                       </div>
                     </div>
                   </>

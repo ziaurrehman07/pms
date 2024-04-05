@@ -1,7 +1,7 @@
 import { MdOutlineKeyboardCommandKey } from "react-icons/md";
 import { LuBarChart2 } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
-import { RiGalleryLine } from "react-icons/ri";
+import { RiGalleryLine, RiUserLine } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -55,7 +55,7 @@ function SidebarCompany() {
             }`}
             onClick={() => handleLinkClick("companyprofiledetail")}
           >
-            <MdOutlineKeyboardCommandKey className="mr-1 text-lg" />
+            <RiUserLine className="mr-1 text-lg" />
             <h1 className=" text-sm whitespace-nowrap">Profile Details</h1>
           </div>
         </Link>

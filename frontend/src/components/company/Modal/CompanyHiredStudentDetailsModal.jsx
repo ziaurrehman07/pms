@@ -3,7 +3,11 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { CgProfile } from "react-icons/cg";
 
-const AdminPlacedStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
+const CompanyHiredStudentListDetailsModal = ({
+  studentId,
+  isOpen,
+  onClose,
+}) => {
   const [student, setStudent] = useState(null);
 
   useEffect(() => {
@@ -26,6 +30,15 @@ const AdminPlacedStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
   if (!student) {
     return null;
   }
+
+  const unhiredStudent = async (studentId) => {
+    try {
+      await axios.get(`/api/v2/companies/unhire-student/${studentId}`);
+      onClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -113,7 +126,6 @@ const AdminPlacedStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
                         Mobile :
                       </td>
                       <td className="font-semibold text-sm p-1">
-                        {" "}
                         {student.mobile}
                       </td>
                     </tr>
@@ -180,9 +192,15 @@ const AdminPlacedStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
             <div className="btns flex  justify-evenly mt-4 mb-4">
               <button
                 onClick={onClose}
-                className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
+                className="bg-red-500 px-8 rounded-lg text-xs font-semibold text-white py-2"
               >
                 EXIT
+              </button>
+              <button
+                onClick={() => unhiredStudent(studentId)}
+                className="bg-red-800 px-8 rounded-lg text-xs font-semibold text-white py-2"
+              >
+                UNHIRE
               </button>
             </div>
           </div>
@@ -192,9 +210,9 @@ const AdminPlacedStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
   );
 };
 
-AdminPlacedStudentListDetailsModal.propTypes = {
+CompanyHiredStudentListDetailsModal.propTypes = {
   studentId: PropTypes.string.isRequired,
-  isOpen: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
-export default AdminPlacedStudentListDetailsModal;
+export default CompanyHiredStudentListDetailsModal;

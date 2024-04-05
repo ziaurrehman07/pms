@@ -48,7 +48,7 @@ function Feedback() {
   };
 
   return (
-    <div className="bg-white mt-4 mr-10 h-[550px]  rounded-lg shadow-md flex flex-col justify-center items-center">
+    <div className="bg-white my-4 mr-10 h-[550px] rounded-lg shadow-md flex flex-col justify-center items-center">
       <h1 className="text-blue-600 font-bold text-lg">FEEDBACK</h1>
       <div className="p-4 w-full overflow-y-auto no-scrollbar">
         <form onSubmit={handleSubmit} className="flex flex-col items-center">

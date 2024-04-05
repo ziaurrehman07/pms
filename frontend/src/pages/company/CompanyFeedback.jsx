@@ -46,7 +46,7 @@ function CompanyFeedback() {
     setLoading(false);
   };
   return (
-    <div className="bg-white flex-col m-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
+    <div className="bg-white flex-col my-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
       <h1 className="text-blue-600 font-bold text-lg">FEEDBACK</h1>
       <div className="h-[450px] w-[880px] p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
         <div className="forming h-[380px] w-[460px]">

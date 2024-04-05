@@ -11,7 +11,7 @@ import {
 import jwt from "jsonwebtoken";
 import { sendMail } from "../utils/emailSender.util.js";
 import { Notice } from "../models/notification.model.js";
-import  mongoose  from "mongoose";
+import mongoose from "mongoose";
 import { getFormattedDate } from "../utils/getCurrentDate.util.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
@@ -430,7 +430,7 @@ const placedStudentsListByAdmin = asyncHandler(async (req, res) => {
 
 const placedStudentsListByCompany = asyncHandler(async (req, res) => {
   const students = await Job.aggregate([
-    { $match: { company: req.company?._id }},
+    { $match: { company: req.company?._id } },
     { $unwind: "$students" },
     {
       $lookup: {
@@ -455,11 +455,11 @@ const placedStudentsListByCompany = asyncHandler(async (req, res) => {
     },
   ]);
 
-  if (!students.length) {
-    return res
-      .status(404)
-      .json(new ApiResponse(404, {}, "No Students Placed Yet!"));
-  }
+  // if (!students.length) {
+  //   return res
+  //     .status(200)
+  //     .json(new ApiResponse(200, {}, "No Students Placed Yet!"));
+  // }
   return res
     .status(200)
     .json(new ApiResponse(200, students, "No Students Placed Yet!"));
@@ -662,32 +662,33 @@ const deleteNoticeByAdmin = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Notice deleted Successfully!"));
 });
 
-const activeJobCount = asyncHandler(async(req,res)=>{
-  const currentDate = getFormattedDate()
-  const jobs = await Job.find({
-    lastDate: {
-      $gte: currentDate
+const activeJobCount = asyncHandler(async (req, res) => {
+  const currentDate = getFormattedDate();
+  const jobs = await Job.find(
+    {
+      lastDate: {
+        $gte: currentDate,
+      },
+    },
+    {
+      _id: 1,
     }
-  },{
-    _id:1
-  })
+  );
 
-  const jobCount = jobs.length
+  const jobCount = jobs.length;
 
-  if(!jobCount){
+  if (!jobCount) {
     return res
-    .status(404)
-    .json(
-      new ApiResponse(404,{},"No Active Jobs found!")
-    )
+      .status(404)
+      .json(new ApiResponse(404, {}, "No Active Jobs found!"));
   }
 
   return res
     .status(200)
     .json(
-      new ApiResponse(200,jobCount,"Active Job count fetced successfully!")
-    )
-})
+      new ApiResponse(200, jobCount, "Active Job count fetced successfully!")
+    );
+});
 
 export {
   registerStudent,
@@ -713,5 +714,5 @@ export {
   publishNewNotice,
   getAllNotice,
   deleteNoticeByAdmin,
-  activeJobCount
+  activeJobCount,
 };
