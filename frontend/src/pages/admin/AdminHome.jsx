@@ -49,7 +49,7 @@ function AdminHome() {
     setLoading(false);
   };
   return (
-    <div className="bg-white flex-col my-4 mr-10 h-[670px] rounded-lg shadow-md justify-center flex place-items-center">
+    <div className="bg-white flex-col my-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
       <h1 className="text-blue-600 font-bold text-lg">
         SEND NOTICE TO ALL STUDENTS
       </h1>

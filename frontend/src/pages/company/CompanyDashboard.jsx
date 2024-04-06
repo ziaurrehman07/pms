@@ -14,16 +14,10 @@ function CompanyDashboard() {
   }, []);
 
   const apiUrl = "/api/v1/users/company-placed-student-list";
-  const { students, loading, refetch } = GetAllStudents(apiUrl);
+  const { students, loading  } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [isPlacedStudetnModalOpen, setIsPlacedStudetnModalOpen] =
-    useState(null);
+  const [isPlacedStudetnModalOpen, setIsPlacedStudetnModalOpen] = useState(null);
 
-  useEffect(() => {
-    refetch(() => {
-      console.log("Data refetched!");
-    });
-  }, []);
   if (loading)
     return (
       <button

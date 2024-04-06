@@ -47,7 +47,7 @@ function UpdateResume() {
     setLoading(false);
   };
   return (
-    <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[670px] rounded-lg shadow-md justify-center flex place-items-center">
+    <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
       <h1 className="text-blue-600 font-bold text-lg">UPLOAD YOUR RESUME</h1>
       <div className=" flex-col  h-[450px] w-[880px] p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
         <div className="resume h-[380px] ">

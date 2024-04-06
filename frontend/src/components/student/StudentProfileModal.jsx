@@ -62,7 +62,7 @@ const StudentProfileModal = ({ isOpen, onClose }) => {
       {isOpen && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white flex flex-col place-items-center p-12 h-[500px] w-[750px] rounded-md">
-            <div className="bg-gray-100 h-[670px] w-[300px] flex flex-col place-items-center rounded-lg shadow-md shadow-gray-400">
+            <div className="bg-gray-100 h-[550px] w-[300px] flex flex-col place-items-center rounded-lg shadow-md shadow-gray-400">
               <p className="text-lg font-bold mt-4 mb-8 justify-center flex text-blue-500">
                 CHANGE YOUR AVATAR
               </p>
