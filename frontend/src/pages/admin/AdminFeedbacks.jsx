@@ -4,7 +4,8 @@ import FeedbackComponent from "../../components/feedback/FeedbackComponent";
 import GetAllStudents from "../../API/GetAllStudentsApi";
 import axios from "axios";
 import Warning from "../../components/Warning";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function AdminFeedbacks() {
   const navigate = useNavigate();
   const [isWarningModalOpen, setWarningModalOpen] = useState(false);
@@ -22,6 +23,8 @@ function AdminFeedbacks() {
     try {
       await axios.delete("/api/v4/feedback/delete-all-feedbacks");
       console.log("Feedbacks deleted successfully");
+      toast.success("All feedbacks are deleted!");
+
       setStudents([]);
       setWarningModalOpen(false);
     } catch (error) {
