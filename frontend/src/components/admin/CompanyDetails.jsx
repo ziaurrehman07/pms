@@ -2,9 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import PropTypes from "prop-types";
+import Warning from "../Warning";
 
 function CompanyDetails({ companyId, onEditClick }) {
   const [company, setCompany] = useState(null);
+  const [isWarningModalOpen, setWarningModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchCompanyDetails = async () => {
@@ -49,7 +51,7 @@ function CompanyDetails({ companyId, onEditClick }) {
   };
 
   return (
-    <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
+    <div className=" ml-4 mt-4 h-[670px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-3 flex place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-400">Company details</h2>
       </div>
@@ -85,7 +87,12 @@ function CompanyDetails({ companyId, onEditClick }) {
                   Website :
                 </td>
                 <td className="font-semibold text-blue-500 text-sm p-1 ">
-                  <a href={company.website} target="_blank" rel="noreferrer" className="hover:underline">
+                  <a
+                    href={company.website}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:underline"
+                  >
                     Visit Us
                   </a>
                 </td>
@@ -118,11 +125,16 @@ function CompanyDetails({ companyId, onEditClick }) {
         </button>
 
         <button
-          onClick={handleDelete}
+          onClick={() => setWarningModalOpen(true)}
           className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
         >
           DELETE
         </button>
+        <Warning
+          isOpen={isWarningModalOpen}
+          onClose={() => setWarningModalOpen(false)}
+          onDelete={handleDelete}
+        />
       </div>
     </div>
   );

@@ -73,7 +73,7 @@ function StudentProfileUpdate({ onCancel }) {
 
   return (
     <form>
-      <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
+      <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[670px] rounded-lg shadow-md justify-center flex place-items-center">
         <div className="shadow-gray-400 mt-4 h-[570px] bg-gray-100 mb-4 w-[380px] rounded-lg shadow-md overflow-y-scroll no-scrollbar">
           <div className="sticky top-0 bg-gray-100 border-b mt-1 border-black  mx-3 flex place-items-center h-10">
             <h2 className="pl-3 font-bold text-blue-500">

@@ -65,7 +65,7 @@ function UpdateCompanyDetails({ companyId, onCancel }) {
 
   return (
     <form>
-      <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
+      <div className=" ml-4 mt-4 h-[670px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
         <div className="sticky top-0 bg-transparent border-b mt-1 border-black  mx-3 flex place-items-center h-10">
           <h2 className="pl-3 font-bold text-blue-400">
             Update company details

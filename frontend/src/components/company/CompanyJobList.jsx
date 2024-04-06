@@ -5,7 +5,7 @@ function CompanyJobList({ jobs, onJobClick }) {
   const [isRegisterCompanyModalOpen, setIsRegisterCompanyModalOpen] =
     useState(false);
   return (
-    <div className="mt-4 h-[550px]  bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
+    <div className="mt-4 h-[670px]  bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-2 flex justify-between place-items-center h-10">
         <h2 className="pl-3 font-bold text-blue-500">
           Jobs :

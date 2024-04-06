@@ -31,9 +31,11 @@ const CompanyStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
     <>
       {isOpen && (
         <div className="fixed top-0 left-0 z-10 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-          <div className=" ml-4 mt-4 h-[550px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
+          <div className=" ml-4 mt-4 h-[670px] bg-white mb-4 w-[380px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
             <div className="bg-white border-b border-black  mx-3 flex place-items-center h-10">
-              <h2 className="pl-3 font-bold text-blue-400">Student details</h2>
+              <h2 className="pl-3 font-bold text-blue-400">
+                Applied student details
+              </h2>
             </div>
             <div className="flex justify-center mt-3 mb-2  ">
               {student.avatar ? (

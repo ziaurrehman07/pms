@@ -17,7 +17,9 @@ function CompanyProfileUpdate({ onCancel }) {
   useEffect(() => {
     const fetchStudentDetails = async () => {
       try {
-        const res = await axios.get(`/api/v2/companies/get-current-company-details`);
+        const res = await axios.get(
+          `/api/v2/companies/get-current-company-details`
+        );
         const studentData = res.data.data;
         setValues(studentData); // Set the retrieved student details in the state
       } catch (error) {
@@ -65,7 +67,7 @@ function CompanyProfileUpdate({ onCancel }) {
 
   return (
     <form>
-      <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
+      <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[670px] rounded-lg shadow-md justify-center flex place-items-center">
         <div className="shadow-gray-400 mt-4 h-[570px] bg-gray-100 mb-4 w-[380px] rounded-lg shadow-md overflow-y-scroll no-scrollbar">
           <div className="sticky top-0 bg-gray-100 border-b mt-1 border-black  mx-3 flex place-items-center h-10">
             <h2 className="pl-3 font-bold text-blue-500">
@@ -87,83 +89,83 @@ function CompanyProfileUpdate({ onCancel }) {
           </div>
 
           <div className=" h-[300px] custom-scrollbar overflow-y-scroll">
-          <div className="flex justify-evenly mt-3 ml-6 ">
-            <table className="w-full mt-3">
-              <tbody>
-                <tr>
-                  <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    Name :
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={handleChange}
-                      value={values.name}
-                      className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm "
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    Email :
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="email"
-                      onChange={handleChange}
-                      value={values.email}
-                      className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    Website :
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="website"
-                      onChange={handleChange}
-                      value={values.website}
-                      className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    Description :
-                  </td>
-                  <td>
-                    <input
-                      type="tel"
-                      name="description"
-                      value={values.description}
-                      onChange={handleChange}
-                      className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    Address :
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="address"
-                      value={values.address}
-                      onChange={handleChange}
-                      className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="flex justify-evenly mt-3 ml-6 ">
+              <table className="w-full mt-3">
+                <tbody>
+                  <tr>
+                    <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                      Name :
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="name"
+                        onChange={handleChange}
+                        value={values.name}
+                        className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm "
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                      Email :
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="email"
+                        onChange={handleChange}
+                        value={values.email}
+                        className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                      Website :
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="website"
+                        onChange={handleChange}
+                        value={values.website}
+                        className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                      Description :
+                    </td>
+                    <td>
+                      <input
+                        type="tel"
+                        name="description"
+                        value={values.description}
+                        onChange={handleChange}
+                        className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                      Address :
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="address"
+                        value={values.address}
+                        onChange={handleChange}
+                        className=" shadow-sm bg-blue-100 outline-none rounded-md px-2 font-semibold text-sm mt-1 "
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
 
           <div className="btns flex  justify-evenly mt-4 mb-2">
             <button
