@@ -11,7 +11,7 @@ import {
 import jwt from "jsonwebtoken";
 import { sendMail } from "../utils/emailSender.util.js";
 import { Notice } from "../models/notification.model.js";
-import mongoose from "mongoose";
+import  mongoose  from "mongoose";
 import { getFormattedDate } from "../utils/getCurrentDate.util.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
@@ -425,17 +425,17 @@ const placedStudentsListByAdmin = asyncHandler(async (req, res) => {
   }
   return res
     .status(200)
-    .json(new ApiResponse(200, students, "No Students Placed Yet!"));
+    .json(new ApiResponse(200, students, "Placed student list fetched successfully"));
 });
 
 const placedStudentsListByCompany = asyncHandler(async (req, res) => {
-  const students = await Job.aggregate([
-    { $match: { company: req.company?._id } },
-    { $unwind: "$students" },
+  const students = await Company.aggregate([
+    { $match: { _id: req.company?._id }},
+    { $unwind: "$selectedStudents" },
     {
       $lookup: {
         from: "users",
-        localField: "students",
+        localField: "selectedStudents",
         foreignField: "_id",
         as: "user",
       },
@@ -446,23 +446,18 @@ const placedStudentsListByCompany = asyncHandler(async (req, res) => {
       $project: {
         _id: "$user._id",
         fullName: "$user.fullName",
-        email: "$user.email",
-        resume: "$user.resume",
         avatar: "$user.avatar",
-        address: "$user.address",
-        mobile: "$user.mobile",
+        enrollment: "$user.enrollment"
       },
     },
   ]);
 
-  // if (!students.length) {
-  //   return res
-  //     .status(200)
-  //     .json(new ApiResponse(200, {}, "No Students Placed Yet!"));
-  // }
+  if (!students.length) {
+    throw new ApiError(400, "No Placed Student Found!");
+  }
   return res
     .status(200)
-    .json(new ApiResponse(200, students, "No Students Placed Yet!"));
+    .json(new ApiResponse(200, students, "Places Student list fetched successfully!"));
 });
 
 const placedStudentsDetailsById = asyncHandler(async (req, res) => {
@@ -662,33 +657,32 @@ const deleteNoticeByAdmin = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Notice deleted Successfully!"));
 });
 
-const activeJobCount = asyncHandler(async (req, res) => {
-  const currentDate = getFormattedDate();
-  const jobs = await Job.find(
-    {
-      lastDate: {
-        $gte: currentDate,
-      },
-    },
-    {
-      _id: 1,
+const activeJobCount = asyncHandler(async(req,res)=>{
+  const currentDate = getFormattedDate()
+  const jobs = await Job.find({
+    lastDate: {
+      $gte: currentDate
     }
-  );
+  },{
+    _id:1
+  })
 
-  const jobCount = jobs.length;
+  const jobCount = jobs.length
 
-  if (!jobCount) {
+  if(!jobCount){
     return res
-      .status(404)
-      .json(new ApiResponse(404, {}, "No Active Jobs found!"));
+    .status(404)
+    .json(
+      new ApiResponse(404,{},"No Active Jobs found!")
+    )
   }
 
   return res
     .status(200)
     .json(
-      new ApiResponse(200, jobCount, "Active Job count fetced successfully!")
-    );
-});
+      new ApiResponse(200,jobCount,"Active Job count fetced successfully!")
+    )
+})
 
 export {
   registerStudent,
@@ -714,5 +708,5 @@ export {
   publishNewNotice,
   getAllNotice,
   deleteNoticeByAdmin,
-  activeJobCount,
+  activeJobCount
 };
