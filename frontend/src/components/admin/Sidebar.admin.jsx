@@ -117,6 +117,19 @@ function SidebarAdmin() {
             <h1 className=" text-sm whitespace-nowrap">Feedbacks</h1>
           </div>
         </Link>
+        <Link to="/managenotices">
+          <div
+            className={`flex place-items-center mt-3 cursor-pointer ${
+              activeLink === "managenotices"
+                ? "text-blue-500 font-bold"
+                : "text-gray-500"
+            }`}
+            onClick={() => handleLinkClick("managenotices")}
+          >
+            <LuBarChart2 className="mr-1 text-lg" />
+            <h1 className=" text-sm whitespace-nowrap">Manage Notices</h1>
+          </div>
+        </Link>
       </div>
     </>
   );

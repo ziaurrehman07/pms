@@ -28,6 +28,7 @@ import Profile from "./pages/student/Profile";
 import CollegeApi from "./API/CollegeApi";
 import CompanyAppliedStudents from "./pages/company/CompanyAppliedStudents";
 import CompanyProfileDetails from "./pages/company/CompanyProfileDetails";
+import AdminNoticeViewer from "./pages/admin/AdminNoticeViewer";
 function App() {
   const { userRole, companyRole, isLoading } = CollegeApi();
 
@@ -242,6 +243,20 @@ function App() {
                       <div className="w-full">
                         <Navbar />
                         <AdminFeedbacks />
+                      </div>
+                    </div>
+                  </>
+                }
+              />
+              <Route
+                path="/managenotices"
+                element={
+                  <>
+                    <div className="flex w-full">
+                      <SidebarAdmin />
+                      <div className="w-full">
+                        <Navbar />
+                        <AdminNoticeViewer />
                       </div>
                     </div>
                   </>

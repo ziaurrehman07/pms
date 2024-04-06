@@ -71,7 +71,7 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
           </p>
         </h1>
         <div className="mr-8 text-sm font-bold text-red-600 border border-red-500 px-2 py-1 rounded-lg">
-          <button onClick={() => setIsModalOpen(true)}>UNHIRE ALL</button>
+          <button onClick={() => setIsModalOpen(true)}>CLEAR ALL LIST</button>
         </div>
       </div>
       {job.map((student) => (

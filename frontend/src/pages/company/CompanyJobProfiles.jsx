@@ -15,7 +15,7 @@ function CompanyJobProfiles() {
   }, []);
 
   const apiUrl = "/api/v3/companies/job/get-current-company-all-jobs";
-  const { jobs, loading, error } = GetAllJobs(apiUrl);
+  const { jobs, loading } = GetAllJobs(apiUrl);
   const [selectedJob, setSelectedJob] = useState(null);
   const [isEditClicked, setIsEditClicked] = useState(false);
 
@@ -46,8 +46,6 @@ function CompanyJobProfiles() {
         Loading...
       </button>
     );
-  if (error) return <p>Error: {error.message}</p>;
-
   const handleStudentClick = (jobId) => {
     setSelectedJob((prevJob) => (prevJob === jobId ? null : jobId));
     setIsEditClicked(false);

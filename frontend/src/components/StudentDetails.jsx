@@ -122,6 +122,35 @@ function StudentDetails({ studentId, onEditClick }) {
                 </td>
                 <td className="font-semibold text-sm p-1"> {student.mobile}</td>
               </tr>
+              {student.isPlaced && (
+                <>
+                  <tr>
+                    <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                      Company Name :
+                    </td>
+                    <td className="font-semibold text-green-500 text-sm p-1">
+                      {student.designation.company.name}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold  text-sm p-1 whitespace-nowrap">
+                      Designation :
+                    </td>
+                    <td className="font-semibold text-green-500 text-sm p-1">
+                      {student.designation.designation}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="font-semibold text-sm p-1 whitespace-nowrap">
+                      Package :
+                    </td>
+                    <td className="font-semibold text-green-500 text-sm p-1">
+                      {student.designation.salaryPackage} <span>LPA</span>
+                    </td>
+                  </tr>
+                </>
+              )}
+
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
                   Address :

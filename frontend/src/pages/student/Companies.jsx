@@ -14,7 +14,7 @@ function Companies() {
   }, []);
 
   const apiUrl = "/api/v2/companies/get-all-companies-list";
-  const { companies, loading, error } = GetAllCompanies(apiUrl);
+  const { companies, loading } = GetAllCompanies(apiUrl);
   const [selectedCompany, setSelectedCompany] = useState(null);
 
   if (loading)
@@ -44,7 +44,6 @@ function Companies() {
         Loading...
       </button>
     );
-  if (error) return <p>Error: {error.message}</p>;
 
   const handleCompanyClick = (companyId) => {
     setSelectedCompany((prevCompany) =>

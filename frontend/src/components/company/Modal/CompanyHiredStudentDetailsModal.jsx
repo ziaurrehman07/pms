@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { CgProfile } from "react-icons/cg";
+import UnHirePlacedStudentModal from "./UnHirePlacedStudetnModal";
 
 const CompanyHiredStudentListDetailsModal = ({
   studentId,
@@ -9,6 +10,8 @@ const CompanyHiredStudentListDetailsModal = ({
   onClose,
 }) => {
   const [student, setStudent] = useState(null);
+  const [unHirePlacedStudentModalOpen, setUnHirePlacedStudentModalOpen] =
+    useState(false);
 
   useEffect(() => {
     const fetchStudentDetails = async () => {
@@ -35,6 +38,7 @@ const CompanyHiredStudentListDetailsModal = ({
     try {
       await axios.get(`/api/v2/companies/unhire-student/${studentId}`);
       onClose();
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -132,14 +136,6 @@ const CompanyHiredStudentListDetailsModal = ({
                     {student.isPlaced && (
                       <>
                         <tr>
-                          <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                            Company Name :
-                          </td>
-                          <td className="font-semibold text-green-500 text-sm p-1">
-                            {student.designation.company.name}
-                          </td>
-                        </tr>
-                        <tr>
                           <td className="font-semibold  text-sm p-1 whitespace-nowrap">
                             Designation :
                           </td>
@@ -157,7 +153,6 @@ const CompanyHiredStudentListDetailsModal = ({
                         </tr>
                       </>
                     )}
-
                     <tr>
                       <td className="font-semibold text-sm p-1 whitespace-nowrap">
                         Address :
@@ -197,13 +192,19 @@ const CompanyHiredStudentListDetailsModal = ({
                 EXIT
               </button>
               <button
-                onClick={() => unhiredStudent(studentId)}
-                className="bg-red-800 px-8 rounded-lg text-xs font-semibold text-white py-2"
+                // onClick={() => unhiredStudent(studentId)}
+                onClick={() => setUnHirePlacedStudentModalOpen(true)}
+                className="bg-black px-8 rounded-lg text-xs font-semibold text-white py-2"
               >
                 UNHIRE
               </button>
             </div>
           </div>
+          <UnHirePlacedStudentModal
+            isOpen={unHirePlacedStudentModalOpen}
+            onClose={() => setUnHirePlacedStudentModalOpen(false)}
+            onUnhirePlacedStudent={() => unhiredStudent(studentId)}
+          />
         </div>
       )}
     </>

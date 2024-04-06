@@ -16,13 +16,14 @@ function AdminFeedbacks() {
     }
   }, []);
   const apiUrl = "/api/v4/feedback/get-all-feedbacks";
-  const { students } = GetAllStudents(apiUrl);
+  const { students, setStudents } = GetAllStudents(apiUrl);
 
   const handleDelete = async () => {
     try {
       await axios.delete("/api/v4/feedback/delete-all-feedbacks");
       console.log("Feedbacks deleted successfully");
-      window.location.reload();
+      setStudents([]);
+      setWarningModalOpen(false);
     } catch (error) {
       console.log("Error deleting student:", error);
     }

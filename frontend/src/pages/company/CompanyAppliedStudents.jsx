@@ -5,7 +5,7 @@ import DesignationCumAppliedStudentList from "../../components/company/Designati
 import CompanyStudentListDetailsModal from "../../components/company/CompanyStudentListDetailsModal";
 function CompanyAppliedStudents() {
   const apiUrl = "/api/v3/companies/job/get-current-company-all-jobs";
-  const { jobs, loading, error } = GetAllJobs(apiUrl);
+  const { jobs, loading } = GetAllJobs(apiUrl);
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isComapnyStudetnModalOpen, setIsComapnyStudetnModalOpen] =
@@ -38,7 +38,6 @@ function CompanyAppliedStudents() {
         Loading...
       </button>
     );
-  if (error) return <p>Error: {error.message}</p>;
 
   const handleStudentClick = (jobId) => {
     setSelectedJob((prevJob) => (prevJob === jobId ? null : jobId));

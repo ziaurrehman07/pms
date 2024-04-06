@@ -38,7 +38,7 @@ const GetAllStudents = (url) => {
     });
   };
 
-  return { students, loading, error, refetch };
+  return { students, setStudents, loading, error, refetch };
 };
 
 export default GetAllStudents;

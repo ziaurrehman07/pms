@@ -14,7 +14,7 @@ function CompanyDashboard() {
   }, []);
 
   const apiUrl = "/api/v1/users/company-placed-student-list";
-  const { students, loading, error, refetch } = GetAllStudents(apiUrl);
+  const { students, loading, refetch } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isPlacedStudetnModalOpen, setIsPlacedStudetnModalOpen] =
     useState(null);
@@ -51,7 +51,6 @@ function CompanyDashboard() {
         Loading...
       </button>
     );
-  if (error) return <p>Error: {error.message}</p>;
 
   const handleStudentClick = (studentId) => {
     setSelectedStudent((prevStudent) =>

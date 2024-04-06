@@ -1,17 +1,21 @@
 import PropTypes from "prop-types";
-const HireModal = ({ isOpen, onClose, unHireAll }) => {
+const UnHirePlacedStudentModal = ({
+  isOpen,
+  onClose,
+  onUnhirePlacedStudent,
+}) => {
   return (
     <>
       {isOpen && (
         <div className="fixed top-0 left-0 z-10 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-5 rounded-md">
             <p className="text-lg font-semibold mb-4">
-              Are you sure you want to CLEAR All LISTED STUDENT !
+              Are you sure you want to Unhire !
             </p>
             <div className="flex justify-end">
               <button
                 className="text-white mr-2 py-1 px-2 rounded-lg border bg-red-400 hover:font-semibold  cursor-pointer"
-                onClick={unHireAll}
+                onClick={onUnhirePlacedStudent}
               >
                 YES
               </button>
@@ -29,9 +33,9 @@ const HireModal = ({ isOpen, onClose, unHireAll }) => {
   );
 };
 
-HireModal.propTypes = {
+UnHirePlacedStudentModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  unHireAll: PropTypes.func.isRequired,
+  onUnhirePlacedStudent: PropTypes.func.isRequired,
 };
-export default HireModal;
+export default UnHirePlacedStudentModal;
