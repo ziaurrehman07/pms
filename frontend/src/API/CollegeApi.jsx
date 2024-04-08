@@ -4,8 +4,6 @@ import axios from "axios";
 const CollegeApi = () => {
   const [userRole, setUserRole] = useState("");
   const [companyRole, setCompanyRole] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -13,8 +11,6 @@ const CollegeApi = () => {
         setUserRole(response.data.data.role);
       } catch (error) {
         console.error("Error fetching user data:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -30,15 +26,13 @@ const CollegeApi = () => {
         setCompanyRole(response.data.data.role);
       } catch (error) {
         console.error("Error fetching company data:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
     fetchCompanyData();
   }, []);
 
-  return { userRole, companyRole, isLoading };
+  return { userRole, companyRole };
 };
 
 export default CollegeApi;

@@ -30,17 +30,14 @@ import CompanyAppliedStudents from "./pages/company/CompanyAppliedStudents";
 import CompanyProfileDetails from "./pages/company/CompanyProfileDetails";
 import AdminNoticeViewer from "./pages/admin/AdminNoticeViewer";
 function App() {
-  const { userRole, companyRole, isLoading } = CollegeApi();
+  const { userRole, companyRole } = CollegeApi();
 
-  if (isLoading) {
-    return;
-  }
   return (
     <BrowserRouter>
       <main className="flex bg-[#e9f1ef] w-screen min-h-screen">
         <Routes>
           {/* Student routes */}
-          {userRole === "student" && (
+          {userRole === "student" ? (
             <>
               <Route
                 path="/studenthome"
@@ -142,10 +139,15 @@ function App() {
               />
               <Route path="*" element={<Navigate to="/studenthome" />} />
             </>
+          ) : (
+            <>
+              <Route path="/companylogin" element={<CompanyLogin />} />
+              <Route exact path="/" element={<Login />} />
+            </>
           )}
 
           {/* Admin routes */}
-          {userRole === "admin" && (
+          {userRole === "admin" ? (
             <>
               <Route
                 path="/adminhome"
@@ -265,9 +267,14 @@ function App() {
 
               <Route path="*" element={<Navigate to="/adminhome" />} />
             </>
+          ) : (
+            <>
+              <Route path="/companylogin" element={<CompanyLogin />} />
+              <Route exact path="/" element={<Login />} />
+            </>
           )}
           {/* company Routes */}
-          {companyRole === "company" && (
+          {companyRole === "company" ? (
             <>
               <Route
                 path="/companyhome"
@@ -356,10 +363,12 @@ function App() {
               />
               <Route path="*" element={<Navigate to="/companyhome" />} />
             </>
+          ) : (
+            <>
+              <Route path="/companylogin" element={<CompanyLogin />} />
+              <Route exact path="/" element={<Login />} />
+            </>
           )}
-          {/* Default routes */}
-          <Route path="/companylogin" element={<CompanyLogin />} />
-          <Route exact path="/" element={<Login />} />
         </Routes>
       </main>
     </BrowserRouter>
