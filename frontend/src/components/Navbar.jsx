@@ -59,7 +59,7 @@ function Navbar() {
       <div className=" sticky top-0 z-10 flex h-12 justify-between   mr-10 mt-4 bg-white rounded-md place-items-center p-6 shadow-sm ">
         <div className="cursor-pointer">
           <h2 className="font-medium whitespace-nowrap text-sm">
-            Hello, {students.role}
+            Hello, {students.fullName}
           </h2>
           <p className="text-xs text-gray-500">Have a nice Day</p>
         </div>

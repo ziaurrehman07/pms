@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 const StudentRegistrationForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [otpGenerating, setOtpGenerating] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -27,6 +29,7 @@ const StudentRegistrationForm = () => {
   };
 
   const handleVerificationCode = async () => {
+    setOtpGenerating(true);
     try {
       // Check if the email contains ".ies@ipsacademy.org"
       if (!formData.email.includes(".ies@ipsacademy.org")) {
@@ -35,18 +38,15 @@ const StudentRegistrationForm = () => {
       }
 
       // to generate and send  verification OTP
-      const response = await axios.post(
-        "/api/v1/users/generate-otp-email-for-student",
-        {
-          email: formData.email,
-        }
-      );
-      console.log(response.data); // Assuming your backend returns the generated code
+      await axios.post("/api/v1/users/generate-otp-email-for-student", {
+        email: formData.email,
+      });
       toast.success("Verification code sent to your email.");
     } catch (error) {
       console.error("Error:", error);
       toast.error("Failed to send verification code. Please try again later.");
     }
+    setOtpGenerating(false);
   };
 
   const handleVerifyOTP = async () => {
@@ -62,8 +62,7 @@ const StudentRegistrationForm = () => {
           otpNumber,
         }
       );
-
-      console.log(response.data); // Assuming your backend returns verification status
+      console.log(response.data);
       setIsVerified(true);
       toast.success("Email verified successfully.");
     } catch (error) {
@@ -82,14 +81,14 @@ const StudentRegistrationForm = () => {
       toast.error("Please verify your email first!");
       return;
     }
-
+    setLoading(true);
     try {
       const response = await axios.post(
         "/api/v1/users/register-student",
         formData
       );
       response.data;
-      toast.success("Student created successfully!");
+      toast.success("Student registered successfully!");
       // console.log("Student created:", response.data.data);
       setFormData({
         fullName: "",
@@ -98,11 +97,12 @@ const StudentRegistrationForm = () => {
         password: "",
         confirmPassword: "",
       });
-      setIsVerified(false)
+      setIsVerified(false);
     } catch (error) {
-      console.error("Error creating student:", error.response.data.message);
-      toast.error("Error creating student. Please try again.");
+      //   console.error("Error registering student:", error.response.data.message);
+      toast.error("Error registering student. Please try again.");
     }
+    setLoading(false);
   };
 
   return (
@@ -115,7 +115,7 @@ const StudentRegistrationForm = () => {
           Registeration
         </h1>
         <p className="text-blue-800 font-bold grid place-items-center -mt-4 text-xs">
-          Only for student
+          Only for student !
         </p>
         <label className="block mb-4  text-blue-500 font-bold text-xs">
           Name:
@@ -153,14 +153,22 @@ const StudentRegistrationForm = () => {
           />
         </label>
         {!isVerified && (
-          <button
-            type="button"
-            onClick={handleVerificationCode}
-            className="text-blue-700 hover:underline mx-auto -mt-3 text-xs font-bold rounded"
-            disabled={isVerified} // Disable button if isVerified is true
-          >
-            Generate OTP
-          </button>
+          <>
+            {otpGenerating ? (
+              <div className="text-blue-800 hover:underline mx-auto -mt-3 text-xs font-bold rounded">
+                Generating...
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={handleVerificationCode}
+                className="text-blue-700 hover:underline mx-auto -mt-3 text-xs font-bold rounded"
+                disabled={isVerified} // Disable button if isVerified is true
+              >
+                Generate OTP
+              </button>
+            )}
+          </>
         )}
 
         {!isVerified && ( // Render verify OTP section only if isVerified is false
@@ -211,12 +219,18 @@ const StudentRegistrationForm = () => {
             required
           />
         </label>
-        <button
-          type="submit"
-          className="bg-blue-500 mx-auto font-semibold text-xs mt-4 text-white py-2 px-4 rounded-md hover:bg-green-600"
-        >
-          REGISTER
-        </button>
+        {loading ? (
+          <div className="bg-red-600 mx-auto font-semibold text-xs mt-4 text-white py-2 px-4 rounded-md">
+            Registering...
+          </div> // Add your loading spinner here
+        ) : (
+          <button
+            type="submit"
+            className="bg-blue-600 mx-auto font-semibold text-xs mt-4 text-white py-2 px-4 rounded-md hover:bg-green-600"
+          >
+            Register
+          </button>
+        )}
 
         <p className="flex justify-center mb-4 text-xs mt-3 font-bold">
           Go to login page!
