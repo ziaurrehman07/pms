@@ -25,6 +25,8 @@ import {
   placedStudentsListByAdmin,
   placedStudentsListByCompany,
   activeJobCount,
+  generateOtpForVerification,
+  verifyOtpForEmail,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -66,5 +68,8 @@ router.route("/get-all-notices").get(verifyJWT, getAllNotice);
 router.route("/publish-new-notice").post(verifyAdmin,publishNewNotice);
 router.route("/delete-notice/:noticeId").delete(verifyAdmin,deleteNoticeByAdmin);
 router.route("/active-jobs").get(verifyAdmin,activeJobCount);
+
+router.route("/generate-otp-email-for-student").post(generateOtpForVerification)
+router.route("/verify-email-for-student/:email").post(verifyOtpForEmail)
 
 export default router;

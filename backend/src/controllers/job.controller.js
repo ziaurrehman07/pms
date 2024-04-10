@@ -183,7 +183,7 @@ const applyForJob = asyncHandler(async (req, res) => {
       student.college_cgpa >= isJobAvailable.criteria_cllg_cgpa &&
       student.resume !== "" &&
       currentDate <= isJobAvailable.lastDate &&
-      student.isPlaced === false
+      (student.isPlaced === false || student.designation.salaryPackage<isJobAvailable.salaryPackage)
     )
   ) {
     throw new ApiError(400, "You are not eligible for this job profile");

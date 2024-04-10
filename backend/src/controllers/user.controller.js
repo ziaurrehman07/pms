@@ -11,8 +11,8 @@ import {
 import jwt from "jsonwebtoken";
 import { sendMail } from "../utils/emailSender.util.js";
 import { Notice } from "../models/notification.model.js";
-import  mongoose  from "mongoose";
 import { getFormattedDate } from "../utils/getCurrentDate.util.js";
+import { Otps } from "../models/emailOtp.model.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -30,6 +30,10 @@ const generateAccessAndRefreshTokens = async (userId) => {
       "Something went wrong while generating access and refresh tokens"
     );
   }
+};
+
+const otpGenerator = () => {
+  return Math.floor(1000 + Math.random() * 9000);
 };
 
 const registerStudent = asyncHandler(async (req, res) => {
@@ -425,12 +429,14 @@ const placedStudentsListByAdmin = asyncHandler(async (req, res) => {
   }
   return res
     .status(200)
-    .json(new ApiResponse(200, students, "Placed student list fetched successfully"));
+    .json(
+      new ApiResponse(200, students, "Placed student list fetched successfully")
+    );
 });
 
 const placedStudentsListByCompany = asyncHandler(async (req, res) => {
   const students = await Company.aggregate([
-    { $match: { _id: req.company?._id }},
+    { $match: { _id: req.company?._id } },
     { $unwind: "$selectedStudents" },
     {
       $lookup: {
@@ -447,7 +453,7 @@ const placedStudentsListByCompany = asyncHandler(async (req, res) => {
         _id: "$user._id",
         fullName: "$user.fullName",
         avatar: "$user.avatar",
-        enrollment: "$user.enrollment"
+        enrollment: "$user.enrollment",
       },
     },
   ]);
@@ -457,7 +463,13 @@ const placedStudentsListByCompany = asyncHandler(async (req, res) => {
   }
   return res
     .status(200)
-    .json(new ApiResponse(200, students, "Places Student list fetched successfully!"));
+    .json(
+      new ApiResponse(
+        200,
+        students,
+        "Places Student list fetched successfully!"
+      )
+    );
 });
 
 const placedStudentsDetailsById = asyncHandler(async (req, res) => {
@@ -657,32 +669,94 @@ const deleteNoticeByAdmin = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Notice deleted Successfully!"));
 });
 
-const activeJobCount = asyncHandler(async(req,res)=>{
-  const currentDate = getFormattedDate()
-  const jobs = await Job.find({
-    lastDate: {
-      $gte: currentDate
+const activeJobCount = asyncHandler(async (req, res) => {
+  const currentDate = getFormattedDate();
+  const jobs = await Job.find(
+    {
+      lastDate: {
+        $gte: currentDate,
+      },
+    },
+    {
+      _id: 1,
     }
-  },{
-    _id:1
-  })
+  );
 
-  const jobCount = jobs.length
+  const jobCount = jobs.length;
 
-  if(!jobCount){
+  if (!jobCount) {
     return res
-    .status(404)
-    .json(
-      new ApiResponse(404,{},"No Active Jobs found!")
-    )
+      .status(404)
+      .json(new ApiResponse(404, {}, "No Active Jobs found!"));
   }
 
   return res
     .status(200)
     .json(
-      new ApiResponse(200,jobCount,"Active Job count fetced successfully!")
-    )
-})
+      new ApiResponse(200, jobCount, "Active Job count fetced successfully!")
+    );
+});
+
+const generateOtpForVerification = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const existedUser = await User.findOne({ email: email });
+  if (existedUser) {
+    throw new ApiError(400, "Email is already registered. Try differrent One!");
+  }
+  const generatedOtp = otpGenerator();
+  const emailOtp = await Otps.findOne({ email: email });
+  let otp;
+  if (emailOtp) {
+    otp = await Otps.findByIdAndUpdate(
+      emailOtp,
+      {
+        otp: generatedOtp,
+      },
+      {
+        new: true,
+      }
+    );
+  } else {
+    otp = await Otps.create({
+      email: email,
+      otp: generatedOtp,
+    });
+  }
+
+  if (!otp) {
+    throw new ApiError(
+      400,
+      "Something went wrong while generating OTP! Please try again later."
+    );
+  }
+  const subject = `Email Verification`;
+  const content = `Your OTP for email  verification : ${generatedOtp} `;
+  const mailResponse = await sendMail(subject, content, email);
+  if (mailResponse.success == false) {
+    throw new ApiError(503, "Failed to Send Email");
+  }
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "OTP generated and sent successfully!"));
+});
+
+const verifyOtpForEmail = asyncHandler(async (req, res) => {
+  const { otp } = req.body;
+  const { email } = req.params;
+  const emailOtp = await Otps.findOne({ email: email });
+  if (!emailOtp) {
+    throw new ApiError(404, "Email not found!");
+  }
+  if (otp !== emailOtp.otp) {
+    throw new ApiError(401, "Invalid OTP!");
+  }
+
+  await Otps.findByIdAndDelete(emailOtp._id);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "OTP verified Successfully!"));
+});
 
 export {
   registerStudent,
@@ -708,5 +782,7 @@ export {
   publishNewNotice,
   getAllNotice,
   deleteNoticeByAdmin,
-  activeJobCount
+  activeJobCount,
+  generateOtpForVerification,
+  verifyOtpForEmail,
 };
