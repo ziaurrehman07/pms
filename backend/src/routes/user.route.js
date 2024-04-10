@@ -35,7 +35,7 @@ import {
 
 const router = Router();
 
-router.route("/register-student").post(verifyJWT, registerStudent);
+router.route("/register-student").post( registerStudent);
 router.route("/login").post(loginUser);
 router.route("/log-out-user").get(verifyJWT, logOutUser);
 router.route("/refresh-token").get(verifyJWT, refreshAccessToken);

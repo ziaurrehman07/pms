@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 const StudentRegistrationForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -18,7 +19,6 @@ const StudentRegistrationForm = () => {
     password: "",
     confirmPassword: "",
     otp: "",
-    isVerified: false,
   });
 
   const handleChange = (e) => {
@@ -52,20 +52,19 @@ const StudentRegistrationForm = () => {
   const handleVerifyOTP = async () => {
     try {
       const { email, otp } = formData;
-      console.log("email check", email);
-      console.log("email verification code", otp);
+      const otpNumber = parseInt(otp);
 
       // Send the verification code and email to backend for verification
       const response = await axios.post(
         "/api/v1/users/verify-email-for-student",
         {
           email,
-          otp,
+          otpNumber,
         }
       );
 
       console.log(response.data); // Assuming your backend returns verification status
-      setFormData({ ...formData, isVerified: true });
+      setIsVerified(true);
       toast.success("Email verified successfully.");
     } catch (error) {
       console.error("Error:", error);
@@ -73,28 +72,37 @@ const StudentRegistrationForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match!");
       return;
     }
-    if (!formData.isVerified) {
+    if (!isVerified) {
       toast.error("Please verify your email first!");
       return;
     }
-    // Submit your form data here, e.g., send it to a backend API
-    console.log("Form Data:", formData);
-    // Reset form after submission
-    setFormData({
-      fullName: "",
-      enrollment: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      otp: "",
-      isVerified: false,
-    });
+
+    try {
+      const response = await axios.post(
+        "/api/v1/users/register-student",
+        formData
+      );
+      response.data;
+      toast.success("Student created successfully!");
+      // console.log("Student created:", response.data.data);
+      setFormData({
+        fullName: "",
+        enrollment: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      setIsVerified(false)
+    } catch (error) {
+      console.error("Error creating student:", error.response.data.message);
+      toast.error("Error creating student. Please try again.");
+    }
   };
 
   return (
@@ -131,6 +139,7 @@ const StudentRegistrationForm = () => {
             required
           />
         </label>
+
         <label className="block mb-4 text-blue-500 font-bold text-xs">
           College email:
           <input
@@ -138,35 +147,43 @@ const StudentRegistrationForm = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="form-input bg-blue-100 mt-1 outline-none p-2 rounded-md  block w-full text-black font-semibold"
+            readOnly={isVerified} // Make email input read-only if isVerified is true
+            className="form-input bg-blue-100 mt-1 outline-none p-2 rounded-md block w-full text-black font-semibold"
             required
           />
         </label>
-        <button
-          type="button"
-          onClick={handleVerificationCode}
-          className=" text-blue-700 hover:underline mx-auto -mt-3 text-xs font-bold  rounded"
-        >
-          Generate OTP
-        </button>
-        <label className="block mb-4 text-blue-500 font-bold text-xs ">
-          Verify OTP:
-          <input
-            type="number"
-            name="otp"
-            value={formData.otp}
-            onChange={handleChange}
-            className="form-input mt-1 outline-none p-2 rounded-md  bg-blue-100 block w-full text-black font-semibold"
-            required
-          />
+        {!isVerified && (
           <button
-            onClick={handleVerifyOTP}
-            className="text-blue-700 hover:underline hover:text-blue-800 absolute right-7 top-[54%] transform -translate-y-1/2  "
+            type="button"
+            onClick={handleVerificationCode}
+            className="text-blue-700 hover:underline mx-auto -mt-3 text-xs font-bold rounded"
+            disabled={isVerified} // Disable button if isVerified is true
           >
-            Verify
+            Generate OTP
           </button>
-        </label>
-        <label className="block mb-4 text-blue-500 font-bold text-xs">
+        )}
+
+        {!isVerified && ( // Render verify OTP section only if isVerified is false
+          <label className="block mb-4 text-blue-500 font-bold text-xs">
+            Verify OTP:
+            <input
+              type="text"
+              name="otp"
+              value={formData.otp}
+              onChange={handleChange}
+              className="form-input mt-1 outline-none p-2 rounded-md bg-blue-100 block w-full text-black font-semibold"
+              required
+            />
+            <button
+              onClick={handleVerifyOTP}
+              className="text-blue-700 hover:underline hover:text-blue-800 absolute right-7 top-[54%] transform -translate-y-1/2"
+            >
+              Verify
+            </button>
+          </label>
+        )}
+
+        <label className="block mb-4 relative text-blue-500 font-bold text-xs">
           Password:
           <input
             type={showPassword ? "text" : "password"}
@@ -177,7 +194,7 @@ const StudentRegistrationForm = () => {
             required
           />
           <span
-            className="text-blue-500 text-xl absolute right-7 top-[66%] transform -translate-y-1/2 cursor-pointer" // Position the icon vertically centered within the input
+            className="text-blue-500 text-xl absolute right-2 top-[69%] transform -translate-y-1/2 cursor-pointer" // Position the icon vertically centered within the input
             onClick={togglePasswordVisibility}
           >
             {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
