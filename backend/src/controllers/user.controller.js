@@ -742,7 +742,7 @@ const generateOtpForVerification = asyncHandler(async (req, res) => {
 
 const verifyOtpForEmail = asyncHandler(async (req, res) => {
   const { otp } = req.body;
-  const { email } = req.params;
+  const { email } = req.body;
   const emailOtp = await Otps.findOne({ email: email });
   if (!emailOtp) {
     throw new ApiError(404, "Email not found!");

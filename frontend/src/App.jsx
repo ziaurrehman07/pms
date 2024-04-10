@@ -29,6 +29,7 @@ import CollegeApi from "./API/CollegeApi";
 import CompanyAppliedStudents from "./pages/company/CompanyAppliedStudents";
 import CompanyProfileDetails from "./pages/company/CompanyProfileDetails";
 import AdminNoticeViewer from "./pages/admin/AdminNoticeViewer";
+import StudentRegistrationForm from "./pages/student/studetn registeration/StudentRegistrationForm";
 function App() {
   const { userRole, companyRole } = CollegeApi();
 
@@ -369,6 +370,11 @@ function App() {
               <Route exact path="/" element={<Login />} />
             </>
           )}
+          {/* default routes */}
+          <Route
+            path="/studentregisteration"
+            element={<StudentRegistrationForm />}
+          />
         </Routes>
       </main>
     </BrowserRouter>

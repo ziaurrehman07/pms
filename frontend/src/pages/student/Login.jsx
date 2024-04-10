@@ -116,7 +116,11 @@ function Login() {
               </span>
             </Link>
           </p>
-
+          <p className="mx-auto text-blue-700 font-bold ">
+            <Link to="/studentregisteration">
+              <span>Register!</span>
+            </Link>
+          </p>
           {errorMessage && (
             <p className="text-red-600 bg-gray-100 mx-auto mt-5 p-2 rounded-lg">
               {errorMessage}
