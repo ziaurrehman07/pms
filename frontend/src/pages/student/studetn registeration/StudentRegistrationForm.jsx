@@ -29,14 +29,13 @@ const StudentRegistrationForm = () => {
   };
 
   const handleVerificationCode = async () => {
-    setOtpGenerating(true);
     try {
       // Check if the email contains ".ies@ipsacademy.org"
       if (!formData.email.includes(".ies@ipsacademy.org")) {
         toast.error("Please use a valid college email.");
         return;
       }
-
+      setOtpGenerating(true);
       // to generate and send  verification OTP
       await axios.post("/api/v1/users/generate-otp-email-for-student", {
         email: formData.email,
