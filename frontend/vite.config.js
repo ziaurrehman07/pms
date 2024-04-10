@@ -1,13 +1,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  base: "https://pmsbackend-2iax.onrender.com",
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8000",
-        secure: false,
+        target: "https://pmsbackend-2iax.onrender.com",
+        changeOrigin: true,
+
       },
     },
   },
