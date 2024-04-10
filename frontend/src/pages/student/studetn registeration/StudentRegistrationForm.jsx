@@ -154,7 +154,7 @@ const StudentRegistrationForm = () => {
         {!isVerified && (
           <>
             {otpGenerating ? (
-              <div className="text-blue-800 hover:underline mx-auto -mt-3 text-xs font-bold rounded">
+              <div className="text-blue-800 mx-auto -mt-3 text-xs font-bold rounded">
                 Generating...
               </div>
             ) : (
