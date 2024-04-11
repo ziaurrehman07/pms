@@ -13,6 +13,7 @@ import { sendMail } from "../utils/emailSender.util.js";
 import { Notice } from "../models/notification.model.js";
 import { getFormattedDate } from "../utils/getCurrentDate.util.js";
 import { Otps } from "../models/emailOtp.model.js";
+import { Feedback } from "../models/feedback.model.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -537,6 +538,8 @@ const deleteStudent = asyncHandler(async (req, res) => {
       const response = await deleteFromCloudinary(student.resume, folder2);
     }
 
+    const feedback = await Feedback.deleteMany({owner:student._id})
+
     return res
       .status(200)
       .json(new ApiResponse(200, student, "Student deleted successfully"));
@@ -574,6 +577,7 @@ const deleteCompany = asyncHandler(async (req, res) => {
     if (company.avatar) {
       const response = await deleteFromCloudinary(company.avatar, folder);
     }
+    const feedback = await Feedback.deleteMany({companyOwner:company._id})
 
     return res
       .status(200)
