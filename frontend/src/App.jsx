@@ -35,7 +35,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <main className="flex bg-[#e9f1ef] w-screen min-h-screen">
+      <main className="flex  w-screen min-h-screen">
         <Routes>
           {/* Student routes */}
           {userRole === "student" ? (
