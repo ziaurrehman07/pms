@@ -471,19 +471,19 @@ const downloadAppliedStudentsCSV = asyncHandler(async (req, res) => {
     ]);
 
     if (usersdata.length === 0) {
-      throw new ApiError(404, 'No students found for this job');
+      throw new ApiError(404, "No students found for this job");
     }
 
     const csvStream = csv.format({ headers: true });
 
     if (!fs.existsSync("../public/files/export/")) {
       if (!fs.existsSync("../public/files")) {
-          fs.mkdirSync("../public/files/");
+        fs.mkdirSync("../public/files/");
       }
       if (!fs.existsSync("../public/files/export")) {
-          fs.mkdirSync("../public/files/export/");
+        fs.mkdirSync("../public/files/export/");
       }
-  }
+    }
 
     const writablestream = fs.createWriteStream(
       "../public/files/export/users.csv"
@@ -500,7 +500,7 @@ const downloadAppliedStudentsCSV = asyncHandler(async (req, res) => {
         "10 Result": user.result_10 || "-",
         "12 Result": user.result_12 || "-",
         "UG Result": user.college_cgpa || "-",
-        "Address": user.address || "-",
+        Address: user.address || "-",
       });
     });
 
@@ -508,11 +508,17 @@ const downloadAppliedStudentsCSV = asyncHandler(async (req, res) => {
 
     writablestream.on("finish", function () {
       console.log("Successfully converted into CSV file!");
-      res.status(200).json(new ApiResponse(200, {}, "Users data fetched successfully!"));
+      res
+        .status(200)
+        .setHeader('Content-disposition', 'attachment; filename=users.csv')
+        .set('Content-Type', 'text/csv')
+        .send(fs.readFileSync("../public/files/export/users.csv"))
     });
   } catch (error) {
     console.error(error);
-    res.status(error.statusCode || 500).json(new ApiResponse(error.statusCode || 500, {}, error.message));
+    res
+      .status(error.statusCode || 500)
+      .json(new ApiResponse(error.statusCode || 500, {}, error.message));
   }
 });
 

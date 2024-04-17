@@ -9,14 +9,6 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [designation, setDesignation] = useState(null);
 
-  const exportToCsv = async()=>{
-    try {
-      await axios.get(`/api/v2/companies/applied-student-list/${jobId}`)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
     const fetchCompanyJobDetails = async () => {
       try {
@@ -80,8 +72,9 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
         </h1>
         <div className="mr-1 text-sm font-bold border px-2 py-1 rounded-lg">
         <a
-            onClick={exportToCsv}
+            href ={`/api/v2/companies/applied-student-list-download/${jobId}`}
             className="flex bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center"
+            download = "users.csv"
           >
             Export to csv
           </a>
