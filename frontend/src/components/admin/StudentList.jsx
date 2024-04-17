@@ -11,16 +11,12 @@ function StudentList({ students, onStudentClick }) {
             {students.length}
           </span>
         </h2>
-        <div className="flex">
-          <button className="flex bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
-            Export to csv
-          </button>
-          <Link to="/adminregisterstudent">
-            <div className="bg-[#e9f1ef] p-2 rounded-lg  text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
-              CREATE
-            </div>
-          </Link>
-        </div>
+
+        <Link to="/adminregisterstudent">
+          <div className="bg-[#e9f1ef] p-2 rounded-lg  text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
+            CREATE
+          </div>
+        </Link>
       </div>
       <div>
         {students.map((student) => (

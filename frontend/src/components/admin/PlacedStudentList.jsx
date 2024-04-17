@@ -1,7 +1,12 @@
 import { CgProfile } from "react-icons/cg";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function PlacedStudentList({ students, onStudentClick }) {
+  const handleDowloadSuccesMessage = () => {
+    toast.success("Downloaded Successfully !");
+  };
   return (
     <div className="mt-4 h-[550px]  bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-2 flex justify-between place-items-center h-10">
@@ -11,6 +16,14 @@ function PlacedStudentList({ students, onStudentClick }) {
             {students.length}
           </span>
         </h2>
+        <a
+          href={`/api/v1/users/placed-student-list-download`}
+          onClick={handleDowloadSuccesMessage}
+          download="placedStudents.csv"
+          className="mr-2 text-xs font-bold cursor-pointer hover:bg-blue-100 text-blue-600 border border-blue-500 px-2 py-1 rounded-lg"
+        >
+          Export to csv
+        </a>
       </div>
       <div>
         {students.map((student) => (
