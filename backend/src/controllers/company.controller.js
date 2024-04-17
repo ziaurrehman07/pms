@@ -555,7 +555,7 @@ const downloadCompanyPlacedStudentCSV = asyncHandler(async (req, res) => {
       },
     ]);
 
-    if (students.length === 0) {
+    if (usersdata.length === 0) {
       throw new ApiError(404, "No students found for this job");
     }
 
