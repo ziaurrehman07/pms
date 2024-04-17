@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { changeCompanyCurrentPassword, getAllCompanyDetails, getApplyStudentList, getCompanyDetails, getCurrentCompanyDetails, hireStudent, loginCompany, logOutCompany,registerCompany, unHiredAllStudent, unPlacedStudentByCompany, updateCompanyAvatar, updateCompanyDetails, updateCompanyDetailsByAmin } from "../controllers/company.controller.js"
+import { changeCompanyCurrentPassword, downloadAppliedStudentsCSV, getAllCompanyDetails, getApplyStudentList, getCompanyDetails, getCurrentCompanyDetails, hireStudent, loginCompany, logOutCompany,registerCompany, unHiredAllStudent, unPlacedStudentByCompany, updateCompanyAvatar, updateCompanyDetails, updateCompanyDetailsByAmin } from "../controllers/company.controller.js"
 import { verifyJwtForCompany,verifyAdmin, verifyJWT } from "../middlewares/auth.middleware.js"
 import { upload } from "../middlewares/multer.middleware.js"
 
@@ -17,6 +17,7 @@ router.route("/hire-student/:studentId/:jobId").get(verifyJwtForCompany,hireStud
 router.route("/unhire-student/:studentId").get(verifyJwtForCompany,unPlacedStudentByCompany)
 router.route("/unhire-all-student/:jobId").get(verifyJwtForCompany,unHiredAllStudent)
 router.route("/change-company-password").patch(verifyJwtForCompany,changeCompanyCurrentPassword)
+router.route("/applied-student-list/:jobId").get(verifyJwtForCompany,downloadAppliedStudentsCSV)
 
 // Admin Routes for company
 router.route("/update-company-details/:companyId").patch(verifyAdmin,updateCompanyDetailsByAmin)
