@@ -221,7 +221,7 @@ const StudentRegistrationForm = () => {
         {loading ? (
           <div className="bg-red-600 mx-auto font-semibold text-xs mt-4 text-white py-2 px-4 rounded-md">
             Registering...
-          </div> // Add your loading spinner here
+          </div>
         ) : (
           <button
             type="submit"

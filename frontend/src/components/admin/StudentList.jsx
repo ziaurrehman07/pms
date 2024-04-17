@@ -1,22 +1,38 @@
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 function StudentList({ students, onStudentClick }) {
+  const exportToCsv = async () => {
+    try {
+      axios.get("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="mt-4 h-[550px]  bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-2 flex justify-between place-items-center h-10">
-        <h2 className="pl-3 font-bold text-blue-500">
+        <h2 className=" font-bold text-blue-500">
           Student :
           <span className="ml-2 text-black  whitespace-nowrap font-semibold text-xs">
             {students.length}
           </span>
         </h2>
-        <Link to="/adminregisterstudent">
-          <div className="bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
-            CREATE
-          </div>
-        </Link>
+        <div className="flex">
+          <button
+            onClick={exportToCsv}
+            className="flex bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center"
+          >
+            Export to csv
+          </button>
+          <Link to="/adminregisterstudent">
+            <div className="bg-[#e9f1ef] p-2 rounded-lg  text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
+              CREATE
+            </div>
+          </Link>
+        </div>
       </div>
       <div>
         {students.map((student) => (

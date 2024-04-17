@@ -62,7 +62,7 @@ function CompanyLogin() {
       <div className="bg-white h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
         <div className="flex place-items-center justify-center  mt-12 ">
           <RiUserLine className="text-xl text-[#33363F] font-semibold" />
-          <h4 className="text-blue-500 ml-2">Company Login</h4>
+          <h4 className="text-blue-500 font-bold ml-2">Company Login</h4>
         </div>
         <div className="flex flex-col place-content-center">
           <form
@@ -110,7 +110,7 @@ function CompanyLogin() {
           <p className="mx-auto mt-8 text-gray-500">
             For College!
             <Link to="/">
-              <span className="text-blue-500 ml-1 hover:text-blue-600 font-semibold">
+              <span className="text-blue-500  ml-1 hover:text-blue-600 font-bold">
                 Login
               </span>
             </Link>
