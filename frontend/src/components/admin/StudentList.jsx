@@ -1,16 +1,7 @@
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import axios from "axios";
-
 function StudentList({ students, onStudentClick }) {
-  const exportToCsv = async () => {
-    try {
-      axios.get("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <div className="mt-4 h-[550px]  bg-white mb-4 w-[300px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-2 flex justify-between place-items-center h-10">
@@ -21,10 +12,7 @@ function StudentList({ students, onStudentClick }) {
           </span>
         </h2>
         <div className="flex">
-          <button
-            onClick={exportToCsv}
-            className="flex bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center"
-          >
+          <button className="flex bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
             Export to csv
           </button>
           <Link to="/adminregisterstudent">

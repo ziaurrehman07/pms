@@ -3,19 +3,23 @@ import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import PropTypes from "prop-types";
 import HireModal from "./Modal/HireModal";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
   const [job, setJob] = useState(null);
   const [hiredStudents, setHiredStudents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [designation, setDesignation] = useState(null);
 
-  const exportToCsv = async()=>{
+  const exportToCsv = async () => {
     try {
-      await axios.get(`/api/v2/companies/applied-student-list/${jobId}`)
+      await axios.get(`/api/v2/companies/applied-student-list/${jobId}`);
+      toast.success("Exported Successfully");
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong! try again..");
     }
-  }
+  };
 
   useEffect(() => {
     const fetchCompanyJobDetails = async () => {
@@ -28,7 +32,7 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
           `/api/v3/companies/job/get-job-details/${jobId}`
         );
         setDesignation(resDesignation.data.data.designation);
-        console.log("designation ", resDesignation.data.data.designation);
+        // console.log("designation ", resDesignation.data.data.designation);
       } catch (error) {
         console.log(error);
       }
@@ -78,16 +82,16 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
             {designation}
           </p>
         </h1>
-        <div className="mr-1 text-sm font-bold border px-2 py-1 rounded-lg">
-        <a
+        <div className="flex">
+          <a
             onClick={exportToCsv}
-            className="flex bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center"
+            className="mr-2 text-xs font-bold cursor-pointer text-blue-600 border border-blue-500 px-2 py-1 rounded-lg"
           >
             Export to csv
           </a>
-        </div>
-        <div className="mr-8 text-sm font-bold text-red-600 border border-red-500 px-2 py-1 rounded-lg">
-          <button onClick={() => setIsModalOpen(true)}>CLEAR ALL LIST</button>
+          <div className="mr-2 text-sm font-bold text-red-600 border border-red-500 px-2 py-1 rounded-lg">
+            <button onClick={() => setIsModalOpen(true)}>CLEAR ALL LIST</button>
+          </div>
         </div>
       </div>
       {job.map((student) => (
