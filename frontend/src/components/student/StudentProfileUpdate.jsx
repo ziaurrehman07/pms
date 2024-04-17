@@ -156,7 +156,7 @@ function StudentProfileUpdate({ onCancel }) {
                   </tr>
                   <tr>
                     <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                      Class X :
+                      Class X %:
                     </td>
                     <td>
                       <input
@@ -170,7 +170,7 @@ function StudentProfileUpdate({ onCancel }) {
                   </tr>
                   <tr>
                     <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                      Class XII :
+                      Class XII % :
                     </td>
                     <td>
                       <input
@@ -184,7 +184,7 @@ function StudentProfileUpdate({ onCancel }) {
                   </tr>
                   <tr>
                     <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                      College CGPA :
+                      UG Result % :
                     </td>
                     <td>
                       <input

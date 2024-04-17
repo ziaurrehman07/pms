@@ -86,7 +86,7 @@ const AdminPlacedStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
                     </tr>
                     <tr>
                       <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                        Class X :
+                        Class X %:
                       </td>
                       <td className="font-semibold text-sm p-1">
                         {student.result_10}
@@ -94,7 +94,7 @@ const AdminPlacedStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
                     </tr>
                     <tr>
                       <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                        Class XII :
+                        Class XII % :
                       </td>
                       <td className="font-semibold text-sm p-1">
                         {student.result_12}
@@ -102,7 +102,7 @@ const AdminPlacedStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
                     </tr>
                     <tr>
                       <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                        College CGPA :
+                        UG Result % :
                       </td>
                       <td className="font-semibold text-sm p-1">
                         {student.college_cgpa}

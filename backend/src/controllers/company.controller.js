@@ -540,25 +540,35 @@ const downloadCompanyPlacedStudentCSV = asyncHandler(async (req, res) => {
       { $unwind: "$user" },
       { $match: { "user.isPlaced": true } },
       {
+        $lookup: {
+          from: "jobs", // Assuming the name of the Job model is "jobs"
+          localField: "user.designation",
+          foreignField: "_id",
+          as: "job",
+        },
+      },
+      { $unwind: "$job" },
+      {
         $project: {
-          _id: "$studentsList._id",
-          fullName: "$studentsList.fullName",
-          enrollment: "$studentsList.enrollment",
-          branch: "$studentsList.branch",
-          email: "$studentsList.email",
-          mobile: "$studentsList.mobile",
-          result_10: "$studentsList.result_10",
-          result_12: "$studentsList.result_12",
-          college_cgpa: "$studentsList.college_cgpa",
-          address: "$studentsList.address",
+          _id: "$user._id",
+          fullName: "$user.fullName",
+          enrollment: "$user.enrollment",
+          branch: "$user.branch",
+          email: "$user.email",
+          mobile: "$user.mobile",
+          result_10: "$user.result_10",
+          result_12: "$user.result_12",
+          college_cgpa: "$user.college_cgpa",
+          salaryPackage: "$job.salaryPackage",
+          designation: "$job.designation",
+          address: "$user.address",
         },
       },
     ]);
-
-    if (usersdata.length === 0) {
-      throw new ApiError(404, "No students found for this job");
+console.log(usersdata);
+    if (!usersdata.length) {
+      throw new ApiError(404, "No students found");
     }
-
     const csvStream = csv.format({ headers: true });
 
     if (!fs.existsSync("../public/files/export/")) {
@@ -598,7 +608,7 @@ const downloadCompanyPlacedStudentCSV = asyncHandler(async (req, res) => {
       console.log("Successfully converted into CSV file!");
       res
         .status(200)
-        .setHeader("Content-disposition", "attachment; filename=users.csv")
+        .setHeader("Content-disposition", "attachment; filename=hiredStudents.csv")
         .set("Content-Type", "text/csv")
         .send(fs.readFileSync("../public/files/export/hiredStudents.csv"));
     });

@@ -81,7 +81,6 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
                   value={jobData.designation}
                   className=" p-1 bg-blue-100 outline-none rounded-md mb-2"
                   type="text"
-                  placeholder="Designation"
                   required
                 />
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
@@ -94,11 +93,10 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
                   value={jobData.salaryPackage}
                   className=" p-1  bg-blue-100 outline-none rounded-md mb-2"
                   type="text"
-                  placeholder="Salary Package (In Lakhs)"
                   required
                 />
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
-                  Criteria 10
+                  Criteria 10 %
                 </label>
                 <input
                   id="criteria_10"
@@ -107,11 +105,10 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
                   value={jobData.criteria_10}
                   className=" p-1  bg-blue-100 outline-none rounded-md mb-2"
                   type="text"
-                  placeholder="Criteria 10"
                   required
                 />
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
-                  Criteria 12
+                  Criteria 12 %
                 </label>
                 <input
                   id="criteria_12"
@@ -120,11 +117,10 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
                   value={jobData.criteria_12}
                   className="p-1  bg-blue-100 outline-none rounded-md mb-2"
                   type="text"
-                  placeholder=" Criteria 12"
                   required
                 />
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
-                  Critera College
+                  Critera UG % 
                 </label>
                 <input
                   id="criteria_cllg_cgpa"
@@ -133,7 +129,6 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
                   value={jobData.criteria_cllg_cgpa}
                   className=" p-1  bg-blue-100 outline-none rounded-md mb-2"
                   type="text"
-                  placeholder=" Critera College"
                   required
                 />{" "}
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
@@ -146,7 +141,6 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
                   value={jobData.lastDate}
                   className=" px-1 py-4 bg-blue-100  outline-none rounded-md mb-2"
                   type="date"
-                  placeholder="Last Date to Apply"
                   required
                 />
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
@@ -159,7 +153,6 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
                   value={jobData.description}
                   className=" p-1 mb-12 bg-blue-100 outline-none rounded-md "
                   type="text"
-                  placeholder="Description"
                   required
                 />
               </div>

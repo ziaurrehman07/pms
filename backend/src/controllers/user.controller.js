@@ -14,6 +14,8 @@ import { Notice } from "../models/notification.model.js";
 import { getFormattedDate } from "../utils/getCurrentDate.util.js";
 import { Otps } from "../models/emailOtp.model.js";
 import { Feedback } from "../models/feedback.model.js";
+import csv from "fast-csv"
+import fs from "fs"
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -819,7 +821,7 @@ const downloadPlacedStudentsCSV = asyncHandler(async (req, res) => {
       console.log("Successfully converted into CSV file!");
       res
         .status(200)
-        .setHeader("Content-disposition", "attachment; filename=users.csv")
+        .setHeader("Content-disposition", "attachment; filename=placedStudents.csv")
         .set("Content-Type", "text/csv")
         .send(fs.readFileSync("../public/files/export/placedStudents.csv"));
     });

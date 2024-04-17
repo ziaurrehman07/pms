@@ -62,7 +62,7 @@ function StudentProfileEdit({ onEditClick }) {
                 </tr>
                 <tr>
                   <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    Class X :
+                    Class X %:
                   </td>
                   <td className="font-semibold text-sm p-1">
                     {students.result_10}
@@ -70,7 +70,7 @@ function StudentProfileEdit({ onEditClick }) {
                 </tr>
                 <tr>
                   <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    Class XII :
+                    Class XII % :
                   </td>
                   <td className="font-semibold text-sm p-1">
                     {students.result_12}
@@ -78,7 +78,7 @@ function StudentProfileEdit({ onEditClick }) {
                 </tr>
                 <tr>
                   <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    College CGPA :
+                    UG Result % :
                   </td>
                   <td className="font-semibold text-sm p-1">
                     {students.college_cgpa}

@@ -109,7 +109,7 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
                 </tr>
                 <tr>
                   <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    10th criteria :
+                    10th criteria % :
                   </td>
                   <td>
                     <input
@@ -123,7 +123,7 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
                 </tr>
                 <tr>
                   <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    12th criteria :
+                    12th criteria % :
                   </td>
                   <td>
                     <input
@@ -137,7 +137,7 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
                 </tr>
                 <tr>
                   <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                    UG criteria :
+                    UG criteria % :
                   </td>
                   <td>
                     <input

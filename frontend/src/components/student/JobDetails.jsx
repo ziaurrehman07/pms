@@ -129,19 +129,19 @@ function JobDetails({ jobId }) {
               </tr>
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                  10th criteria :
+                  10th criteria % :
                 </td>
                 <td className="font-semibold text-sm p-1">{job.criteria_10}</td>
               </tr>
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                  12th criteria :
+                  12th criteria % :
                 </td>
                 <td className="font-semibold text-sm p-1">{job.criteria_12}</td>
               </tr>
               <tr>
                 <td className="font-semibold text-sm p-1 whitespace-nowrap">
-                  UG criteria :
+                  UG criteria % :
                 </td>
                 <td className="font-semibold text-sm p-1">
                   {job.criteria_cllg_cgpa}
