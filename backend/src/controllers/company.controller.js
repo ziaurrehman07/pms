@@ -460,6 +460,7 @@ const downloadAppliedStudentsCSV = asyncHandler(async (req, res) => {
           _id: "$studentsList._id",
           fullName: "$studentsList.fullName",
           enrollment: "$studentsList.enrollment",
+          branch: "$studentsList.branch",
           email: "$studentsList.email",
           mobile: "$studentsList.mobile",
           result_10: "$studentsList.result_10",
@@ -494,11 +495,12 @@ const downloadAppliedStudentsCSV = asyncHandler(async (req, res) => {
     usersdata.forEach((user) => {
       csvStream.write({
         "Full Name": user.fullName || "-",
-        enrollment: user.enrollment || "-",
+        "Branch": user.branch || "-",
+        Enrollment: user.enrollment || "-",
         Email: user.email || "-",
-        Mobile: user.mobile || "-",
-        "10 Result": user.result_10 || "-",
-        "12 Result": user.result_12 || "-",
+        "Mobile No.": user.mobile || "-",
+        "10th Result": user.result_10 || "-",
+        "12th Result": user.result_12 || "-",
         "UG Result": user.college_cgpa || "-",
         Address: user.address || "-",
       });
@@ -510,9 +512,95 @@ const downloadAppliedStudentsCSV = asyncHandler(async (req, res) => {
       console.log("Successfully converted into CSV file!");
       res
         .status(200)
-        .setHeader('Content-disposition', 'attachment; filename=users.csv')
-        .set('Content-Type', 'text/csv')
-        .send(fs.readFileSync("../public/files/export/users.csv"))
+        .setHeader("Content-disposition", "attachment; filename=users.csv")
+        .set("Content-Type", "text/csv")
+        .send(fs.readFileSync("../public/files/export/users.csv"));
+    });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(error.statusCode || 500)
+      .json(new ApiResponse(error.statusCode || 500, {}, error.message));
+  }
+});
+
+const downloadCompanyPlacedStudentCSV = asyncHandler(async (req, res) => {
+  try {
+    const usersdata = await Company.aggregate([
+      { $match: { _id: req.company?._id } },
+      { $unwind: "$selectedStudents" },
+      {
+        $lookup: {
+          from: "users",
+          localField: "selectedStudents",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      { $unwind: "$user" },
+      { $match: { "user.isPlaced": true } },
+      {
+        $project: {
+          _id: "$studentsList._id",
+          fullName: "$studentsList.fullName",
+          enrollment: "$studentsList.enrollment",
+          branch: "$studentsList.branch",
+          email: "$studentsList.email",
+          mobile: "$studentsList.mobile",
+          result_10: "$studentsList.result_10",
+          result_12: "$studentsList.result_12",
+          college_cgpa: "$studentsList.college_cgpa",
+          address: "$studentsList.address",
+        },
+      },
+    ]);
+
+    if (students.length === 0) {
+      throw new ApiError(404, "No students found for this job");
+    }
+
+    const csvStream = csv.format({ headers: true });
+
+    if (!fs.existsSync("../public/files/export/")) {
+      if (!fs.existsSync("../public/files")) {
+        fs.mkdirSync("../public/files/");
+      }
+      if (!fs.existsSync("../public/files/export")) {
+        fs.mkdirSync("../public/files/export/");
+      }
+    }
+
+    const writablestream = fs.createWriteStream(
+      "../public/files/export/hiredStudents.csv"
+    );
+
+    csvStream.pipe(writablestream);
+
+    usersdata.forEach((user) => {
+      csvStream.write({
+        "Full Name": user.fullName || "-",
+        "Branch": user.branch || "-",
+        Enrollment: user.enrollment || "-",
+        Email: user.email || "-",
+        "Mobile No.": user.mobile || "-",
+        "10th Result": user.result_10 || "-",
+        "12th Result": user.result_12 || "-",
+        "UG Result": user.college_cgpa || "-",
+        "Package (in LPA)" : user.salaryPackage || "-",
+        "Designation" : user.designation || "-",
+        Address: user.address || "-",
+      });
+    });
+
+    csvStream.end();
+
+    writablestream.on("finish", function () {
+      console.log("Successfully converted into CSV file!");
+      res
+        .status(200)
+        .setHeader("Content-disposition", "attachment; filename=users.csv")
+        .set("Content-Type", "text/csv")
+        .send(fs.readFileSync("../public/files/export/hiredStudents.csv"));
     });
   } catch (error) {
     console.error(error);
@@ -538,4 +626,5 @@ export {
   changeCompanyCurrentPassword,
   updateCompanyDetailsByAmin,
   downloadAppliedStudentsCSV,
+  downloadCompanyPlacedStudentCSV
 };

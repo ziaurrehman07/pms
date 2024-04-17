@@ -763,6 +763,74 @@ const verifyOtpForEmail = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "OTP verified Successfully!"));
 });
 
+const downloadPlacedStudentsCSV = asyncHandler(async (req, res) => {
+  try {
+    const usersdata = await User.find({isPlaced:true})
+    .select("-password -refreshToken")
+    .populate({
+      path:"designation",
+      select:"company salaryPackage designation",
+      populate:{
+        path:"company",
+        select:"name"
+      }
+    })
+    if (usersdata.length === 0) {
+      throw new ApiError(404, "No students found for this job");
+    }
+
+    const csvStream = csv.format({ headers: true });
+
+    if (!fs.existsSync("../public/files/export/")) {
+      if (!fs.existsSync("../public/files")) {
+        fs.mkdirSync("../public/files/");
+      }
+      if (!fs.existsSync("../public/files/export")) {
+        fs.mkdirSync("../public/files/export/");
+      }
+    }
+
+    const writablestream = fs.createWriteStream(
+      "../public/files/export/placedStudents.csv"
+    );
+
+    csvStream.pipe(writablestream);
+
+    usersdata.forEach((user) => {
+      csvStream.write({
+        "Full Name": user.fullName || "-",
+        "Branch": user.branch || "-",
+        Enrollment: user.enrollment || "-",
+        Email: user.email || "-",
+        "Mobile No.": user.mobile || "-",
+        "10th Result": user.result_10 || "-",
+        "12th Result": user.result_12 || "-",
+        "UG Result": user.college_cgpa || "-",
+        "Package (in LPA)": user.designation.salaryPackage || "-",
+        "Designation": user.designation.designation || "-",
+        "Company": user.designation.company.name || "-",
+        Address: user.address || "-",
+      });
+    });
+
+    csvStream.end();
+
+    writablestream.on("finish", function () {
+      console.log("Successfully converted into CSV file!");
+      res
+        .status(200)
+        .setHeader("Content-disposition", "attachment; filename=users.csv")
+        .set("Content-Type", "text/csv")
+        .send(fs.readFileSync("../public/files/export/placedStudents.csv"));
+    });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(error.statusCode || 500)
+      .json(new ApiResponse(error.statusCode || 500, {}, error.message));
+  }
+});
+
 export {
   registerStudent,
   loginUser,
@@ -790,4 +858,5 @@ export {
   activeJobCount,
   generateOtpForVerification,
   verifyOtpForEmail,
+  downloadPlacedStudentsCSV
 };
