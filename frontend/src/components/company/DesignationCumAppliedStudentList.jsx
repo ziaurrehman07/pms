@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import PropTypes from "prop-types";
 import HireModal from "./Modal/HireModal";
-// import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
   const [job, setJob] = useState(null);
   const [hiredStudents, setHiredStudents] = useState([]);
@@ -59,6 +59,10 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
     }
   };
 
+  const handleDowloadSuccesMessage = () => {
+    toast.success("Downloaded Successfully !");
+  };
+
   return (
     <div className="mt-4 h-[550px]  bg-white mb-4 w-[500px] rounded-lg shadow-xl overflow-y-scroll no-scrollbar">
       <div className="sticky top-0 bg-white border-b border-black  mx-4 flex justify-between place-items-center h-14">
@@ -74,6 +78,7 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
         <div className="flex">
           <a
             href={`/api/v2/companies/applied-student-list-download/${jobId}`}
+            onClick={handleDowloadSuccesMessage}
             download="users.csv"
             className="mr-2 text-xs font-bold cursor-pointer text-blue-600 border border-blue-500 px-2 py-1 rounded-lg"
           >
