@@ -31,6 +31,7 @@ import {
   activeJobCount,
   generateOtpForVerification,
   verifyOtpForEmail,
+  downloadPlacedStudentsCSV,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -74,6 +75,7 @@ router
   .route("/delete-notice/:noticeId")
   .delete(verifyAdmin, deleteNoticeByAdmin);
 router.route("/active-jobs").get(verifyAdmin, activeJobCount);
+router.route("/placed-student-list-download").get(verifyAdmin, downloadPlacedStudentsCSV);
 
 router
   .route("/generate-otp-email-for-student")
