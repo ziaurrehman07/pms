@@ -44,7 +44,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get("api/v1/users/log-out-user");
+      await axios.get("api/v1/users/log-out-user", { withCredentials: true });
       window.localStorage.clear();
       navigate("/");
       console.log("Logout clicked");

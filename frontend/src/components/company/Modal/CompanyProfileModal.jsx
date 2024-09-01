@@ -16,7 +16,8 @@ const CompanyProfileModal = ({ isOpen, onClose }) => {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v2/companies/get-current-company-details`
+          `/api/v2/companies/get-current-company-details`,
+          { withCredentials: true }
         );
         const studentData = res.data.data;
         setValues(studentData); // Set the retrieved student details in the state

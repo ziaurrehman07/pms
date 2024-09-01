@@ -15,7 +15,9 @@ const StudentProfileModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     const fetchStudentDetails = async () => {
       try {
-        const res = await axios.get(`/api/v1/users/get-user`);
+        const res = await axios.get(`/api/v1/users/get-user`, {
+          withCredentials: true,
+        });
         const studentData = res.data.data;
         setValues(studentData); // Set the retrieved student details in the state
       } catch (error) {

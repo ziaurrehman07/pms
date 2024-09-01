@@ -19,7 +19,8 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
     const fetchCompanyJobDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v3/companies/job/get-current-company-job-details/${jobId}`
+          `/api/v3/companies/job/get-current-company-job-details/${jobId}`,
+          { withCredentials: true }
         );
         const jobData = res.data.data;
         setValues(jobData); // Set the retrieved student details in the state

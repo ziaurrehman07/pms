@@ -10,7 +10,8 @@ function CompanyDetailsForStudent({ companyId }) {
     const fetchCompanyDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v2/companies/get-company-details/${companyId}`
+          `/api/v2/companies/get-company-details/${companyId}`,
+          { withCredentials: true }
         );
         setCompany(res.data.data);
       } catch (error) {

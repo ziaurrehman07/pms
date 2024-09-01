@@ -14,7 +14,8 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
     const fetchCompanyJobDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v2/companies/get-applied-students-list/${jobId}`
+          `/api/v2/companies/get-applied-students-list/${jobId}`,
+          { withCredentials: true }
         );
         setJob(res.data.data);
         const resDesignation = await axios.get(

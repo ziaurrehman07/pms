@@ -9,7 +9,7 @@ const GetAllJobs = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(url, { withCredentials: true });
         setJobs(response.data.data);
         console.log(response);
         setLoading(false);

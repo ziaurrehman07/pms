@@ -12,7 +12,8 @@ function StudentDetails({ studentId, onEditClick }) {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v1/users/get-student-details/${studentId}`
+          `/api/v1/users/get-student-details/${studentId}`,
+          { withCredentials: true }
         );
         setStudent(res.data.data);
       } catch (error) {

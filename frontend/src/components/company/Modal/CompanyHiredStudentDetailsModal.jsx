@@ -17,7 +17,8 @@ const CompanyHiredStudentListDetailsModal = ({
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v1/users/get-student-details/${studentId}`
+          `/api/v1/users/get-student-details/${studentId}`,
+          { withCredentials: true }
         );
         setStudent(res.data.data);
       } catch (error) {
@@ -36,7 +37,9 @@ const CompanyHiredStudentListDetailsModal = ({
 
   const unhiredStudent = async (studentId) => {
     try {
-      await axios.get(`/api/v2/companies/unhire-student/${studentId}`);
+      await axios.get(`/api/v2/companies/unhire-student/${studentId}`, {
+        withCredentials: true,
+      });
       onClose();
       window.location.reload();
     } catch (error) {

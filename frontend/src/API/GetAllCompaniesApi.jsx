@@ -9,7 +9,7 @@ const GetAllCompanies = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(url, { withCredentials: true });
         setCompanies(response.data.data);
         // console.log(response.data.data);
         setLoading(false);

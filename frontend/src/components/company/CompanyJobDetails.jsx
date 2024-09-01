@@ -11,7 +11,8 @@ function CompanyJobDetails({ jobId, onEditClick }) {
     const fetchCompanyJobDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v3/companies/job/get-current-company-job-details/${jobId}`
+          `/api/v3/companies/job/get-current-company-job-details/${jobId}`,
+          { withCredentials: true }
         );
         setJob(res.data.data);
       } catch (error) {

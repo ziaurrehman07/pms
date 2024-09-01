@@ -43,7 +43,9 @@ function CompanyNavbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get("api/v2/companies/log-out-company");
+      await axios.get("api/v2/companies/log-out-company", {
+        withCredentials: true,
+      });
       window.localStorage.clear();
       navigate("/");
       console.log("Logout clicked");
@@ -111,9 +113,7 @@ function CompanyNavbar() {
                       <Link to="/companyprofiledetail">
                         <div className="flex place-items-center  mb-5">
                           <MdEdit />
-                          <h1
-                            className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer"
-                          >
+                          <h1 className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">
                             Edit primary info
                           </h1>
                         </div>

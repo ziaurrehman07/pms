@@ -22,7 +22,8 @@ function UpdateStudentDetails({ studentId, onCancel }) {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v1/users/get-student-details/${studentId}`
+          `/api/v1/users/get-student-details/${studentId}`,
+          { withCredentials: true }
         );
         const studentData = res.data.data;
         setValues(studentData); // Set the retrieved student details in the state

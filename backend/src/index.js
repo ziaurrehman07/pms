@@ -3,12 +3,22 @@ import { app } from "../src/app.js";
 import connectDB from "../src/DB/index.js";
 import { task } from "./utils/emailSender.util.js";
 import cron from "node-cron";
+import cors from "cors";
 
 dotenv.config({
   path: "../.env",
 });
 
+const origin = process.env.CORS_ORIGIN;
+app.use(
+  cors({
+    origin: origin,
+    Credential: true,
+    methods: "GET,POST,PUT,DELETE", // Allowed HTTP methods
+  })
+);
 const port = process.env.PORT || 3000;
+console.log(port);
 
 connectDB()
   .then(
@@ -20,4 +30,4 @@ connectDB()
     console.log("MongoDB connection failed !!! ", error);
   });
 
-cron.schedule("0 12 * * *", task)
+cron.schedule("0 12 * * *", task);
