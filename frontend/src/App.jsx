@@ -32,7 +32,7 @@ import AdminNoticeViewer from "./pages/admin/AdminNoticeViewer";
 import StudentRegistrationForm from "./pages/student/studetn registeration/StudentRegistrationForm";
 function App() {
   const { userRole, companyRole } = CollegeApi();
-
+  console.log(userRole);
   return (
     <BrowserRouter>
       <main className="flex  w-screen min-h-screen">
