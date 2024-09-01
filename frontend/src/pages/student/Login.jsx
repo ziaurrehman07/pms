@@ -31,9 +31,14 @@ function Login() {
     }
     try {
       dispatch(loginStart());
-      const res = await axios.post("/api/v1/users/login", FormData, {
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await axios.post(
+        "/api/v1/users/login",
+        FormData,
+        {
+          headers: { "Content-Type": "application/json" },
+        },
+        { withCredentials: true }
+      );
       const data = res.data; // Access data directly from the response
       if (data.success === false) {
         // console.log(data);
