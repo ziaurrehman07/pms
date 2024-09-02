@@ -39,14 +39,14 @@ function Navbar() {
     };
   }, []);
 
-  const apiUrl = "/api/v1/users/get-user";
+  const apiUrl = "https://pmsbackend-4lvq.onrender.com/api/v1/users/get-user";
   const { students } = GetAllStudents(apiUrl);
 
   const handleLogout = async () => {
     try {
       await axios.get("api/v1/users/log-out-user", { withCredentials: true });
       window.localStorage.clear();
-      navigate("/");
+      navigate("/login");
       console.log("Logout clicked");
       setLogoutModalOpen(false);
     } catch (error) {

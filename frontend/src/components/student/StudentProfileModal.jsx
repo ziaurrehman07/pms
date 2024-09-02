@@ -50,7 +50,6 @@ const StudentProfileModal = ({ isOpen, onClose }) => {
       });
       toast.success("Student avatar updated successfully");
       onClose();
-      window.location.reload();
     } catch (error) {
       console.error("Error updating student details:", error);
       toast.error("Error updating avatar. Please try again.");

@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 // Components
 import Sidebar from "./components/Sidebar";
 import Updates from "./pages/student/Updates";
@@ -25,359 +30,29 @@ import CompanyFeedback from "./pages/company/CompanyFeedback";
 import UpdateResume from "./components/student/UpdateResume";
 import PreviewResume from "./components/student/PreviewResume";
 import Profile from "./pages/student/Profile";
-import CollegeApi from "./API/CollegeApi";
 import CompanyAppliedStudents from "./pages/company/CompanyAppliedStudents";
 import CompanyProfileDetails from "./pages/company/CompanyProfileDetails";
 import AdminNoticeViewer from "./pages/admin/AdminNoticeViewer";
 import StudentRegistrationForm from "./pages/student/studetn registeration/StudentRegistrationForm";
+import ProtectedRoute from "./protectedRoute/ProtectedRoute";
+import PageNotFound from "./pages/PageNotFound";
 function App() {
-  const { userRole, companyRole } = CollegeApi();
-  console.log(userRole);
   return (
-    <BrowserRouter>
-      <main className="flex  w-screen min-h-screen">
-        <Routes>
-          {/* Student routes */}
-          {userRole === "student" ? (
-            <>
-              <Route
-                path="/studenthome"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <Sidebar />
-                      <div className="w-full">
-                        <Navbar />
-                        <Home />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/studentprofile"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <Sidebar />
-                      <div className="w-full">
-                        <Navbar />
-                        <Profile />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/updateresume"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <Sidebar />
-                      <div className="w-full">
-                        <Navbar />
-                        <UpdateResume />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/previewresume"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <Sidebar />
-                      <div className="w-full">
-                        <Navbar />
-                        <PreviewResume />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/updates"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <Sidebar />
-                      <div className="w-full">
-                        <Navbar />
-                        <Updates />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/companies"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <Sidebar />
-                      <div className="w-full">
-                        <Navbar />
-                        <Companies />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/feedback"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <Sidebar />
-                      <div className="w-full">
-                        <Navbar />
-                        <Feedback />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route path="*" element={<Navigate to="/studenthome" />} />
-            </>
-          ) : (
-            <>
-              <Route path="/companylogin" element={<CompanyLogin />} />
-              <Route exact path="/" element={<Login />} />
-            </>
-          )}
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/company/login" element={<CompanyLogin />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="*" element={<PageNotFound />} />
 
-          {/* Admin routes */}
-          {userRole === "admin" ? (
-            <>
-              <Route
-                path="/adminhome"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarAdmin />
-                      <div className="w-full">
-                        <Navbar />
-                        <AdminHome />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-
-              <Route
-                path="/adminstudents"
-                element={
-                  <>
-                    <div className="flex w-full ">
-                      <SidebarAdmin />
-                      <div className="w-full">
-                        <Navbar />
-                        <AdminStudents />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/admincompanies"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarAdmin />
-                      <div className="w-full">
-                        <Navbar />
-                        <AdminCompanies />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/admindashboard"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarAdmin />
-                      <div className="w-full">
-                        <Navbar />
-                        <AdminDashboard />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                exact
-                path="/adminregisterstudent"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarAdmin />
-                      <div className="w-full">
-                        <Navbar />
-                        <AdminRegisterStudent />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                exact
-                path="/adminregistercompanies"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarAdmin />
-                      <div className="w-full">
-                        <Navbar />
-                        <AdminRegisterCompanies />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/adminfeedbacks"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarAdmin />
-                      <div className="w-full">
-                        <Navbar />
-                        <AdminFeedbacks />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/managenotices"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarAdmin />
-                      <div className="w-full">
-                        <Navbar />
-                        <AdminNoticeViewer />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-
-              <Route path="*" element={<Navigate to="/adminhome" />} />
-            </>
-          ) : (
-            <>
-              <Route path="/companylogin" element={<CompanyLogin />} />
-              <Route exact path="/" element={<Login />} />
-            </>
-          )}
-          {/* company Routes */}
-          {companyRole === "company" ? (
-            <>
-              <Route
-                path="/companyhome"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarCompany />
-                      <div className="w-full">
-                        <CompanyNavbar />
-                        <CompanyHome />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/companydashboard"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarCompany />
-                      <div className="w-full">
-                        <CompanyNavbar />
-                        <CompanyDashboard />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/companyprofiledetail"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarCompany />
-                      <div className="w-full">
-                        <CompanyNavbar />
-                        <CompanyProfileDetails />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/companyjobprofiles"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarCompany />
-                      <div className="w-full">
-                        <CompanyNavbar />
-                        <CompanyJobProfiles />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route
-                path="/appliedStudents"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarCompany />
-                      <div className="w-full">
-                        <CompanyNavbar />
-                        <CompanyAppliedStudents />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-
-              <Route
-                path="/companyfeedback"
-                element={
-                  <>
-                    <div className="flex w-full">
-                      <SidebarCompany />
-                      <div className="w-full">
-                        <CompanyNavbar />
-                        <CompanyFeedback />
-                      </div>
-                    </div>
-                  </>
-                }
-              />
-              <Route path="*" element={<Navigate to="/companyhome" />} />
-            </>
-          ) : (
-            <>
-              <Route path="/companylogin" element={<CompanyLogin />} />
-              <Route exact path="/" element={<Login />} />
-            </>
-          )}
-          {/* default routes */}
-          <Route
-            path="/studentregisteration"
-            element={<StudentRegistrationForm />}
-          />
-        </Routes>
-      </main>
-    </BrowserRouter>
+        {/* student routes  */}
+        <Route
+          path="/student"
+          element={<ProtectedRoute role="student" component={Home} />}
+        />
+        {/* student routes end...  */}
+      </Routes>
+    </Router>
   );
 }
 

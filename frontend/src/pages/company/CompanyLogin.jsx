@@ -109,7 +109,7 @@ function CompanyLogin() {
           </form>
           <p className="mx-auto mt-8 text-gray-500">
             For College!
-            <Link to="/">
+            <Link to="/login">
               <span className="text-blue-500  ml-1 hover:text-blue-600 font-bold">
                 Login
               </span>

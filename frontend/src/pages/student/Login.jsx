@@ -2,17 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { RiEyeCloseFill, RiEyeFill, RiUserLine } from "react-icons/ri";
 import { useState } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  loginStart,
-  loginSuccess,
-  loginFailure,
-} from "../../redux/user/userSlice";
 
 function Login() {
-  const [FormData, setFormData] = useState({ email: "", password: "" });
-  const { loading, error: errorMessage } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // Corrected: Initialize loading to false
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -20,46 +15,29 @@ function Login() {
     setShowPassword((prevState) => !prevState);
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...FormData, [e.target.id]: e.target.value.trim() });
-  };
-  // via axios
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!FormData.email || !FormData.password) {
-      return dispatch(loginFailure("All fields are required"));
-    }
+    setError("");
+    setLoading(true); // Set loading to true when starting the login process
     try {
-      dispatch(loginStart());
-      const res = await axios.post(
-        "/api/v1/users/login",
-        FormData,
+      const response = await axios.post(
+        "https://pmsbackend-4lvq.onrender.com/api/v1/users/login",
         {
-          headers: { "Content-Type": "application/json" },
-        },
-        { withCredentials: true }
-      );
-      const data = res.data; // Access data directly from the response
-      if (data.success === false) {
-        // console.log(data);
-      } else {
-        dispatch(loginSuccess(data));
-        const userRole = data.data.loggedInUser.role;
-        // console.log(userRole);
-        if (userRole === "student") {
-          localStorage.setItem("studentToken", data.data.accessToken);
-          navigate("/studenthome");
-          window.location.reload();
-        } else if (userRole === "admin") {
-          localStorage.setItem("adminToken", data.data.accessToken);
-          navigate("/adminhome");
-          window.location.reload();
-        } else {
-          console.error("unexpected user role: "), userRole;
+          email,
+          password,
         }
-      }
+      );
+      localStorage.setItem("user", JSON.stringify(response.data));
+      const { role } = response.data.data.loggedInUser;
+      console.log(role);
+      if (role === "student") navigate("/student");
+      else if (role === "admin") navigate("/admin");
+      else if (role === "company") navigate("/company");
     } catch (error) {
-      dispatch(loginFailure("Email or Password is Invalid"));
+      setError("Login failed. Please check your credentials."); // Set error message
+      console.error("Login failed", error);
+    } finally {
+      setLoading(false); // Reset loading to false after request is complete
     }
   };
 
@@ -80,9 +58,8 @@ function Login() {
               type="text"
               placeholder="Email"
               id="email"
-              // autoComplete="email"
-              value={FormData.email}
-              onChange={handleChange}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email} // Corrected: Use email state
             />
             <input
               className="m-5 p-3 shadow-sm bg-gray-100 outline-none rounded-lg mt-0.5 pr-10"
@@ -90,12 +67,12 @@ function Login() {
               placeholder="Password"
               id="password"
               autoComplete="password"
-              value={FormData.password}
-              onChange={handleChange}
+              onChange={(e) => setPassword(e.target.value)}
+              value={password} // Corrected: Use password state
               style={{ paddingRight: "40px" }}
             />
             <span
-              className="text-blue-500 text-xl absolute right-8 top-[46.5%] transform -translate-y-1/2 cursor-pointer" // Position the icon vertically centered within the input
+              className="text-blue-500 text-xl absolute right-8 top-[46.5%] transform -translate-y-1/2 cursor-pointer"
               onClick={togglePasswordVisibility}
             >
               {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
@@ -115,20 +92,20 @@ function Login() {
           </form>
           <p className="mx-auto mt-8 text-gray-500">
             For Company!
-            <Link to="/companyLogin">
+            <Link to="/company/login">
               <span className="text-blue-500 font-bold hover:text-blue-600  ml-1">
                 Login
               </span>
             </Link>
           </p>
           <p className="mx-auto text-blue-700 font-bold ">
-            <Link to="/studentregisteration">
+            <Link to="/student/registeration">
               <span>Register!</span>
             </Link>
           </p>
-          {errorMessage && (
+          {error && (
             <p className="text-red-600 bg-gray-100 mx-auto mt-5 p-2 rounded-lg">
-              {errorMessage}
+              {error}
             </p>
           )}
         </div>

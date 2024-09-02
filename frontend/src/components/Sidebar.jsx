@@ -25,13 +25,13 @@ function Sidebar() {
     setShowResumeDropdown(!showResumeDropdown);
   };
   return (
-    <div className=" ml-3 mr-4 rounded-lg border  shadow-md border-[#d2d8d6] mb-4 mt-4 bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
-      <Link to="/studenthome">
+    <div className="h-screen rounded-lg border  shadow-md border-[#d2d8d6] bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
+      <Link to="/student">
         <div
           className={`flex justify-center place-items-center  text-lg text-black font-extrabold cursor-pointer ${
-            activeLink === "studenthome" ? "" : "text-black"
+            activeLink === "student" ? "" : "text-black"
           }`}
-          onClick={() => handleLinkClick("studenthome")}
+          onClick={() => handleLinkClick("student")}
         >
           <h4 className="whitespace-nowrap  mr-2">Student panel</h4>
           {/* <AiOutlineHome className="text-xl font-bold" /> */}
