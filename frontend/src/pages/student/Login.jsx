@@ -24,7 +24,7 @@ function Login() {
         email,
         password,
       });
-      localStorage.setItem("user", JSON.stringify(response.data.data));
+      localStorage.setItem("user", JSON.stringify(response.data));
       const { role } = response.data.data.loggedInUser;
       console.log(role);
       if (role === "student") navigate("/student");
