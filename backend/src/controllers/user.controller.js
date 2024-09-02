@@ -14,8 +14,8 @@ import { Notice } from "../models/notification.model.js";
 import { getFormattedDate } from "../utils/getCurrentDate.util.js";
 import { Otps } from "../models/emailOtp.model.js";
 import { Feedback } from "../models/feedback.model.js";
-import csv from "fast-csv"
-import fs from "fs"
+import csv from "fast-csv";
+import fs from "fs";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -109,8 +109,9 @@ const loginUser = asyncHandler(async (req, res) => {
   );
 
   const options = {
-    httpOnly: true,
+    httpOnly: false,
     secure: true,
+    sameSite: "lax",
   };
 
   return res
@@ -540,7 +541,7 @@ const deleteStudent = asyncHandler(async (req, res) => {
       const response = await deleteFromCloudinary(student.resume, folder2);
     }
 
-    const feedback = await Feedback.deleteMany({owner:student._id})
+    const feedback = await Feedback.deleteMany({ owner: student._id });
 
     return res
       .status(200)
@@ -579,7 +580,7 @@ const deleteCompany = asyncHandler(async (req, res) => {
     if (company.avatar) {
       const response = await deleteFromCloudinary(company.avatar, folder);
     }
-    const feedback = await Feedback.deleteMany({companyOwner:company._id})
+    const feedback = await Feedback.deleteMany({ companyOwner: company._id });
 
     return res
       .status(200)
@@ -754,7 +755,7 @@ const verifyOtpForEmail = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Email not found!");
   }
   if (otpNumber !== emailOtp.otp) {
-    console.log(otpNumber + " " +emailOtp.otp+" "+ email);
+    console.log(otpNumber + " " + emailOtp.otp + " " + email);
     throw new ApiError(401, "Invalid OTP!");
   }
 
@@ -767,16 +768,16 @@ const verifyOtpForEmail = asyncHandler(async (req, res) => {
 
 const downloadPlacedStudentsCSV = asyncHandler(async (req, res) => {
   try {
-    const usersdata = await User.find({isPlaced:true})
-    .select("-password -refreshToken")
-    .populate({
-      path:"designation",
-      select:"company salaryPackage designation",
-      populate:{
-        path:"company",
-        select:"name"
-      }
-    })
+    const usersdata = await User.find({ isPlaced: true })
+      .select("-password -refreshToken")
+      .populate({
+        path: "designation",
+        select: "company salaryPackage designation",
+        populate: {
+          path: "company",
+          select: "name",
+        },
+      });
     if (usersdata.length === 0) {
       throw new ApiError(404, "No students found for this job");
     }
@@ -801,7 +802,7 @@ const downloadPlacedStudentsCSV = asyncHandler(async (req, res) => {
     usersdata.forEach((user) => {
       csvStream.write({
         "Full Name": user.fullName || "-",
-        "Branch": user.branch || "-",
+        Branch: user.branch || "-",
         Enrollment: user.enrollment || "-",
         Email: user.email || "-",
         "Mobile No.": user.mobile || "-",
@@ -809,8 +810,8 @@ const downloadPlacedStudentsCSV = asyncHandler(async (req, res) => {
         "12th Result": user.result_12 || "-",
         "UG Result": user.college_cgpa || "-",
         "Package (in LPA)": user.designation.salaryPackage || "-",
-        "Designation": user.designation.designation || "-",
-        "Company": user.designation.company.name || "-",
+        Designation: user.designation.designation || "-",
+        Company: user.designation.company.name || "-",
         Address: user.address || "-",
       });
     });
@@ -821,7 +822,10 @@ const downloadPlacedStudentsCSV = asyncHandler(async (req, res) => {
       console.log("Successfully converted into CSV file!");
       res
         .status(200)
-        .setHeader("Content-disposition", "attachment; filename=placedStudents.csv")
+        .setHeader(
+          "Content-disposition",
+          "attachment; filename=placedStudents.csv"
+        )
         .set("Content-Type", "text/csv")
         .send(fs.readFileSync("../public/files/export/placedStudents.csv"));
     });
@@ -860,5 +864,5 @@ export {
   activeJobCount,
   generateOtpForVerification,
   verifyOtpForEmail,
-  downloadPlacedStudentsCSV
+  downloadPlacedStudentsCSV,
 };
