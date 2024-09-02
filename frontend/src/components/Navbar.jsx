@@ -46,12 +46,12 @@ function Navbar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(
-          "https://pmsservice.onrender.com/api/v1/users/login",
+        const response = await axios.get(
+          "https://pmsservice.onrender.com/api/v1/users/get-user",
           { withCredentials: true }
         );
+        setData(response.data.data);
         console.log("data from get user", response);
-        setData(response.data.data.loggedInUser);
         setLoading(false);
       } catch (error) {
         setError("Error fetching data");
