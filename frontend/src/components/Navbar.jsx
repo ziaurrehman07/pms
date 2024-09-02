@@ -15,7 +15,7 @@ function Navbar() {
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
   const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -50,8 +50,8 @@ function Navbar() {
           "https://pmsservice.onrender.com/api/v1/users/get-user",
           { withCredentials: true }
         );
-        setData(response.data.data);
         console.log("data from get user", response);
+        setData(response.data.data);
         setLoading(false);
       } catch (error) {
         setError("Error fetching data");
