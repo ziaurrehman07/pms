@@ -46,11 +46,10 @@ function Navbar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://pmsservice.onrender.com/api/v1/users/get-user",
-          { withCredentials: true }
-        );
-        setData(response.data);
+        const response = await axios.get("/api/v1/users/get-user", {
+          withCredentials: true,
+        });
+        setData(response.data.data);
         console.log("data from get user", response.data);
         setLoading(false);
       } catch (error) {
@@ -65,10 +64,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get(
-        "https://pmsservice.onrender.com/api/v1/users/log-out-user",
-        { withCredentials: true }
-      );
+      await axios.get("/api/v1/users/log-out-user", { withCredentials: true });
       window.localStorage.clear();
       navigate("/login");
       console.log("Logout clicked");
