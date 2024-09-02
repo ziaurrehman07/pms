@@ -5,7 +5,7 @@ import Sidebar from "../../components/Sidebar";
 
 function Home() {
   const apiUrl = "https://pmsservice.onrender.com/api/v1/users/get-all-notices";
-  const { students } = GetAllStudents(apiUrl, { withCredentials: true });
+  const { students } = GetAllStudents(apiUrl);
   return (
     <div className="flex h-full">
       <Sidebar />
