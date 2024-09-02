@@ -9,7 +9,7 @@ const GetAllStudents = (url) => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(url, { withCredentials: true });
+      const response = await axios.get(url);
       setStudents(response.data.data);
       setError(null); // Clear error if data fetching is successful
     } catch (error) {
