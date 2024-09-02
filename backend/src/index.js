@@ -11,7 +11,7 @@ dotenv.config({
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "https://pms-s6t8.onrender.com",
     Credential: true,
     methods: "GET,POST,PUT,DELETE", // Allowed HTTP methods
   })
