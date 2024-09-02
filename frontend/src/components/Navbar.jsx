@@ -50,8 +50,8 @@ function Navbar() {
           "https://pmsservice.onrender.com/api/v1/users/get-user",
           { withCredentials: true }
         );
-        setData(response.data.data);
-        console.log("data from get user", response.data.data);
+        setData(response.data);
+        console.log("data from get user", response.data);
         setLoading(false);
       } catch (error) {
         setError("Error fetching data");
