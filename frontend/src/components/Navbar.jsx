@@ -42,7 +42,7 @@ function Navbar() {
   const apiUrl = "https://pmsservice.onrender.com/api/v1/users/get-user";
   console.log(apiUrl);
   const { students } = GetAllStudents(apiUrl, { withCredentials: true });
-
+  console.log(students);
   const handleLogout = async () => {
     try {
       await axios.get("/api/v1/users/log-out-user", { withCredentials: true });
