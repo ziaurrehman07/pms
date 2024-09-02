@@ -5,12 +5,12 @@ import cors from "cors";
 const app = express();
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(
-    cors({
-      origin: "https://pms-s6t8.onrender.com",
-      Credential: true,
-      methods: "GET,POST,PUT,DELETE", // Allowed HTTP methods
-    })
-  );
+  cors({
+    origin: "https://pms-s6t8.onrender.com",
+    credentials: true,
+    methods: "GET,POST,PUT,DELETE", // Allowed HTTP methods
+  })
+);
 app.use(express.json({ limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
