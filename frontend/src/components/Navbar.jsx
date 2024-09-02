@@ -39,7 +39,7 @@ function Navbar() {
     };
   }, []);
 
-  const apiUrl = "https://pmsbackend-4lvq.onrender.com/api/v1/users/get-user";
+  const apiUrl = "/api/v1/users/get-user";
   const { students } = GetAllStudents(apiUrl);
 
   const handleLogout = async () => {
