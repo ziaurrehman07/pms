@@ -47,8 +47,7 @@ function Navbar() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://pmsservice.onrender.com/api/v1/users/get-user",
-          { withCredentials: true }
+          "https://pmsservice.onrender.com/api/v1/users/get-user"
         );
         setData(response.data.data);
         console.log("data from get user", response.data);
