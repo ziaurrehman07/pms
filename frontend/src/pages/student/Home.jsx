@@ -4,8 +4,9 @@ import NoticeComponent from "../../components/notice/NoticeComponent";
 import Sidebar from "../../components/Sidebar";
 
 function Home() {
-  const apiUrl = "https://pms-s6t8.onrender.com/api/v1/users/get-all-notices";
-  const { students } = GetAllStudents(apiUrl,  { withCredentials: true });
+  const apiUrl =
+    "https://pmsbackend-4lvq.onrender.com/api/v1/users/get-all-notices";
+  const { students } = GetAllStudents(apiUrl, { withCredentials: true });
   return (
     <div className="flex h-full">
       <Sidebar />

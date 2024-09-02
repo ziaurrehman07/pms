@@ -40,12 +40,13 @@ function Navbar() {
   }, []);
 
   const apiUrl = "https://pmsbackend-4lvq.onrender.com/api/v1/users/get-user";
+  console.log(apiUrl);
   const { students } = GetAllStudents(apiUrl, { withCredentials: true });
 
   const handleLogout = async () => {
     try {
       await axios.get(
-        "https://pms-s6t8.onrender.com/api/v1/users/log-out-user",
+        "https://pmsbackend-4lvq.onrender.com/api/v1/users/log-out-user",
         { withCredentials: true }
       );
       window.localStorage.clear();
