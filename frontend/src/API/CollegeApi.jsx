@@ -7,9 +7,12 @@ const CollegeApi = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/v1/users/get-user", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "https://pmsservice.onrender.com/api/v1/users/get-user",
+          {
+            withCredentials: true,
+          }
+        );
         setUserRole(response.data.data.role);
       } catch (error) {
         console.error("Error fetching user data:", error);

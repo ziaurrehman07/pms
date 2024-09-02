@@ -21,7 +21,9 @@ function StudentProfileUpdate({ onCancel }) {
   useEffect(() => {
     const fetchStudentDetails = async () => {
       try {
-        const res = await axios.get(`/api/v1/users/get-user`);
+        const res = await axios.get(
+          `https://pmsservice.onrender.com/api/v1/users/get-user`
+        );
         const studentData = res.data.data;
         setValues(studentData); // Set the retrieved student details in the state
       } catch (error) {
