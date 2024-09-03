@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { RiEyeCloseFill, RiEyeFill, RiUserLine } from "react-icons/ri";
 import { useState } from "react";
 import axios from "axios";
-import { BACKEND_URL } from "../../utils";
 
 function Login() {
   const [email, setEmail] = useState("");
