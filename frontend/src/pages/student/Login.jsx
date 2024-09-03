@@ -22,7 +22,7 @@ function Login() {
     setLoading(true); // Set loading to true when starting the login process
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/users/login`,
+        `https://pms-s6t8.onrender.com/api/v1/users/login`,
         {
           email,
           password,
