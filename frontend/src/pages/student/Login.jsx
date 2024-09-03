@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { RiEyeCloseFill, RiEyeFill, RiUserLine } from "react-icons/ri";
 import { useState } from "react";
 import axios from "axios";
-import { BACKEND_URL } from "../../utils";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -22,7 +21,7 @@ function Login() {
     setLoading(true); // Set loading to true when starting the login process
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/v1/users/login`,
+        `https://pmsservice.onrender.com/v1/users/login`,
         {
           email,
           password,
