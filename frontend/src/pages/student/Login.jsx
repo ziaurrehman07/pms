@@ -21,10 +21,16 @@ function Login() {
     setError("");
     setLoading(true); // Set loading to true when starting the login process
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/v1/users/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/users/login`,
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       localStorage.setItem("user", JSON.stringify(response.data));
       const { role } = response.data.data.loggedInUser;
       console.log(role);
