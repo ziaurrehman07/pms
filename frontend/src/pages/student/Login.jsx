@@ -25,9 +25,6 @@ function Login() {
         {
           email,
           password,
-        },
-        {
-          withCredentials: true,
         }
       );
       localStorage.setItem("user", JSON.stringify(response.data));
