@@ -25,6 +25,9 @@ function Login() {
         {
           email,
           password,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
         }
       );
       localStorage.setItem("user", JSON.stringify(response.data));
