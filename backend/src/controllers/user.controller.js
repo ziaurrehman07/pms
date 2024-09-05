@@ -16,6 +16,7 @@ import { Otps } from "../models/emailOtp.model.js";
 import { Feedback } from "../models/feedback.model.js";
 import csv from "fast-csv";
 import fs from "fs";
+import { domain } from "process";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -111,6 +112,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
+    domain: "https://pms-s6t8.onrender.com",
   };
 
   return res
