@@ -26,7 +26,9 @@ function Login() {
           email,
           password,
         },
-        { withCredentials: true }
+        {
+          headers: { "Content-Type": "application/json" },
+        }
       );
       localStorage.setItem("user", JSON.stringify(response.data));
       const { role } = response.data.data.loggedInUser;
