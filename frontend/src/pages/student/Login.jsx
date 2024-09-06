@@ -27,7 +27,7 @@ function Login() {
           password,
         },
         {
-          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
       );
       localStorage.setItem("user", JSON.stringify(response.data));
