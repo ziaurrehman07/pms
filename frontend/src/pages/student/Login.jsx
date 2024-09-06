@@ -21,14 +21,12 @@ function Login() {
     setLoading(true); // Set loading to true when starting the login process
     try {
       const response = await axios.post(
-        `https://pmsservice.onrender.com/v1/users/login`,
+        "https://pmsservice.onrender.com/v1/users/login",
         {
           email,
           password,
         },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        { withCredentials: true }
       );
       localStorage.setItem("user", JSON.stringify(response.data));
       const { role } = response.data.data.loggedInUser;

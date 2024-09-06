@@ -112,7 +112,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
-    // domain: "https://pms-s6t8.onrender.com",
+    sameSite: "lax",
   };
 
   return res
@@ -142,6 +142,7 @@ const logOutUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
+    sameSite: "lax",
   };
 
   return res
@@ -173,9 +174,9 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     user._id
   );
   const options = {
-    httpOnly: false,
+    httpOnly: true,
     secure: true,
-    sameSite: "None",
+    sameSite: "lax",
   };
 
   return res
