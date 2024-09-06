@@ -110,7 +110,7 @@ const loginUser = asyncHandler(async (req, res) => {
   );
 
   const options = {
-    httpOnly: true,
+    httpOnly: false,
     secure: true,
     // domain: "https://pms-s6t8.onrender.com",
   };
