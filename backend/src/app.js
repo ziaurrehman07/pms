@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 // );
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "https://pms-s6t8.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
