@@ -4,9 +4,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 const app = express();
-app.use(express.urlencoded({ extended: true, limit: "16kb" }));
-app.use(express.json({ limit: "16kb" }));
-app.use(express.static("public"));
 app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(
@@ -16,6 +13,10 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+// app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(express.json());
+// app.use(express.static("public"));
+
 
 // Routes import
 import userRouter from "../src/routes/user.route.js";
