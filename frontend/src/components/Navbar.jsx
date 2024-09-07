@@ -46,9 +46,12 @@ function Navbar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/v1/users/get-user", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "https://pmsservice.onrender.com/api/v1/users/get-user",
+          {
+            withCredentials: true,
+          }
+        );
         setData(response.data.data);
         console.log("data from get user", response);
         setLoading(false);
