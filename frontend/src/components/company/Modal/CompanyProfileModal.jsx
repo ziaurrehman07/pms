@@ -16,7 +16,7 @@ const CompanyProfileModal = ({ isOpen, onClose }) => {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v2/companies/get-current-company-details`,
+          `https://pmsservice.onrender.com/api/v2/companies/get-current-company-details`,
           { withCredentials: true }
         );
         const studentData = res.data.data;
@@ -44,11 +44,16 @@ const CompanyProfileModal = ({ isOpen, onClose }) => {
     try {
       const formData = new FormData();
       formData.append("avatar", values.avatar);
-      await axios.patch("/api/v2/companies/update-company-avatar", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.patch(
+        "https://pmsservice.onrender.com/api/v2/companies/update-company-avatar",
+        formData,
+        { withCredentials: true },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       toast.success("Company avatar updated successfully");
       onClose();
       window.location.reload();

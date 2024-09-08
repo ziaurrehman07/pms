@@ -38,14 +38,18 @@ function CompanyNavbar() {
     };
   }, []);
 
-  const apiUrl = "/api/v2/companies/get-current-company-details";
+  const apiUrl =
+    "https://pmsservice.onrender.com/api/v2/companies/get-current-company-details";
   const { companies } = GetAllCompanies(apiUrl);
 
   const handleLogout = async () => {
     try {
-      await axios.get("api/v2/companies/log-out-company", {
-        withCredentials: true,
-      });
+      await axios.get(
+        "https://pmsservice.onrender.com/api/v2/companies/log-out-company",
+        {
+          withCredentials: true,
+        }
+      );
       window.localStorage.clear();
       navigate("/");
       console.log("Logout clicked");
@@ -110,7 +114,7 @@ function CompanyNavbar() {
                           Change Avatar
                         </h1>
                       </div>
-                      <Link to="/companyprofiledetail">
+                      <Link to="/company/profile-details">
                         <div className="flex place-items-center  mb-5">
                           <MdEdit />
                           <h1 className="text-sm ml-2 text-gray-500 hover:text-blue-500 cursor-pointer">

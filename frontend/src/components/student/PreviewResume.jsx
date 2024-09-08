@@ -1,16 +1,7 @@
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GetAllStudents from "../../API/GetAllStudentsApi";
 
 function PreviewResume() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("studentToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
   const apiUrl = "https://pmsservice.onrender.com/api/v1/users/get-user";
   const { students } = GetAllStudents(apiUrl);
   return (
@@ -29,7 +20,7 @@ function PreviewResume() {
             </a>
           </div>
         </div>
-        <Link to="/updateresume">
+        <Link to="/student/update/resume">
           <button className="bg-blue-600 px-8 rounded-lg text-xs font-semibold mt-4 text-white py-2">
             UPDATE
           </button>

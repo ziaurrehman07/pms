@@ -1,17 +1,8 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import GetAllCompanies from "../../API/GetAllCompaniesApi";
 
 function CompanyHome() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem("companyToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
-  const apiUrl = "/api/v2/companies/get-current-company-details";
+  const apiUrl =
+    "https://pmsservice.onrender.com/api/v2/companies/get-current-company-details";
   const { companies } = GetAllCompanies(apiUrl);
 
   return (

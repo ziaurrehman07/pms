@@ -17,7 +17,7 @@ function CompanyHiredStudentList({ students, onStudentClick }) {
           </span>
         </h2>
         <a
-          href={`/api/v2/companies/hired-student-list-download`}
+          href={`https://pmsservice.onrender.com/api/v2/companies/hired-student-list-download`}
           onClick={handleDowloadSuccesMessage}
           download="hiredStudents.csv"
           className="mr-2 text-xs font-bold cursor-pointer  hover:bg-blue-100 text-blue-600 border border-blue-500 px-2 py-1 rounded-lg"

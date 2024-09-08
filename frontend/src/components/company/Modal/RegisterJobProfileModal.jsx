@@ -30,8 +30,9 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "/api/v3/companies/job/new-job-profile",
-        jobData
+        "https://pmsservice.onrender.com/api/v3/companies/job/new-job-profile",
+        jobData,
+        { withCredentials: true }
       );
       response.data;
       toast.success("Job Profile created successfully!");
@@ -120,7 +121,7 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
                   required
                 />
                 <label className="text-xs flex text-blue-500 font-bold font-sans">
-                  Critera UG % 
+                  Critera UG %
                 </label>
                 <input
                   id="criteria_cllg_cgpa"

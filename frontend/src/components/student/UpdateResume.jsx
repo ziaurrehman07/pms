@@ -1,19 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function UpdateResume() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("studentToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
@@ -28,8 +20,9 @@ function UpdateResume() {
 
       // Modify the URL according to your API endpoint
       const response = await axios.patch(
-        "/api/v1/users/update-student-resume",
+        "https://pmsservice.onrender.com/api/v1/users/update-student-resume",
         formData,
+        { withCredentials: true },
         {
           headers: {
             "Content-Type": "multipart/form-data",

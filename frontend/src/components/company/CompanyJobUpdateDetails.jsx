@@ -19,7 +19,7 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
     const fetchCompanyJobDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v3/companies/job/get-current-company-job-details/${jobId}`,
+          `https://pmsservice.onrender.com/api/v3/companies/job/get-current-company-job-details/${jobId}`,
           { withCredentials: true }
         );
         const jobData = res.data.data;
@@ -55,8 +55,9 @@ function CompanyJobUpdateDetails({ jobId, onCancel }) {
       };
 
       await axios.patch(
-        `/api/v3/companies/job/update-job-profile/${jobId}`,
-        updatedData
+        `https://pmsservice.onrender.com/api/v3/companies/job/update-job-profile/${jobId}`,
+        updatedData,
+        { withCredentials: true }
       );
       toast.success("Job  details updated successfully");
       onCancel();

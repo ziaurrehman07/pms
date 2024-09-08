@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import FeedbackComponent from "../../components/feedback/FeedbackComponent";
 import GetAllStudents from "../../API/GetAllStudentsApi";
 import axios from "axios";
@@ -7,21 +6,17 @@ import Warning from "../../components/Warning";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function AdminFeedbacks() {
-  const navigate = useNavigate();
   const [isWarningModalOpen, setWarningModalOpen] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-  const apiUrl = "/api/v4/feedback/get-all-feedbacks";
+  const apiUrl =
+    "https://pmsservice.onrender.com/api/v4/feedback/get-all-feedbacks";
   const { students, setStudents } = GetAllStudents(apiUrl);
 
   const handleDelete = async () => {
     try {
-      await axios.delete("/api/v4/feedback/delete-all-feedbacks");
+      await axios.delete(
+        "https://pmsservice.onrender.com/api/v4/feedback/delete-all-feedbacks",
+        { withCredentials: true }
+      );
       console.log("Feedbacks deleted successfully");
       toast.success("All feedbacks are deleted!");
 

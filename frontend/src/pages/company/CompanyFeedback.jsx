@@ -1,19 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 function CompanyFeedback() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("companyToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
   const [studentData, setStudentData] = useState({
     content: "",
   });
@@ -31,8 +21,9 @@ function CompanyFeedback() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "/api/v4/feedback/write-new-company-feedback",
-        studentData
+        "https://pmsservice.onrender.com/api/v4/feedback/write-new-company-feedback",
+        studentData,
+        { withCredentials: true }
       );
       response.data;
       toast.success("Feedback send successfully!");

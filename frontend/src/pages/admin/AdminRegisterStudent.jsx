@@ -1,17 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function AdminRegisterStudent() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
 
   const [studentData, setStudentData] = useState({
     fullName: "",
@@ -33,8 +25,9 @@ function AdminRegisterStudent() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "/api/v1/users/register-student",
-        studentData
+        "https://pmsservice.onrender.com/api/v1/users/register-student",
+        studentData,
+        { withCredentials: true }
       );
       response.data;
       toast.success("Student created successfully!");

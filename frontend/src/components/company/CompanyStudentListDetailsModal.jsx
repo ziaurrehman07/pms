@@ -10,7 +10,7 @@ const CompanyStudentListDetailsModal = ({ studentId, isOpen, onClose }) => {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v1/users/get-student-details/${studentId}`,
+          `https://pmsservice.onrender.com/api/v1/users/get-student-details/${studentId}`,
           { withCredentials: true }
         );
         setStudent(res.data.data);

@@ -26,7 +26,7 @@ const CollegeApi = () => {
     const fetchCompanyData = async () => {
       try {
         const response = await axios.get(
-          "/api/v2/companies/get-current-company-details",
+          "https://pmsservice.onrender.com/api/v2/companies/get-current-company-details",
           { withCredentials: true }
         );
         setCompanyRole(response.data.data.role);

@@ -1,19 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Feedback() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("studentToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
 
   const [studentData, setStudentData] = useState({
     content: "",
@@ -32,8 +24,9 @@ function Feedback() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "/api/v4/feedback/write-new-student-feedback",
-        studentData
+        "https://pmsservice.onrender.com/api/v4/feedback/write-new-student-feedback",
+        studentData,
+        { withCredentials: true }
       );
       response.data;
       toast.success("Feedback sent successfully!");

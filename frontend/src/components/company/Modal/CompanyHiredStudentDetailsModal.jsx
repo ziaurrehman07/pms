@@ -17,7 +17,7 @@ const CompanyHiredStudentListDetailsModal = ({
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v1/users/get-student-details/${studentId}`,
+          `https://pmsservice.onrender.com/api/v1/users/get-student-details/${studentId}`,
           { withCredentials: true }
         );
         setStudent(res.data.data);
@@ -37,9 +37,12 @@ const CompanyHiredStudentListDetailsModal = ({
 
   const unhiredStudent = async (studentId) => {
     try {
-      await axios.get(`/api/v2/companies/unhire-student/${studentId}`, {
-        withCredentials: true,
-      });
+      await axios.get(
+        `https://pmsservice.onrender.com/api/v2/companies/unhire-student/${studentId}`,
+        {
+          withCredentials: true,
+        }
+      );
       onClose();
       window.location.reload();
     } catch (error) {

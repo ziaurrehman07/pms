@@ -12,7 +12,7 @@ function CompanyDetails({ companyId, onEditClick }) {
     const fetchCompanyDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v2/companies/get-company-details/${companyId}`,
+          `https://pmsservice.onrender.com/api/v2/companies/get-company-details/${companyId}`,
           { withCredentials: true }
         );
         setCompany(res.data.data);
@@ -41,9 +41,12 @@ function CompanyDetails({ companyId, onEditClick }) {
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`/api/v1/users/delete-company/${companyId}`, {
-          withCredentials: true,
-        });
+        await axios.delete(
+          `https://pmsservice.onrender.com/api/v1/users/delete-company/${companyId}`,
+          {
+            withCredentials: true,
+          }
+        );
         console.log("Company deleted successfully");
         // Close the component after successful deletion
         window.location.reload();

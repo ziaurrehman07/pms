@@ -5,7 +5,7 @@ export default defineConfig({
   server: {
     // proxy: {
     //   "/api": {
-    //     target: "http://localhost:8000",
+    //     target: "https://pmsservice.onrender.com",
     //     secure: false,
     //     changeOrigin: true,
     //   },

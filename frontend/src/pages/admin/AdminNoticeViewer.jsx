@@ -1,18 +1,8 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import GetAllStudents from "../../API/GetAllStudentsApi";
 import NoticeManageComponent from "../../components/notice/NoticeManageComponent";
 
 function AdminNoticeViewer() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-  const apiUrl = "/api/v1/users/get-all-notices/api/v1/users/get-all-notices";
+  const apiUrl = "https://pmsservice.onrender.com/api/v1/users/get-all-notices";
   const { students, setStudents } = GetAllStudents(apiUrl);
   return (
     <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">

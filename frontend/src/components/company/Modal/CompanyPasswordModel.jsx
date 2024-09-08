@@ -18,10 +18,14 @@ const CompanyPasswordModel = ({ isOpen, onClose }) => {
     }
 
     try {
-      await axios.patch("/api/v2/companies/change-company-password", {
-        oldPassword,
-        newPassword,
-      });
+      await axios.patch(
+        "https://pmsservice.onrender.com/api/v2/companies/change-company-password",
+        {
+          oldPassword,
+          newPassword,
+        },
+        { withCredentials: true }
+      );
       toast.success("Successfully changed password!");
       setOldPassword("");
       setNewPassword("");

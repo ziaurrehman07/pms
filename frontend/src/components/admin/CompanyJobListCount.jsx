@@ -1,7 +1,7 @@
 import GetAllJobs from "../../API/GetAllJobsApi";
 
 function CompanyJobListCount() {
-  const url = "/api/v1/users/active-jobs";
+  const url = "https://pmsservice.onrender.com/api/v1/users/active-jobs";
   const { jobs } = GetAllJobs(url);
   return (
     <div className="bg-blue-100 shadow-md h-44 w-72 m-4 p-4 rounded-lg flex flex-col justify-center place-items-center">

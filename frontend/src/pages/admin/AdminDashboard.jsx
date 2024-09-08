@@ -1,20 +1,11 @@
 import { useEffect, useState } from "react";
 import GetAllStudents from "../../API/GetAllStudentsApi";
-import { useNavigate } from "react-router-dom";
 import PlacedStudentList from "../../components/admin/PlacedStudentList";
 import AdminPlacedStudentListDetailsModal from "../../components/admin/modal/AdminPlacedStudentListDetails";
 import CompanyJobListCount from "../../components/admin/CompanyJobListCount";
 function AdminDashboard() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
-  const apiUrl = "/api/v1/users/placed-student-list";
+  const apiUrl =
+    "https://pmsservice.onrender.com/api/v1/users/placed-student-list";
   const { students, loading, refetch } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isPlacedStudetnModalOpen, setIsPlacedStudetnModalOpen] =

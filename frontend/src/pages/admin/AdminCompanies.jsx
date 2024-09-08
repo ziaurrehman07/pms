@@ -1,22 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GetAllCompanies from "../../API/GetAllCompaniesApi";
 import CompanyDetails from "../../components/admin/CompanyDetails";
 import CompanyList from "../../components/admin/CompanyList";
 import UpdateCompanyDetails from "../../components/admin/UpdateCompanyDetails";
-import { useNavigate } from "react-router-dom";
-// import UpdateStudentDetails from "../../components/admin/UpdateStudentDetails";
 
 function AdminCompanies() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
-  const apiUrl = "/api/v2/companies/get-all-companies-list";
+  const apiUrl =
+    "https://pmsservice.onrender.com/api/v2/companies/get-all-companies-list";
   const { companies, loading } = GetAllCompanies(apiUrl);
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [isEditClicked, setIsEditClicked] = useState(false);

@@ -3,20 +3,10 @@ import GetAllStudents from "../../API/GetAllStudentsApi";
 import StudentDetails from "../../components/StudentDetails";
 import StudentList from "../../components/admin/StudentList";
 import UpdateStudentDetails from "../../components/admin/UpdateStudentDetails";
-import { useNavigate } from "react-router-dom";
-// import UpdateStudentDetails from "../../components/admin/UpdateStudentDetails";
 
 function AdminStudents() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
-  const apiUrl = "/api/v1/users/get-students-detail";
+  const apiUrl =
+    "https://pmsservice.onrender.com/api/v1/users/get-students-detail";
   const { students, loading, refetch } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isEditClicked, setIsEditClicked] = useState(false);

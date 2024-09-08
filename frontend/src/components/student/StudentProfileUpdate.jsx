@@ -22,10 +22,11 @@ function StudentProfileUpdate({ onCancel }) {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v1/users/get-user`
+          "https://pmsservice.onrender.com/api/v1/users/get-user",
+          { withCredentials: true }
         );
-        const studentData = res.data.data;
-        setValues(studentData); // Set the retrieved student details in the state
+        console.log("respose from up`date profile", res);
+        setValues(res.data.data); // Set the retrieved student details in the state
       } catch (error) {
         console.error("Error fetching student details:", error);
       }
@@ -60,8 +61,9 @@ function StudentProfileUpdate({ onCancel }) {
       };
 
       await axios.patch(
-        "/api/v1/users/update-student-account-details",
-        updatedData
+        "https://pmsservice.onrender.com/api/v1/users/update-student-account-details",
+        updatedData,
+        { withCredentials: true }
       );
       toast.success("Student details updated successfully");
       onCancel();

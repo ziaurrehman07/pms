@@ -22,7 +22,7 @@ function UpdateStudentDetails({ studentId, onCancel }) {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v1/users/get-student-details/${studentId}`,
+          `https://pmsservice.onrender.com/api/v1/users/get-student-details/${studentId}`,
           { withCredentials: true }
         );
         const studentData = res.data.data;
@@ -60,14 +60,15 @@ function UpdateStudentDetails({ studentId, onCancel }) {
       };
 
       await axios.patch(
-        `/api/v1/users/update-student-details/${studentId}`,
-        updatedData
+        `https://pmsservice.onrender.com/api/v1/users/update-student-details/${studentId}`,
+        updatedData,
+        { withCredentials: true }
       );
       toast.success("Student details updated successfully");
 
       // console.log("Student details updated successfully");
       onCancel();
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error("Error updating student details:", error);
       toast.error("Error updating student details. Please try again.");
