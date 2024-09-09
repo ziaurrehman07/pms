@@ -37,7 +37,8 @@ function StudentDetails({ studentId, onEditClick }) {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `https://pmsservice.onrender.com/api/v1/users/delete-student/${studentId}`
+        `https://pmsservice.onrender.com/api/v1/users/delete-student/${studentId}`,
+        { withCredentials: true }
       );
       console.log("Student deleted successfully");
       window.location.reload();
