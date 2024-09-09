@@ -99,7 +99,7 @@ function CompanyLogin() {
             </Link>
           </p>
           <p className="mx-auto text-blue-700 font-bold ">
-            <Link to="/student/registeration">
+            <Link to="/student/register/self">
               <span>Register!</span>
             </Link>
           </p>
