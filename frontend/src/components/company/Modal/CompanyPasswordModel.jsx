@@ -19,7 +19,7 @@ const CompanyPasswordModel = ({ isOpen, onClose }) => {
 
     try {
       await axios.patch(
-        "https://pmsservice.onrender.com/api/v2/companies/change-company-password",
+        "http://localhost:8000/api/v2/companies/change-company-password",
         {
           oldPassword,
           newPassword,

@@ -6,8 +6,7 @@ import JobUpdatesList from "../../components/student/JobUpdatesList";
 function Updates() {
   const [selectedJob, setSelectedJob] = useState(null);
 
-  const apiUrl =
-    "https://pmsservice.onrender.com/api/v3/companies/job/get-all-jobs";
+  const apiUrl = "http://localhost:8000/api/v3/companies/job/get-all-jobs";
   const { jobs, loading } = GetAllJobs(apiUrl);
   const handleJobClick = (jobId) => {
     setSelectedJob((prevJob) => (prevJob === jobId ? null : jobId));
@@ -41,7 +40,7 @@ function Updates() {
       </button>
     );
   return (
-    <div className="flex">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <JobUpdatesList jobs={jobs} onJobClick={handleJobClick} />
       </div>

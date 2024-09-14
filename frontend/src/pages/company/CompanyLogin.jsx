@@ -21,7 +21,7 @@ function CompanyLogin() {
     setLoading(true); // Set loading to true when starting the login process
     try {
       const response = await axios.post(
-        "https://pmsservice.onrender.com/api/v2/companies/login-company",
+        "http://localhost:8000/api/v2/companies/login-company",
         {
           email,
           password,
@@ -42,7 +42,7 @@ function CompanyLogin() {
   };
 
   return (
-    <div className=" w-full grid place-items-center">
+    <div className="h-screen w-full grid place-items-center">
       <div className="bg-white h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
         <div className="flex place-items-center justify-center  mt-12 ">
           <RiUserLine className="text-xl text-[#33363F] font-semibold" />
@@ -103,11 +103,13 @@ function CompanyLogin() {
               <span>Register!</span>
             </Link>
           </p>
-          {error && (
-            <p className="text-red-600 bg-gray-100 mx-auto mt-5 p-2 rounded-lg">
-              {error}
-            </p>
-          )}
+          <div className="p-4 -mt-3">
+            {error && (
+              <p className="text-red-600 bg-gray-100 text-xs p-3 font-semibold italic rounded-lg">
+                {error}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

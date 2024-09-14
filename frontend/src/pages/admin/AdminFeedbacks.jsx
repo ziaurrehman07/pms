@@ -7,14 +7,13 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function AdminFeedbacks() {
   const [isWarningModalOpen, setWarningModalOpen] = useState(false);
-  const apiUrl =
-    "https://pmsservice.onrender.com/api/v4/feedback/get-all-feedbacks";
+  const apiUrl = "http://localhost:8000/api/v4/feedback/get-all-feedbacks";
   const { students, setStudents } = GetAllStudents(apiUrl);
 
   const handleDelete = async () => {
     try {
       await axios.delete(
-        "https://pmsservice.onrender.com/api/v4/feedback/delete-all-feedbacks",
+        "http://localhost:8000/api/v4/feedback/delete-all-feedbacks",
         { withCredentials: true }
       );
       console.log("Feedbacks deleted successfully");
@@ -27,23 +26,25 @@ function AdminFeedbacks() {
     }
   };
   return (
-    <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
-      <h1 className="text-blue-600 font-bold text-lg">FEEDBACKS</h1>
-      <div className="h-[450px]   p-4 justify-items-center rounded-lg  overflow-y-scroll no-scrollbar">
-        {/* feedback component */}
-        <FeedbackComponent students={students} />
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4 justify-center">
+      <div className="bg-white flex-col mt-4 mb-4 mr-10  rounded-lg  justify-center flex place-items-center">
+        <h1 className="text-blue-600 font-bold text-lg">FEEDBACKS</h1>
+        <div className="h-[450px] p-4 justify-items-center rounded-lg  overflow-y-scroll no-scrollbar">
+          {/* feedback component */}
+          <FeedbackComponent students={students} />
+        </div>
+        <button
+          onClick={() => setWarningModalOpen(true)}
+          className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
+        >
+          DELETE ALL FEEDBACKS
+        </button>
+        <Warning
+          isOpen={isWarningModalOpen}
+          onClose={() => setWarningModalOpen(false)}
+          onDelete={handleDelete}
+        />
       </div>
-      <button
-        onClick={() => setWarningModalOpen(true)}
-        className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
-      >
-        DELETE ALL FEEDBACKS
-      </button>
-      <Warning
-        isOpen={isWarningModalOpen}
-        onClose={() => setWarningModalOpen(false)}
-        onDelete={handleDelete}
-      />
     </div>
   );
 }

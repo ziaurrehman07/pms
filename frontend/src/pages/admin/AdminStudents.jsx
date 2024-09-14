@@ -5,8 +5,7 @@ import StudentList from "../../components/admin/StudentList";
 import UpdateStudentDetails from "../../components/admin/UpdateStudentDetails";
 
 function AdminStudents() {
-  const apiUrl =
-    "https://pmsservice.onrender.com/api/v1/users/get-students-detail";
+  const apiUrl = "http://localhost:8000/api/v1/users/get-students-detail";
   const { students, loading, refetch } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isEditClicked, setIsEditClicked] = useState(false);
@@ -56,7 +55,7 @@ function AdminStudents() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <StudentList students={students} onStudentClick={handleStudentClick} />
       </div>

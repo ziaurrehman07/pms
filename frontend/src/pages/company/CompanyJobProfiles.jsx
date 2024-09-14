@@ -5,7 +5,7 @@ import GetAllJobs from "../../API/GetAllJobsApi";
 import CompanyJobUpdateDetails from "../../components/company/CompanyJobUpdateDetails";
 function CompanyJobProfiles() {
   const apiUrl =
-    "https://pmsservice.onrender.com/api/v3/companies/job/get-current-company-all-jobs";
+    "http://localhost:8000/api/v3/companies/job/get-current-company-all-jobs";
   const { jobs, loading } = GetAllJobs(apiUrl);
   const [selectedJob, setSelectedJob] = useState(null);
   const [isEditClicked, setIsEditClicked] = useState(false);
@@ -46,7 +46,7 @@ function CompanyJobProfiles() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <CompanyJobList jobs={jobs} onJobClick={handleStudentClick} />
       </div>

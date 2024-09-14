@@ -20,7 +20,7 @@ function UpdateResume() {
 
       // Modify the URL according to your API endpoint
       const response = await axios.patch(
-        "https://pmsservice.onrender.com/api/v1/users/update-student-resume",
+        "http://localhost:8000/api/v1/users/update-student-resume",
         formData,
         { withCredentials: true },
         {
@@ -40,29 +40,31 @@ function UpdateResume() {
     setLoading(false);
   };
   return (
-    <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
-      <h1 className="text-blue-600 font-bold text-lg">UPLOAD YOUR RESUME</h1>
-      <div className=" flex-col  h-[450px] w-[880px] p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
-        <div className="resume h-[380px] ">
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="pdf goes here p-8 outline-none bg-gray-100 h-[350px] rounded-lg mb-8 font-medium"
-          ></input>
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4 justify-center">
+      <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg  justify-center flex place-items-center">
+        <h1 className="text-blue-600 font-bold text-lg">UPLOAD YOUR RESUME</h1>
+        <div className=" flex-col  h-[450px] w-[880px] p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
+          <div className="resume h-[380px] ">
+            <input
+              type="file"
+              onChange={handleFileChange}
+              className="pdf goes here p-8 outline-none bg-gray-100 h-[350px] rounded-lg mb-8 font-medium"
+            ></input>
+          </div>
+          {loading ? (
+            <div className="loader bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
+              SUBMITING...
+            </div> // Add your loading spinner here
+          ) : (
+            <button
+              onClick={handleUpdate}
+              disabled={!file}
+              className="bg-blue-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
+            >
+              SUBMIT
+            </button>
+          )}
         </div>
-        {loading ? (
-          <div className="loader bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2">
-            SUBMITING...
-          </div> // Add your loading spinner here
-        ) : (
-          <button
-            onClick={handleUpdate}
-            disabled={!file}
-            className="bg-blue-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
-          >
-            SUBMIT
-          </button>
-        )}
       </div>
     </div>
   );

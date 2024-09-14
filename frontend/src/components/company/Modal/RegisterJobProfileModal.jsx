@@ -30,7 +30,7 @@ const RegisterJobProfileModal = ({ isOpen, onClose }) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://pmsservice.onrender.com/api/v3/companies/job/new-job-profile",
+        "http://localhost:8000/api/v3/companies/job/new-job-profile",
         jobData,
         { withCredentials: true }
       );

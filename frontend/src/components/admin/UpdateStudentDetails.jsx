@@ -22,7 +22,7 @@ function UpdateStudentDetails({ studentId, onCancel }) {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v1/users/get-student-details/${studentId}`,
+          `http://localhost:8000/api/v1/users/get-student-details/${studentId}`,
           { withCredentials: true }
         );
         const studentData = res.data.data;
@@ -60,7 +60,7 @@ function UpdateStudentDetails({ studentId, onCancel }) {
       };
 
       await axios.patch(
-        `https://pmsservice.onrender.com/api/v1/users/update-student-details/${studentId}`,
+        `http://localhost:8000/api/v1/users/update-student-details/${studentId}`,
         updatedData,
         { withCredentials: true }
       );

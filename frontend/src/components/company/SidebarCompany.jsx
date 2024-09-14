@@ -10,8 +10,8 @@ function SidebarCompany() {
     return location.pathname === key;
   };
   return (
-    <>
-      <div className="h-screen mr-4 rounded-lg border shadow-md border-[#d2d8d6] bg-white   flex-col w-60 pt-8 p-8 lg:p-8 lg:w-64">
+    <div className="h-full">
+      <div className="rounded-lg border h-full overflow-auto  no-scrollbar shadow-md border-[#d2d8d6] bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
         <Link to="/company">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
@@ -84,7 +84,7 @@ function SidebarCompany() {
           </div>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 

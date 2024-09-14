@@ -15,7 +15,7 @@ function JobDetails({ jobId }) {
     const fetchCompanyJobDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v3/companies/job/get-job-details/${jobId}`,
+          `http://localhost:8000/api/v3/companies/job/get-job-details/${jobId}`,
           { withCredentials: true }
         );
         setJob(res.data.data);
@@ -41,7 +41,7 @@ function JobDetails({ jobId }) {
     const fetchAppliedJobs = async () => {
       try {
         const res = await axios.get(
-          "https://pmsservice.onrender.com/api/v3/companies/job/applied-jobid-student",
+          "http://localhost:8000/api/v3/companies/job/applied-jobid-student",
           { withCredentials: true }
         );
         setApplyJobs(res.data.data);
@@ -62,7 +62,7 @@ function JobDetails({ jobId }) {
     setLoading(true);
     try {
       await axios.get(
-        `https://pmsservice.onrender.com/api/v3/companies/job/apply-for-job/${jobId}`,
+        `http://localhost:8000/api/v3/companies/job/apply-for-job/${jobId}`,
         {
           withCredentials: true,
         }

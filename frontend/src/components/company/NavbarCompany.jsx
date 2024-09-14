@@ -39,13 +39,13 @@ function CompanyNavbar() {
   }, []);
 
   const apiUrl =
-    "https://pmsservice.onrender.com/api/v2/companies/get-current-company-details";
+    "http://localhost:8000/api/v2/companies/get-current-company-details";
   const { companies } = GetAllCompanies(apiUrl);
 
   const handleLogout = async () => {
     try {
       await axios.get(
-        "https://pmsservice.onrender.com/api/v2/companies/log-out-company",
+        "http://localhost:8000/api/v2/companies/log-out-company",
         {
           withCredentials: true,
         }
@@ -61,7 +61,7 @@ function CompanyNavbar() {
 
   return (
     <>
-      <div className=" sticky top-0 z-10 flex h-12 justify-between   mr-10 mt-4 bg-white   rounded-md place-items-center p-6 shadow-sm ">
+      <div className="z-10 flex h-12 justify-between bg-white rounded-md place-items-center p-6 shadow-sm">
         <div className="cursor-pointer">
           <h2 className="font-medium whitespace-nowrap text-sm">
             Hello, {companies.name}

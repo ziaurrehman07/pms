@@ -12,7 +12,7 @@ function StudentDetails({ studentId, onEditClick }) {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v1/users/get-student-details/${studentId}`,
+          `http://localhost:8000/api/v1/users/get-student-details/${studentId}`,
           { withCredentials: true }
         );
         setStudent(res.data.data);
@@ -37,7 +37,7 @@ function StudentDetails({ studentId, onEditClick }) {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `https://pmsservice.onrender.com/api/v1/users/delete-student/${studentId}`,
+        `http://localhost:8000/api/v1/users/delete-student/${studentId}`,
         { withCredentials: true }
       );
       console.log("Student deleted successfully");

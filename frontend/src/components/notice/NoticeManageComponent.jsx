@@ -22,7 +22,7 @@ function NoticeManageComponent({ admin, setAdmin }) {
   const handleDeleteClick = async (noticeId) => {
     try {
       await axios.delete(
-        `https://pmsservice.onrender.com/api/v1/users/delete-notice/${noticeId}`,
+        `http://localhost:8000/api/v1/users/delete-notice/${noticeId}`,
         { withCredentials: true }
       );
       setAdmin(admin.filter((data) => data._id !== noticeId));

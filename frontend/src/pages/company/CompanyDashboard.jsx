@@ -4,7 +4,7 @@ import CompanyHiredStudentList from "../../components/company/CompanyHiredStuden
 import CompanyHiredStudentListDetailsModal from "../../components/company/Modal/CompanyHiredStudentDetailsModal";
 function CompanyDashboard() {
   const apiUrl =
-    "https://pmsservice.onrender.com/api/v1/users/company-placed-student-list";
+    "http://localhost:8000/api/v1/users/company-placed-student-list";
   const { students, loading } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isPlacedStudetnModalOpen, setIsPlacedStudetnModalOpen] =
@@ -46,7 +46,7 @@ function CompanyDashboard() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <CompanyHiredStudentList
           students={students}

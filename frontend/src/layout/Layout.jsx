@@ -18,13 +18,13 @@ const Layout = () => {
   }, []);
 
   return (
-    <div className="app">
-      <div className="layout-container flex">
-        <div>{role === "admin" ? <SidebarAdmin /> : <Sidebar />}</div>
-
-        <div className="content w-full">
+    <div className="">
+      <div className="h-screen flex p-4">
+        <div className="pr-4">
+          {role === "admin" ? <SidebarAdmin /> : <Sidebar />}
+        </div>
+        <div className="w-full flex flex-col flex-grow">
           <Navbar />
-
           <Outlet />
         </div>
       </div>

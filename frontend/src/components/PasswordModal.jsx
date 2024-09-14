@@ -19,7 +19,7 @@ const PasswordModal = ({ isOpen, onClose }) => {
 
     try {
       await axios.patch(
-        "https://pmsservice.onrender.com/api/v1/users/change-password",
+        "http://localhost:8000/api/v1/users/change-password",
         {
           oldPassword,
           newPassword,

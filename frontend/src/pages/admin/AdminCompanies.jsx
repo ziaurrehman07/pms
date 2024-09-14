@@ -6,7 +6,7 @@ import UpdateCompanyDetails from "../../components/admin/UpdateCompanyDetails";
 
 function AdminCompanies() {
   const apiUrl =
-    "https://pmsservice.onrender.com/api/v2/companies/get-all-companies-list";
+    "http://localhost:8000/api/v2/companies/get-all-companies-list";
   const { companies, loading } = GetAllCompanies(apiUrl);
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [isEditClicked, setIsEditClicked] = useState(false);
@@ -50,7 +50,7 @@ function AdminCompanies() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <CompanyList
           companies={companies}

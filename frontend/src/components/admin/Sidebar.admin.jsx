@@ -13,8 +13,8 @@ function SidebarAdmin() {
   };
 
   return (
-    <>
-      <div className="mr-3 h-screen rounded-lg border shadow-lg bg-white flex-col w-60 pt-8 p-8 lg:p-8 lg:w-64">
+    <div className="h-full">
+      <div className="rounded-lg border h-full overflow-auto  no-scrollbar shadow-md border-[#d2d8d6] bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
         <Link to="/admin">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
@@ -113,7 +113,7 @@ function SidebarAdmin() {
           </div>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 

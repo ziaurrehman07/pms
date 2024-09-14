@@ -47,7 +47,7 @@ function Navbar() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://pmsservice.onrender.com/api/v1/users/get-user`,
+          `http://localhost:8000/api/v1/users/get-user`,
           {
             withCredentials: true,
           }
@@ -67,12 +67,9 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get(
-        "https://pmsservice.onrender.com/api/v1/users/log-out-user",
-        {
-          withCredentials: true,
-        }
-      );
+      await axios.get("http://localhost:8000/api/v1/users/log-out-user", {
+        withCredentials: true,
+      });
       window.localStorage.clear();
       navigate("/login");
       console.log("Logout clicked");
@@ -84,7 +81,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="sticky top-0 z-10 flex h-12 justify-between mr-10 mt-4 bg-white rounded-md place-items-center p-6 shadow-sm">
+      <div className=" z-10 flex h-12 justify-between bg-white rounded-md place-items-center p-6 shadow-sm">
         <div className="cursor-pointer">
           <h2 className="font-medium whitespace-nowrap text-sm">
             Hello, {data?.fullName}

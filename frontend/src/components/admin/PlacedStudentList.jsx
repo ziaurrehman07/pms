@@ -17,7 +17,7 @@ function PlacedStudentList({ students, onStudentClick }) {
           </span>
         </h2>
         <a
-          href={`https://pmsservice.onrender.com/api/v1/users/placed-student-list-download`}
+          href={`http://localhost:8000/api/v1/users/placed-student-list-download`}
           onClick={handleDowloadSuccesMessage}
           download="placedStudents.csv"
           className="mr-2 text-xs font-bold cursor-pointer hover:bg-blue-100 text-blue-600 border border-blue-500 px-2 py-1 rounded-lg"

@@ -11,7 +11,7 @@ function CompanyJobDetails({ jobId, onEditClick }) {
     const fetchCompanyJobDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v3/companies/job/get-current-company-job-details/${jobId}`,
+          `http://localhost:8000/api/v3/companies/job/get-current-company-job-details/${jobId}`,
           { withCredentials: true }
         );
         setJob(res.data.data);
@@ -36,7 +36,7 @@ function CompanyJobDetails({ jobId, onEditClick }) {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `https://pmsservice.onrender.com/api/v3/companies/job/delete-job-profile/${jobId}`,
+        `http://localhost:8000/api/v3/companies/job/delete-job-profile/${jobId}`,
         { withCredentials: true }
       );
       console.log("Job Profile deleted successfully");

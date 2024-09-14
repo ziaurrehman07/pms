@@ -16,7 +16,7 @@ const StudentProfileModal = ({ isOpen, onClose }) => {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v1/users/get-user`,
+          `http://localhost:8000/api/v1/users/get-user`,
           {
             withCredentials: true,
           }
@@ -47,7 +47,7 @@ const StudentProfileModal = ({ isOpen, onClose }) => {
       const formData = new FormData();
       formData.append("avatar", values.avatar);
       await axios.patch(
-        "https://pmsservice.onrender.com/api/v1/users/update-user-avatar",
+        "http://localhost:8000/api/v1/users/update-user-avatar",
         formData,
         { withCredentials: true },
         {

@@ -2,7 +2,7 @@ import GetAllCompanies from "../../API/GetAllCompaniesApi";
 
 function CompanyHome() {
   const apiUrl =
-    "https://pmsservice.onrender.com/api/v2/companies/get-current-company-details";
+    "http://localhost:8000/api/v2/companies/get-current-company-details";
   const { companies } = GetAllCompanies(apiUrl);
 
   return (

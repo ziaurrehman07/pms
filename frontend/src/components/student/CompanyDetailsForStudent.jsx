@@ -10,7 +10,7 @@ function CompanyDetailsForStudent({ companyId }) {
     const fetchCompanyDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v2/companies/get-company-details/${companyId}`,
+          `http://localhost:8000/api/v2/companies/get-company-details/${companyId}`,
           { withCredentials: true }
         );
         setCompany(res.data.data);

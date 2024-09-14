@@ -18,7 +18,7 @@ function CompanyProfileUpdate({ onCancel }) {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v2/companies/get-current-company-details`,
+          `http://localhost:8000/api/v2/companies/get-current-company-details`,
           { withCredentials: true }
         );
         const studentData = res.data.data;
@@ -53,7 +53,7 @@ function CompanyProfileUpdate({ onCancel }) {
       };
 
       await axios.patch(
-        "https://pmsservice.onrender.com/api/v2/companies/update-company-details",
+        "http://localhost:8000/api/v2/companies/update-company-details",
         updatedData,
         { withCredentials: true }
       );

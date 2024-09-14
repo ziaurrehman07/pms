@@ -12,7 +12,7 @@ function CompanyDetails({ companyId, onEditClick }) {
     const fetchCompanyDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v2/companies/get-company-details/${companyId}`,
+          `http://localhost:8000/api/v2/companies/get-company-details/${companyId}`,
           { withCredentials: true }
         );
         setCompany(res.data.data);
@@ -42,7 +42,7 @@ function CompanyDetails({ companyId, onEditClick }) {
     if (confirmDelete) {
       try {
         await axios.delete(
-          `https://pmsservice.onrender.com/api/v1/users/delete-company/${companyId}`,
+          `http://localhost:8000/api/v1/users/delete-company/${companyId}`,
           {
             withCredentials: true,
           }
