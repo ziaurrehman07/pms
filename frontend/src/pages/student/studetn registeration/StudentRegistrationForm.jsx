@@ -111,7 +111,7 @@ const StudentRegistrationForm = () => {
   };
 
   return (
-    <div className="w-full min-h-screen grid place-items-center">
+    <div className="w-full h-screen grid place-items-center">
       <form
         onSubmit={handleSubmit}
         className="w-[330px] h-[570px] mt-12 p-4 flex flex-col bg-white mb-12 rounded-md shadow-md relative"

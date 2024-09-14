@@ -5,10 +5,10 @@ function Home() {
   const apiUrl = "https://pmsservice.onrender.com/api/v1/users/get-all-notices";
   const { students } = GetAllStudents(apiUrl);
   return (
-    <div className="flex h-full w-full">
-      <div className="bg-white w-full flex-col mt-4 mb-4 mr-10 min-h-[calc(100vh-75px)] rounded-lg shadow-md justify-center flex place-items-center">
+    <div className="flex overflow-auto no-scrollbar w-full flex-grow pt-4">
+      <div className="bg-white w-full flex-col rounded-lg shadow-md py-8 flex place-items-center">
         <h1 className="text-blue-600 font-bold text-lg">NOTICE</h1>
-        <div className="h-full p-4 justify-items-center rounded-lg  overflow-y-scroll no-scrollbar">
+        <div className="py-84justify-items-center rounded-lg overflow-y-scroll w-full px-52 no-scrollbar">
           {/* feedback component */}
           <NoticeComponent admin={students} />
         </div>

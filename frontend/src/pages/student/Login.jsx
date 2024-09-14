@@ -12,7 +12,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Corrected: Initialize loading to false
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -54,10 +54,10 @@ function Login() {
   };
 
   return (
-    <div className=" w-full grid place-items-center">
+    <div className="h-screen w-full grid place-items-center">
       <div className="bg-white h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
         <div className="flex flex-col items-center">
-          <div className="flex place-items-center justify-center  mt-12 ">
+          <div className="flex place-items-center justify-center  mt-6 ">
             <RiUserLine className="text-xl text-[#33363F] font-semibold" />
             <h4 className="text-blue-500 font-bold ml-2">College Login</h4>
           </div>
@@ -101,7 +101,7 @@ function Login() {
               placeholder="Email"
               id="email"
               onChange={(e) => setEmail(e.target.value)}
-              value={email} // Corrected: Use email state
+              value={email}
             />
             <input
               className="m-5 p-3 shadow-sm bg-gray-100 outline-none rounded-lg mt-0.5 pr-10"
@@ -110,7 +110,7 @@ function Login() {
               id="password"
               autoComplete="password"
               onChange={(e) => setPassword(e.target.value)}
-              value={password} // Corrected: Use password state
+              value={password}
               style={{ paddingRight: "40px" }}
             />
             <span
@@ -145,11 +145,13 @@ function Login() {
               <span>Register!</span>
             </Link>
           </p>
-          {error && (
-            <p className="text-red-600 bg-gray-100 mx-auto mt-5 p-2 rounded-lg">
-              {error}
-            </p>
-          )}
+          <div className="p-4 -mt-3">
+            {error && (
+              <p className="text-red-600 bg-gray-100 text-xs p-3 font-semibold italic rounded-lg">
+                {error}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -27,23 +27,25 @@ function AdminFeedbacks() {
     }
   };
   return (
-    <div className="bg-white flex-col mt-4 mb-4 mr-10 h-[550px] rounded-lg shadow-md justify-center flex place-items-center">
-      <h1 className="text-blue-600 font-bold text-lg">FEEDBACKS</h1>
-      <div className="h-[450px]   p-4 justify-items-center rounded-lg  overflow-y-scroll no-scrollbar">
-        {/* feedback component */}
-        <FeedbackComponent students={students} />
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4 justify-center">
+      <div className="bg-white flex-col mt-4 mb-4 mr-10  rounded-lg  justify-center flex place-items-center">
+        <h1 className="text-blue-600 font-bold text-lg">FEEDBACKS</h1>
+        <div className="h-[450px] p-4 justify-items-center rounded-lg  overflow-y-scroll no-scrollbar">
+          {/* feedback component */}
+          <FeedbackComponent students={students} />
+        </div>
+        <button
+          onClick={() => setWarningModalOpen(true)}
+          className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
+        >
+          DELETE ALL FEEDBACKS
+        </button>
+        <Warning
+          isOpen={isWarningModalOpen}
+          onClose={() => setWarningModalOpen(false)}
+          onDelete={handleDelete}
+        />
       </div>
-      <button
-        onClick={() => setWarningModalOpen(true)}
-        className="bg-red-600 px-8 rounded-lg text-xs font-semibold text-white py-2"
-      >
-        DELETE ALL FEEDBACKS
-      </button>
-      <Warning
-        isOpen={isWarningModalOpen}
-        onClose={() => setWarningModalOpen(false)}
-        onDelete={handleDelete}
-      />
     </div>
   );
 }

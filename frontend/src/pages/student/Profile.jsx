@@ -8,7 +8,7 @@ function Profile() {
     setIsEditClicked(true);
   };
   return (
-    <>
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4 justify-center">
       <div>
         {!isEditClicked && <StudentProfileEdit onEditClick={handleEditClick} />}
       </div>
@@ -17,7 +17,7 @@ function Profile() {
           <StudentProfileUpdate onCancel={() => setIsEditClicked(false)} />
         )}
       </div>
-    </>
+    </div>
   );
 }
 

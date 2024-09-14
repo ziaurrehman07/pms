@@ -41,7 +41,7 @@ function Updates() {
       </button>
     );
   return (
-    <div className="flex">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <JobUpdatesList jobs={jobs} onJobClick={handleJobClick} />
       </div>

@@ -46,7 +46,7 @@ function CompanyDashboard() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <CompanyHiredStudentList
           students={students}

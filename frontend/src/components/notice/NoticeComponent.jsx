@@ -21,7 +21,7 @@ function NoticeComponent({ admin }) {
       {admin.map((data) => (
         <div
           key={data._id}
-          className={`bg-blue-100 w-[600px]  px-2 mb-4 rounded-md ${
+          className={`bg-blue-100 w-full  px-2 mb-4 rounded-md ${
             openNoticeId === data._id
               ? "hover:border-b hover:border-blue-500"
               : ""
