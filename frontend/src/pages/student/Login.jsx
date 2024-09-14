@@ -1,5 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { RiEyeCloseFill, RiEyeFill, RiUserLine } from "react-icons/ri";
+import {
+  RiErrorWarningLine,
+  RiEyeCloseFill,
+  RiEyeFill,
+  RiUserLine,
+} from "react-icons/ri";
 import { useState } from "react";
 import axios from "axios";
 
@@ -10,6 +15,11 @@ function Login() {
   const [loading, setLoading] = useState(false); // Corrected: Initialize loading to false
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -46,9 +56,39 @@ function Login() {
   return (
     <div className=" w-full grid place-items-center">
       <div className="bg-white h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
-        <div className="flex place-items-center justify-center  mt-12 ">
-          <RiUserLine className="text-xl text-[#33363F] font-semibold" />
-          <h4 className="text-blue-500 font-bold ml-2">College Login</h4>
+        <div className="flex flex-col items-center">
+          <div className="flex place-items-center justify-center  mt-12 ">
+            <RiUserLine className="text-xl text-[#33363F] font-semibold" />
+            <h4 className="text-blue-500 font-bold ml-2">College Login</h4>
+          </div>
+          {/* dot icon with popup  */}
+          <div className="relative flex items-center text-blue-600 pt-5">
+            <RiErrorWarningLine
+              onClick={togglePopup}
+              size={24}
+              cursor={"pointer"}
+            />
+            {showPopup && (
+              <div className="absolute top-12 -right-24 bg-white md:bg-inherit md:left-60 w-max border border-black rounded-xl shadow-md p-4">
+                <h4 className="font-semibold mb-2">Credentials Information</h4>
+                <div className="text-sm">
+                  <p className="font-semibold italic">Admin:</p>
+                  <p>Email: admin@test.com</p>
+                  <p>Password: admin@123</p>
+                  <hr className="my-2" />
+
+                  <p className="font-semibold italic">Student:</p>
+                  <p>Email: student@test.com</p>
+                  <p>Password: student@123</p>
+                  <hr className="my-2" />
+
+                  <p className="font-semibold italic">Company:</p>
+                  <p>Email: company@test.com</p>
+                  <p>Password: company@123</p>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex flex-col place-content-center">
           <form
@@ -74,7 +114,7 @@ function Login() {
               style={{ paddingRight: "40px" }}
             />
             <span
-              className="text-blue-500 text-xl absolute right-8 top-[46.5%] transform -translate-y-1/2 cursor-pointer"
+              className="text-blue-500 text-xl absolute right-8 top-[50%] transform -translate-y-1/2 cursor-pointer"
               onClick={togglePasswordVisibility}
             >
               {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
