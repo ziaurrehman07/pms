@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GetAllStudents from "../../API/GetAllStudentsApi";
-import { useNavigate } from "react-router-dom";
 import CompanyHiredStudentList from "../../components/company/CompanyHiredStudentList";
 import CompanyHiredStudentListDetailsModal from "../../components/company/Modal/CompanyHiredStudentDetailsModal";
 function CompanyDashboard() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("companyToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
-  const apiUrl = "/api/v1/users/company-placed-student-list";
-  const { students, loading  } = GetAllStudents(apiUrl);
+  const apiUrl =
+    "http://localhost:8000/api/v1/users/company-placed-student-list";
+  const { students, loading } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [isPlacedStudetnModalOpen, setIsPlacedStudetnModalOpen] = useState(null);
+  const [isPlacedStudetnModalOpen, setIsPlacedStudetnModalOpen] =
+    useState(null);
 
   if (loading)
     return (
@@ -54,7 +46,7 @@ function CompanyDashboard() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <CompanyHiredStudentList
           students={students}

@@ -18,10 +18,14 @@ const PasswordModal = ({ isOpen, onClose }) => {
     }
 
     try {
-      await axios.patch("/api/v1/users/change-password", {
-        oldPassword,
-        newPassword,
-      });
+      await axios.patch(
+        "http://localhost:8000/api/v1/users/change-password",
+        {
+          oldPassword,
+          newPassword,
+        },
+        { withCredentials: true }
+      );
       toast.success("Successfully changed password!");
       setOldPassword("");
       setNewPassword("");

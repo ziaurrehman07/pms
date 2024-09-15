@@ -1,20 +1,10 @@
 import { useEffect, useState } from "react";
 import GetAllStudents from "../../API/GetAllStudentsApi";
-import { useNavigate } from "react-router-dom";
 import PlacedStudentList from "../../components/admin/PlacedStudentList";
 import AdminPlacedStudentListDetailsModal from "../../components/admin/modal/AdminPlacedStudentListDetails";
 import CompanyJobListCount from "../../components/admin/CompanyJobListCount";
 function AdminDashboard() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
-  const apiUrl = "/api/v1/users/placed-student-list";
+  const apiUrl = "http://localhost:8000/api/v1/users/placed-student-list";
   const { students, loading, refetch } = GetAllStudents(apiUrl);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isPlacedStudetnModalOpen, setIsPlacedStudetnModalOpen] =
@@ -60,7 +50,7 @@ function AdminDashboard() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <PlacedStudentList
           students={students}

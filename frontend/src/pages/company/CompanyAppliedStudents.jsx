@@ -4,7 +4,8 @@ import AppliedDesigationList from "../../components/company/AppliedDesigationLis
 import DesignationCumAppliedStudentList from "../../components/company/DesignationCumAppliedStudentList";
 import CompanyStudentListDetailsModal from "../../components/company/CompanyStudentListDetailsModal";
 function CompanyAppliedStudents() {
-  const apiUrl = "/api/v3/companies/job/get-current-company-all-jobs";
+  const apiUrl =
+    "http://localhost:8000/api/v3/companies/job/get-current-company-all-jobs";
   const { jobs, loading } = GetAllJobs(apiUrl);
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
@@ -51,7 +52,7 @@ function CompanyAppliedStudents() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <AppliedDesigationList jobs={jobs} onJobClick={handleStudentClick} />
       </div>

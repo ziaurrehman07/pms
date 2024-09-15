@@ -3,105 +3,88 @@ import { LuBarChart2 } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
 import { RiGalleryLine, RiUserLine } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 function SidebarCompany() {
   const location = useLocation();
-  const [activeLink, setActiveLink] = useState("");
-
-  useEffect(() => {
-    const currentRoute = location.pathname.split("/")[1];
-    setActiveLink(currentRoute || "");
-  }, [location.pathname]);
-
-  const handleLinkClick = (link) => {
-    setActiveLink((prevActiveLink) =>
-      link === prevActiveLink ? prevActiveLink : link
-    );
+  const activeLink = (key) => {
+    return location.pathname === key;
   };
-
   return (
-    <>
-      <div className="ml-3 mr-4 rounded-lg border shadow-md border-[#d2d8d6] mb-4 mt-4  bg-white   flex-col w-60 pt-8 p-8 lg:p-8 lg:w-64">
-        <Link to="/companyhome">
+    <div className="h-full">
+      <div className="rounded-lg border h-full overflow-auto  no-scrollbar shadow-md border-[#d2d8d6] bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
+        <Link to="/company">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
-              activeLink === "" ? "" : ""
+              activeLink("/company") ? "" : ""
             }`}
-            onClick={() => handleLinkClick("")}
           >
             <h4 className="whitespace-nowrap">Company panel</h4>
           </div>
         </Link>
-        <Link to="/companydashboard">
+        <Link to="/company/dashboard">
           <div
             className={`flex place-items-center mt-12 cursor-pointer ${
-              activeLink === "companydashboard"
+              activeLink("/company/dashboard")
                 ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
-            onClick={() => handleLinkClick("companydashboard")}
           >
             <MdOutlineKeyboardCommandKey className="mr-1 text-lg" />
             <h1 className=" text-sm whitespace-nowrap">Dashboard</h1>
           </div>
         </Link>
-        <Link to="/companyprofiledetail">
+        <Link to="/company/profile-details">
           <div
             className={`flex place-items-center mt-3 cursor-pointer ${
-              activeLink === "companyprofiledetail"
+              activeLink("/company/profile-details")
                 ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
-            onClick={() => handleLinkClick("companyprofiledetail")}
           >
             <RiUserLine className="mr-1 text-lg" />
             <h1 className=" text-sm whitespace-nowrap">Profile Details</h1>
           </div>
         </Link>
 
-        <Link to="/companyjobprofiles">
+        <Link to="/company/job-profile">
           <div
             className={`flex place-items-center mt-3 cursor-pointer ${
-              activeLink === "companyjobprofiles"
+              activeLink("/company/job-profile")
                 ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
-            onClick={() => handleLinkClick("companyjobprofiles")}
           >
             <LuBarChart2 className="mr-1 text-lg" />
             <h1 className=" text-sm whitespace-nowrap">Job Profiles</h1>
           </div>
         </Link>
 
-        <Link to="/appliedStudents">
+        <Link to="/company/applied-students">
           <div
             className={`flex place-items-center mt-3 cursor-pointer ${
-              activeLink === "appliedStudents"
+              activeLink("/company/applied-students")
                 ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
-            onClick={() => handleLinkClick("appliedStudents")}
           >
             <RiGalleryLine className="mr-1 text-lg" />
             <h1 className=" text-sm whitespace-nowrap">Applied Students</h1>
           </div>
         </Link>
-        <Link to="/companyfeedback">
+        <Link to="/company/feedaback">
           <div
             className={`flex place-items-center mt-10 cursor-pointer ${
-              activeLink === "companyfeedback"
+              activeLink("/company/feedaback")
                 ? "text-blue-500 font-bold"
                 : "text-gray-500"
             }`}
-            onClick={() => handleLinkClick("companyfeedback")}
           >
             <VscFeedback className="mr-1 text-lg" />
             <h1 className=" text-sm whitespace-nowrap">Give Feedback</h1>
           </div>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 

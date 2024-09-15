@@ -16,7 +16,7 @@ const StudentProfileModal = ({ isOpen, onClose }) => {
     const fetchStudentDetails = async () => {
       try {
         const res = await axios.get(
-          `https://pmsservice.onrender.com/api/v1/users/get-user`,
+          `http://localhost:8000/api/v1/users/get-user`,
           {
             withCredentials: true,
           }
@@ -46,11 +46,16 @@ const StudentProfileModal = ({ isOpen, onClose }) => {
     try {
       const formData = new FormData();
       formData.append("avatar", values.avatar);
-      await axios.patch("/api/v1/users/update-user-avatar", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.patch(
+        "http://localhost:8000/api/v1/users/update-user-avatar",
+        formData,
+        { withCredentials: true },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       toast.success("Student avatar updated successfully");
       onClose();
     } catch (error) {

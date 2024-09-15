@@ -1,23 +1,14 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import StudentProfileEdit from "../../components/student/StudentProfileEdit";
 import StudentProfileUpdate from "../../components/student/StudentProfileUpdate";
 
 function Profile() {
   const [isEditClicked, setIsEditClicked] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("studentToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
   const handleEditClick = () => {
     setIsEditClicked(true);
   };
   return (
-    <>
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4 justify-center">
       <div>
         {!isEditClicked && <StudentProfileEdit onEditClick={handleEditClick} />}
       </div>
@@ -26,7 +17,7 @@ function Profile() {
           <StudentProfileUpdate onCancel={() => setIsEditClicked(false)} />
         )}
       </div>
-    </>
+    </div>
   );
 }
 

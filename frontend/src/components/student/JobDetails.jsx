@@ -15,7 +15,7 @@ function JobDetails({ jobId }) {
     const fetchCompanyJobDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v3/companies/job/get-job-details/${jobId}`,
+          `http://localhost:8000/api/v3/companies/job/get-job-details/${jobId}`,
           { withCredentials: true }
         );
         setJob(res.data.data);
@@ -41,7 +41,7 @@ function JobDetails({ jobId }) {
     const fetchAppliedJobs = async () => {
       try {
         const res = await axios.get(
-          "/api/v3/companies/job/applied-jobid-student",
+          "http://localhost:8000/api/v3/companies/job/applied-jobid-student",
           { withCredentials: true }
         );
         setApplyJobs(res.data.data);
@@ -61,9 +61,12 @@ function JobDetails({ jobId }) {
     if (loading) return;
     setLoading(true);
     try {
-      await axios.get(`/api/v3/companies/job/apply-for-job/${jobId}`, {
-        withCredentials: true,
-      });
+      await axios.get(
+        `http://localhost:8000/api/v3/companies/job/apply-for-job/${jobId}`,
+        {
+          withCredentials: true,
+        }
+      );
       setApplyJobs([...applyJob, jobId]);
       toast.success("Applied for the job successfully!");
       console.log("Applied for the job successfully!");

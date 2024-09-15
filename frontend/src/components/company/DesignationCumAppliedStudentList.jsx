@@ -14,12 +14,13 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
     const fetchCompanyJobDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v2/companies/get-applied-students-list/${jobId}`,
+          `http://localhost:8000/api/v2/companies/get-applied-students-list/${jobId}`,
           { withCredentials: true }
         );
         setJob(res.data.data);
         const resDesignation = await axios.get(
-          `/api/v3/companies/job/get-job-details/${jobId}`
+          `http://localhost:8000/api/v3/companies/job/get-job-details/${jobId}`,
+          { withCredentials: true }
         );
         setDesignation(resDesignation.data.data.designation);
         // console.log("designation ", resDesignation.data.data.designation);
@@ -43,7 +44,10 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
 
   const unHireStudents = async (jobId) => {
     try {
-      await axios.get(`/api/v2/companies/unhire-all-student/${jobId}`);
+      await axios.get(
+        `http://localhost:8000/api/v2/companies/unhire-all-student/${jobId}`,
+        { withCredentials: true }
+      );
       console.log("unhirhired clicked");
       window.location.reload();
     } catch (error) {
@@ -53,7 +57,10 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
 
   const hireStudent = async (studentId, jobId) => {
     try {
-      await axios.get(`/api/v2/companies/hire-student/${studentId}/${jobId}`);
+      await axios.get(
+        `http://localhost:8000/api/v2/companies/hire-student/${studentId}/${jobId}`,
+        { withCredentials: true }
+      );
       setHiredStudents([...hiredStudents, studentId]);
     } catch (error) {
       console.log(error);
@@ -78,7 +85,7 @@ function DesignationCumAppliedStudentList({ jobId, onStudentClick }) {
         </h1>
         <div className="flex">
           <a
-            href={`/api/v2/companies/applied-student-list-download/${jobId}`}
+            href={`http://localhost:8000/api/v2/companies/applied-student-list-download/${jobId}`}
             onClick={handleDowloadSuccesMessage}
             download="users.csv"
             className="mr-2 text-xs font-bold cursor-pointer text-blue-600 border border-blue-500 px-2 py-1 rounded-lg"

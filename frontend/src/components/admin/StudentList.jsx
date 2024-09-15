@@ -12,7 +12,7 @@ function StudentList({ students, onStudentClick }) {
           </span>
         </h2>
 
-        <Link to="/adminregisterstudent">
+        <Link to="/register/student">
           <div className="bg-[#e9f1ef] p-2 rounded-lg  text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
             CREATE
           </div>

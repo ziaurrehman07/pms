@@ -11,7 +11,7 @@ function CompanyList({ companies, onCompanyClick }) {
             {companies.length}
           </span>
         </h2>
-        <Link to="/adminregistercompanies">
+        <Link to="/register/companies">
           <div className="bg-[#e9f1ef] p-2 rounded-lg mr-4 text-blue-600 font-bold hover:bg-blue-200 text-xs text-center">
             CREATE
           </div>

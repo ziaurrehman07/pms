@@ -1,20 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import CompanyJobList from "../../components/company/CompanyJobList";
 import CompanyJobDetails from "../../components/company/CompanyJobDetails";
 import GetAllJobs from "../../API/GetAllJobsApi";
 import CompanyJobUpdateDetails from "../../components/company/CompanyJobUpdateDetails";
 function CompanyJobProfiles() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("companyToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
-  const apiUrl = "/api/v3/companies/job/get-current-company-all-jobs";
+  const apiUrl =
+    "http://localhost:8000/api/v3/companies/job/get-current-company-all-jobs";
   const { jobs, loading } = GetAllJobs(apiUrl);
   const [selectedJob, setSelectedJob] = useState(null);
   const [isEditClicked, setIsEditClicked] = useState(false);
@@ -55,7 +46,7 @@ function CompanyJobProfiles() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <CompanyJobList jobs={jobs} onJobClick={handleStudentClick} />
       </div>

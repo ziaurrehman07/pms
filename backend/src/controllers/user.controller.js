@@ -40,6 +40,68 @@ const otpGenerator = () => {
   return Math.floor(1000 + Math.random() * 9000);
 };
 
+const registerAdmin = asyncHandler(async (req, res) => {
+  const { fullName, email, password } = req.body;
+  if ([fullName, email, password].some((field) => field?.trim() === "")) {
+    throw new ApiError(400, "All fields are required");
+  }
+
+  const existedAdmin = await User.findOne({ email });
+  if (existedAdmin) {
+    throw new ApiError(400, "Admin already exists");
+  }
+
+  const admin = await User.create({
+    fullName: fullName,
+    password: password,
+    email: email,
+    role: "admin",
+  });
+
+  const createdAdmin = await User.findById(admin._id).select(
+    "-password -refreshtoken"
+  );
+
+  if (!createdAdmin) {
+    throw new ApiError(500, "Something went wrong while registering user");
+  }
+
+  const subject = `Registered to IPS Academy PMS`;
+  const content = `You have been successfully registered to the college PMS(Placement Management System)<br> Email: ${email}<br>Password:${password}`;
+
+  const mailResponse = await sendMail(subject, content, email);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, createdAdmin, "Admin register successfully"));
+});
+
+const getAdminList = asyncHandler(async (req, res) => {
+  const admins = await User.find({ role: "admin" }).select(
+    "-password -refreshToken"
+  );
+
+  if(!admins){
+    throw new ApiError(404, "No admin found");
+  }
+  return res
+    .status(200)
+    .json(new ApiResponse(200, admins, "Admin list retrieved successfully"));
+});
+
+const deleteAdmin = asyncHandler(async (req, res) => {
+  const {adminId} = req.params;
+  let admin;
+  try {
+    admin = await User.findByIdAndDelete(adminId);
+  } catch (error) {
+    throw new ApiError(500, "Something went wrong while deleting admin !!")
+  } 
+  return res
+  .status(200)
+  .json(new ApiResponse(200,admin ,"Admin deleted successfully"));
+})
+
 const registerStudent = asyncHandler(async (req, res) => {
   const { fullName, email, password, enrollment } = req.body;
 
@@ -841,6 +903,9 @@ const downloadPlacedStudentsCSV = asyncHandler(async (req, res) => {
 });
 
 export {
+  registerAdmin,
+  getAdminList,
+  deleteAdmin,
   registerStudent,
   loginUser,
   logOutUser,

@@ -1,23 +1,14 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import CompanyProfileEdit from "../../components/company/CompanyProfileEdit";
 import CompanyProfileUpdate from "./CompanyProfileUpdate";
 
 function CompanyProfileDetails() {
   const [isEditClicked, setIsEditClicked] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("companyToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
   const handleEditClick = () => {
     setIsEditClicked(true);
   };
   return (
-    <>
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4 justify-center">
       <div>
         {!isEditClicked && <CompanyProfileEdit onEditClick={handleEditClick} />}
       </div>
@@ -26,7 +17,7 @@ function CompanyProfileDetails() {
           <CompanyProfileUpdate onCancel={() => setIsEditClicked(false)} />
         )}
       </div>
-    </>
+    </div>
   );
 }
 

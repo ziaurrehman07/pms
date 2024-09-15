@@ -37,9 +37,13 @@ const StudentRegistrationForm = () => {
       }
       setOtpGenerating(true);
       // to generate and send  verification OTP
-      await axios.post("/api/v1/users/generate-otp-email-for-student", {
-        email: formData.email,
-      });
+      await axios.post(
+        "https://pmsservice.onrender.com/api/v1/users/generate-otp-email-for-student",
+        {
+          email: formData.email,
+        },
+        { withCredentials: true }
+      );
       toast.success("Verification code sent to your email.");
     } catch (error) {
       console.error("Error:", error);
@@ -55,11 +59,12 @@ const StudentRegistrationForm = () => {
 
       // Send the verification code and email to backend for verification
       const response = await axios.post(
-        "/api/v1/users/verify-email-for-student",
+        "https://pmsservice.onrender.com/api/v1/users/verify-email-for-student",
         {
           email,
           otpNumber,
-        }
+        },
+        { withCredentials: true }
       );
       console.log(response.data);
       setIsVerified(true);
@@ -83,8 +88,9 @@ const StudentRegistrationForm = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "/api/v1/users/register-student",
-        formData
+        "https://pmsservice.onrender.com/api/v1/users/register-student",
+        formData,
+        { withCredentials: true }
       );
       response.data;
       toast.success("Student registered successfully!");
@@ -105,7 +111,7 @@ const StudentRegistrationForm = () => {
   };
 
   return (
-    <div className="w-full min-h-screen grid place-items-center">
+    <div className="w-full h-screen grid place-items-center">
       <form
         onSubmit={handleSubmit}
         className="w-[330px] h-[570px] mt-12 p-4 flex flex-col bg-white mb-12 rounded-md shadow-md relative"

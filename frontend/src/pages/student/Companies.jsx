@@ -1,19 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import CompanyDetailsForStudent from "../../components/student/CompanyDetailsForStudent";
 import CompanyListForStudent from "../../components/student/CompanyListForStudent";
 import GetAllCompanies from "../../API/GetAllCompaniesApi";
 function Companies() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("studentToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
-  const apiUrl = "/api/v2/companies/get-all-companies-list";
+  const apiUrl =
+    "http://localhost:8000/api/v2/companies/get-all-companies-list";
   const { companies, loading } = GetAllCompanies(apiUrl);
   const [selectedCompany, setSelectedCompany] = useState(null);
 
@@ -52,7 +43,7 @@ function Companies() {
   };
 
   return (
-    <div className=" flex place-items-cente">
+    <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4">
       <div>
         <CompanyListForStudent
           companies={companies}

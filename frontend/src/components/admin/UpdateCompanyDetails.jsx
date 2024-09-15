@@ -16,7 +16,7 @@ function UpdateCompanyDetails({ companyId, onCancel }) {
     const fetchCompanyDetails = async () => {
       try {
         const res = await axios.get(
-          `/api/v2/companies/get-company-details/${companyId}`,
+          `http://localhost:8000/api/v2/companies/get-company-details/${companyId}`,
           { withCredentials: true }
         );
         const companyData = res.data.data;
@@ -50,8 +50,9 @@ function UpdateCompanyDetails({ companyId, onCancel }) {
       };
 
       await axios.patch(
-        `/api/v2/companies/update-company-details/${companyId}`,
-        updatedData
+        `http://localhost:8000/api/v2/companies/update-company-details/${companyId}`,
+        updatedData,
+        { withCredentials: true }
       );
       toast.success("Student details updated successfully");
 
