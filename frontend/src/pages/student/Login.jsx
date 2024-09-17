@@ -70,7 +70,7 @@ function Login() {
               cursor={"pointer"}
             />
             {showPopup && (
-              <div className="absolute top-12 -right-24 bg-white md:bg-inherit md:left-60 w-max border border-black rounded-xl shadow-md p-4">
+              <div className="absolute z-20 top-12 -right-24 bg-white md:bg-inherit md:left-60 w-max border border-black rounded-xl shadow-md p-4">
                 <h4 className="font-semibold mb-2">Credentials Information</h4>
                 <div className="text-sm">
                   <p className="font-semibold italic">Admin:</p>
