@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function CompanyProfileEdit({ onEditClick }) {
   const apiUrl =
-    "http://localhost:8000/api/v2/companies/get-current-company-details";
+    "https://pmsservice.onrender.com/api/v2/companies/get-current-company-details";
   const { companies, loading } = GetAllCompanies(apiUrl);
   if (loading)
     return (

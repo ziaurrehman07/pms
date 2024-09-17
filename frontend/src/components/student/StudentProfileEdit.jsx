@@ -3,7 +3,7 @@ import GetAllStudents from "../../API/GetAllStudentsApi";
 import PropTypes from "prop-types";
 
 function StudentProfileEdit({ onEditClick }) {
-  const apiUrl = "http://localhost:8000/api/v1/users/get-user";
+  const apiUrl = "https://pmsservice.onrender.com/api/v1/users/get-user";
   const { students, loading } = GetAllStudents(apiUrl);
   if (loading)
     return (

@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function AdminFeedbacks() {
   const [isWarningModalOpen, setWarningModalOpen] = useState(false);
-  const apiUrl = "http://localhost:8000/api/v4/feedback/get-all-feedbacks";
+  const apiUrl =
+    "https://pmsservice.onrender.com/api/v4/feedback/get-all-feedbacks";
   const { students, loading, setStudents } = GetAllStudents(apiUrl);
 
   const handleDelete = async () => {

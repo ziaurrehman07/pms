@@ -2,7 +2,7 @@ import GetAllStudents from "../../API/GetAllStudentsApi";
 import NoticeManageComponent from "../../components/notice/NoticeManageComponent";
 
 function AdminNoticeViewer() {
-  const apiUrl = "http://localhost:8000/api/v1/users/get-all-notices";
+  const apiUrl = "https://pmsservice.onrender.com/api/v1/users/get-all-notices";
   const { students, loading, setStudents } = GetAllStudents(apiUrl);
   if (loading)
     return (
