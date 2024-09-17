@@ -41,7 +41,7 @@ const Layout = () => {
 
   return (
     <div className="">
-      <div className="h-screen flex p-4">
+      <div className="min-h-screen h-screen flex p-4">
         <div
           ref={sidebarRef}
           className={`fixed h-full lg:static transform ${
