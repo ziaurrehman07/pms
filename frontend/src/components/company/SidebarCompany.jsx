@@ -3,22 +3,31 @@ import { LuBarChart2 } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
 import { RiGalleryLine, RiUserLine } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
+import { FaRegWindowClose } from "react-icons/fa";
 
-function SidebarCompany() {
+function SidebarCompany({ toggleSidebar }) {
   const location = useLocation();
   const activeLink = (key) => {
     return location.pathname === key;
   };
   return (
-    <div className="h-full">
+    <div className="h-full relative">
       <div className="rounded-lg border h-full overflow-auto  no-scrollbar shadow-md border-[#d2d8d6] bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
+        <button
+          className="lg:hidden p-2 text-white absolute top-2 right-2 rounded-md"
+          onClick={toggleSidebar}
+        >
+          <FaRegWindowClose color="black" size={24} />
+        </button>
         <Link to="/company">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
               activeLink("/company") ? "" : ""
             }`}
           >
-            <h4 className="whitespace-nowrap">Company panel</h4>
+            <h4 onClick={toggleSidebar} className="whitespace-nowrap">
+              Company panel
+            </h4>
           </div>
         </Link>
         <Link to="/company/dashboard">
@@ -30,7 +39,9 @@ function SidebarCompany() {
             }`}
           >
             <MdOutlineKeyboardCommandKey className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Dashboard</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Dashboard
+            </h1>
           </div>
         </Link>
         <Link to="/company/profile-details">
@@ -42,7 +53,9 @@ function SidebarCompany() {
             }`}
           >
             <RiUserLine className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Profile Details</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Profile Details
+            </h1>
           </div>
         </Link>
 
@@ -55,7 +68,9 @@ function SidebarCompany() {
             }`}
           >
             <LuBarChart2 className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Job Profiles</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Job Profiles
+            </h1>
           </div>
         </Link>
 
@@ -68,7 +83,9 @@ function SidebarCompany() {
             }`}
           >
             <RiGalleryLine className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Applied Students</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Applied Students
+            </h1>
           </div>
         </Link>
         <Link to="/company/feedaback">
@@ -80,7 +97,9 @@ function SidebarCompany() {
             }`}
           >
             <VscFeedback className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Give Feedback</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Give Feedback
+            </h1>
           </div>
         </Link>
       </div>

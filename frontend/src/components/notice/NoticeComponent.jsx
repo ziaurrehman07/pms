@@ -17,11 +17,11 @@ function NoticeComponent({ admin }) {
   };
 
   return (
-    <div className="grid place-items-center">
+    <div className="flex flex-col w-full items-center">
       {admin.map((data) => (
         <div
           key={data._id}
-          className={`bg-blue-100 w-full  px-2 mb-4 rounded-md ${
+          className={`bg-blue-100 w-[300px] md:w-full px-2 mb-4 rounded-md ${
             openNoticeId === data._id
               ? "hover:border-b hover:border-blue-500"
               : ""

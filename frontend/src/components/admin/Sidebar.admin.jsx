@@ -4,8 +4,9 @@ import { VscFeedback } from "react-icons/vsc";
 import { IoIosPaper } from "react-icons/io";
 import { RiGalleryLine } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
+import { FaRegWindowClose } from "react-icons/fa";
 
-function SidebarAdmin() {
+function SidebarAdmin({ toggleSidebar }) {
   const location = useLocation();
 
   const activeLink = (path) => {
@@ -15,13 +16,22 @@ function SidebarAdmin() {
   return (
     <div className="h-full">
       <div className="rounded-lg border h-full overflow-auto  no-scrollbar shadow-md border-[#d2d8d6] bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
+        {/* Close Button for mobile view */}
+        <button
+          className="lg:hidden p-2 text-white absolute top-1 right-5 rounded-md"
+          onClick={toggleSidebar}
+        >
+          <FaRegWindowClose color="black" size={24} />
+        </button>
         <Link to="/admin">
           <div
             className={`text-md text-black font-extrabold cursor-pointer ${
               activeLink("/admin") ? "" : ""
             }`}
           >
-            <h4 className="whitespace-nowrap">Admin panel</h4>
+            <h4 onClick={toggleSidebar} className="whitespace-nowrap">
+              Admin panel
+            </h4>
           </div>
         </Link>
         <Link to="/admin/dashboard">
@@ -33,7 +43,9 @@ function SidebarAdmin() {
             }`}
           >
             <MdOutlineKeyboardCommandKey className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Dashboard</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Dashboard
+            </h1>
           </div>
         </Link>
 
@@ -46,7 +58,9 @@ function SidebarAdmin() {
             }`}
           >
             <LuBarChart2 className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Students</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Students
+            </h1>
           </div>
         </Link>
         <Link to="/companies-list">
@@ -58,7 +72,9 @@ function SidebarAdmin() {
             }`}
           >
             <RiGalleryLine className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Companies</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Companies
+            </h1>
           </div>
         </Link>
 
@@ -71,7 +87,9 @@ function SidebarAdmin() {
             }`}
           >
             <IoIosPaper className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Register student</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Register student
+            </h1>
           </div>
         </Link>
 
@@ -84,7 +102,9 @@ function SidebarAdmin() {
             }`}
           >
             <IoIosPaper className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Register companies</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Register companies
+            </h1>
           </div>
         </Link>
 
@@ -97,7 +117,9 @@ function SidebarAdmin() {
             }`}
           >
             <VscFeedback className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Feedbacks</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Feedbacks
+            </h1>
           </div>
         </Link>
         <Link to="/manage/all-notices">
@@ -109,7 +131,9 @@ function SidebarAdmin() {
             }`}
           >
             <LuBarChart2 className="mr-1 text-lg" />
-            <h1 className=" text-sm whitespace-nowrap">Manage Notices</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm whitespace-nowrap">
+              Manage Notices
+            </h1>
           </div>
         </Link>
       </div>

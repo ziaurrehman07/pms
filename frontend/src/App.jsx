@@ -30,10 +30,10 @@ import CompanyProfileDetails from "./pages/company/CompanyProfileDetails";
 import AdminNoticeViewer from "./pages/admin/AdminNoticeViewer";
 import StudentRegistrationForm from "./pages/student/studetn registeration/StudentRegistrationForm";
 import ProtectedRoute from "./protectedRoute/ProtectedRoute";
-import PageNotFound from "./pages/PageNotFound";
 import Layout from "./layout/Layout";
 import CompanyProtectedRoute from "./protectedRoute/CompanyProtectedRoute";
 import CompanyLayout from "./layout/CompanyLayout";
+import MasterAdminHome from "./pages/master/MasterAdminHome";
 function App() {
   return (
     <Router>
@@ -45,7 +45,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/company/login" element={<CompanyLogin />} />
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="*" element={<Navigate to="/login" />} />
         <Route element={<Layout />}>
           {/* student routes  */}
           <Route
@@ -178,6 +178,14 @@ function App() {
           />
           {/* company routes end  */}
         </Route>
+        {/* ******************************************************************************************************************************* */}
+        {/* master admin routes start */}
+        <Route
+          path="/master"
+          element={<ProtectedRoute role="master" component={MasterAdminHome} />}
+        />
+        {/* master admin routes end */}
+        {/* ******************************************************************************************************************************* */}
       </Routes>
     </Router>
   );

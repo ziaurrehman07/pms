@@ -12,7 +12,7 @@ function FeedbackComponent({ students }) {
         student?.owner ? (
           <div
             key={student?._id}
-            className="bg-gray-100 h-[36px]  w-auto  px-2 hover:border-b hover:border mb-4 hover:border-blue-500 rounded-md hover:h-[150px] overflow-y-scroll no-scrollbar"
+            className="bg-gray-100 h-[36px] w-[280px] md:w-auto  px-2 hover:border-b hover:border mb-4 hover:border-blue-500 rounded-md hover:h-[150px] overflow-y-scroll no-scrollbar"
           >
             <div className="flex place-content-center place-items-center bg-inherit sticky top-0 mb-2">
               {student?.owner?.avatar ? (
@@ -22,7 +22,7 @@ function FeedbackComponent({ students }) {
                   alt="logo"
                 />
               ) : (
-                <CgProfile className="h-10 w-10 cursor-pointer text-blue-500 mr-3" />
+                <CgProfile className="h-8 w-8 cursor-pointer text-blue-500 mr-3" />
               )}
               <div className="ml-2">
                 <h1 className="text-sm font-semibold whitespace-nowrap">

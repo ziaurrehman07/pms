@@ -42,12 +42,12 @@ function Feedback() {
 
   return (
     <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4 justify-center">
-      <div className="bg-white my-4 mr-10 h-[550px] rounded-lg flex flex-col justify-center items-center">
+      <div className="bg-white my-4 h-[500px] rounded-lg flex flex-col justify-center items-center">
         <h1 className="text-blue-600 font-bold text-lg">FEEDBACK</h1>
         <div className="p-4 w-full overflow-y-auto no-scrollbar">
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
             <textarea
-              className="w-[480px] p-8 outline-none bg-gray-100 rounded-lg mb-8 font-medium"
+              className="w-full p-8 outline-none bg-gray-100 rounded-lg mb-8 font-medium"
               name="content"
               id="content"
               onChange={handleChange}
