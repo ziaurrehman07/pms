@@ -42,12 +42,12 @@ function AdminHome() {
   };
   return (
     <div className="flex overflow-auto no-scrollbar bg-white rounded-lg w-full flex-grow mt-4 justify-center">
-      <div className="bg-white flex-col my-4 mr-10 h-[550px] rounded-lg w-full justify-center flex place-items-center">
-        <h1 className="text-blue-600 font-bold text-lg">
+      <div className="bg-white flex-col my-4 md:w-[565px]  h-[500px] rounded-lg w-full justify-center flex place-items-center">
+        <h1 className="text-blue-600 font-bold text-md md:text-lg">
           SEND NOTICE TO ALL STUDENTS
         </h1>
-        <div className="h-[450px] w-full p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
-          <div className="forming h-[380px] w-[460px]">
+        <div className="w-full p-4 justify-items-center rounded-lg overflow-y-scroll no-scrollbar flex place-items-center justify-center">
+          <div className="forming w-full">
             <form
               onSubmit={handleSubmit}
               className="flex  flex-col justify-center place-items-center"
@@ -60,10 +60,10 @@ function AdminHome() {
                 required
                 placeholder="Title of the notice..."
                 type="text"
-                className="mb-2 w-[640px] px-8 font-semibold bg-blue-100 p-4 rounded-lg outline-none  "
+                className="mb-2 w-full px-8 font-semibold bg-blue-100 p-4 rounded-lg outline-none  "
               />
               <textarea
-                className="p-8 outline-none  w-[640px]  bg-gray-100 rounded-lg mb-8 font-medium"
+                className="p-8 outline-none  w-full  bg-gray-100 rounded-lg mb-8 font-medium"
                 name="message"
                 id="message"
                 onChange={handleChange}

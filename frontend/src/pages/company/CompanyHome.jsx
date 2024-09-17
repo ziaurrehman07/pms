@@ -7,7 +7,7 @@ function CompanyHome() {
 
   return (
     <div>
-      <div className="flex justify-center my-4 p-8 text-xl font-bold">
+      <div className="flex justify-center pt-8 text-lg md:my-4 md:p-8 md:text-xl font-bold">
         <h1>Welcome to our platform </h1>
         <span className="ml-2 text-blue-500">{companies.name}</span>!
       </div>

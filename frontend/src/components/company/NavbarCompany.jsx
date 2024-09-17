@@ -11,7 +11,9 @@ import { IoExitOutline } from "react-icons/io5";
 import GetAllCompanies from "../../API/GetAllCompaniesApi";
 import CompanyPasswordModel from "./Modal/CompanyPasswordModel";
 import CompanyProfileModal from "./Modal/CompanyProfileModal";
-function CompanyNavbar() {
+import { FaRegWindowClose } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
+function CompanyNavbar({ toggleSidebar, isSidebarOpen }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
   const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
@@ -61,8 +63,21 @@ function CompanyNavbar() {
 
   return (
     <>
-      <div className="z-10 flex h-12 justify-between bg-white rounded-md place-items-center p-6 shadow-sm">
-        <div className="cursor-pointer">
+      <div className="relative z-10 flex h-12 justify-between bg-white rounded-md place-items-center p-6 shadow-sm">
+        <div className="absolute">
+          {/* Toggle Button */}
+          <button
+            className="lg:hidden p-2 bg-gray-200 text-gray-700 rounded-md absolute -top-4 -left-4"
+            onClick={toggleSidebar}
+          >
+            {isSidebarOpen ? (
+              <FaRegWindowClose color="black" size={24} />
+            ) : (
+              <GiHamburgerMenu stroke="black" />
+            )}
+          </button>
+        </div>
+        <div className="cursor-pointer pl-6">
           <h2 className="font-medium whitespace-nowrap text-sm">
             Hello, {companies.name}
           </h2>

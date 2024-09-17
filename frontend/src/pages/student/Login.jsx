@@ -45,6 +45,7 @@ function Login() {
       if (role === "student") navigate("/student");
       else if (role === "admin") navigate("/admin");
       else if (role === "company") navigate("/company");
+      else if (role === "master") navigate("/master");
     } catch (error) {
       setError("Login failed. Please check your credentials."); // Set error message
       console.error("Login failed", error);

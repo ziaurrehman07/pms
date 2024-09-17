@@ -2,11 +2,11 @@ import { LuBarChart2 } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
 import { IoIosPaper } from "react-icons/io";
 import { RiArrowDropDownLine, RiGalleryLine, RiUserLine } from "react-icons/ri";
-// import { AiOutlineHome } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { FaRegWindowClose } from "react-icons/fa";
 
-function Sidebar() {
+function Sidebar({ toggleSidebar }) {
   const [showResumeDropdown, setShowResumeDropdown] = useState(false);
   const location = useLocation();
   useEffect(() => {
@@ -26,16 +26,23 @@ function Sidebar() {
     setShowResumeDropdown(!showResumeDropdown);
   };
   return (
-    <div className="h-full">
+    <div className="h-full relative">
       <div className="rounded-lg border h-full overflow-auto  no-scrollbar shadow-md border-[#d2d8d6] bg-white  flex  flex-col w-64 pt-8 p-8 lg:p-8 lg:w-64">
+        <button
+          className="lg:hidden p-2 text-white absolute top-2 right-2 rounded-md"
+          onClick={toggleSidebar}
+        >
+          <FaRegWindowClose color="black" size={24} />
+        </button>
         <Link to="/student">
           <div
             className={`flex justify-center place-items-center  text-lg text-black font-extrabold cursor-pointer ${
               activeLink("/student") ? "" : "text-black"
             }`}
           >
-            <h4 className="whitespace-nowrap  mr-2">Student panel</h4>
-            {/* <AiOutlineHome className="text-xl font-bold" /> */}
+            <h4 onClick={toggleSidebar} className="whitespace-nowrap  mr-2">
+              Student panel
+            </h4>
           </div>
         </Link>
 
@@ -48,7 +55,9 @@ function Sidebar() {
             }`}
           >
             <RiUserLine className="mr-1 text-lg" />
-            <h1 className=" text-sm  whitespace-nowrap">Profile</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm  whitespace-nowrap">
+              Profile
+            </h1>
           </div>
         </Link>
 
@@ -61,7 +70,9 @@ function Sidebar() {
             }`}
           >
             <LuBarChart2 className="mr-1 text-lg" />
-            <h1 className=" text-sm  whitespace-nowrap">Job updates</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm  whitespace-nowrap">
+              Job updates
+            </h1>
           </div>
         </Link>
         <Link to="/student/companies">
@@ -73,7 +84,9 @@ function Sidebar() {
             }`}
           >
             <RiGalleryLine className="mr-1 text-lg" />
-            <h1 className=" text-sm  whitespace-nowrap">Companies</h1>
+            <h1 onClick={toggleSidebar} className=" text-sm  whitespace-nowrap">
+              Companies
+            </h1>
           </div>
         </Link>
         {/* resume section */}
@@ -100,6 +113,7 @@ function Sidebar() {
             <div className="ml-16 text-xs font-semibold text-gray-500">
               <Link to="/student/preview/resume">
                 <div
+                  onClick={toggleSidebar}
                   className={`flex place-items-center hover:text-blue-500 mt-3 cursor-pointer ${
                     activeLink("/student/preview/resume")
                       ? "text-blue-500 font-bold"
@@ -111,6 +125,7 @@ function Sidebar() {
               </Link>
               <Link to="/student/update/resume">
                 <div
+                  onClick={toggleSidebar}
                   className={`flex place-items-center hover:text-blue-500 mt-3 cursor-pointer ${
                     activeLink("/student/update/resume")
                       ? "text-blue-500 font-bold"
@@ -133,7 +148,12 @@ function Sidebar() {
               }`}
             >
               <VscFeedback className="mr-1 text-lg" />
-              <h1 className=" text-sm whitespace-nowrap">Feedback</h1>
+              <h1
+                onClick={toggleSidebar}
+                className=" text-sm whitespace-nowrap"
+              >
+                Feedback
+              </h1>
             </div>
           </Link>
         </div>

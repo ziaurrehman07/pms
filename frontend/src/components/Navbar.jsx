@@ -9,8 +9,10 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { IoExitOutline } from "react-icons/io5";
 import PasswordModal from "./PasswordModal";
 import StudentProfileModal from "./student/StudentProfileModal";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { FaRegWindowClose } from "react-icons/fa";
 
-function Navbar() {
+function Navbar({ toggleSidebar, isSidebarOpen }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
   const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
@@ -63,7 +65,7 @@ function Navbar() {
     };
 
     fetchData();
-  }, []); // Added dependency array to run the effect once on mount
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -84,8 +86,21 @@ function Navbar() {
 
   return (
     <>
-      <div className=" z-10 flex h-12 justify-between bg-white rounded-md place-items-center p-6 shadow-sm">
-        <div className="cursor-pointer">
+      <div className="relative z-10 flex h-12 justify-between bg-white rounded-md place-items-center p-6 shadow-sm">
+        <div className="absolute">
+          {/* Toggle Button */}
+          <button
+            className="lg:hidden p-2 bg-gray-200 text-gray-700 rounded-md absolute -top-4 -left-4"
+            onClick={toggleSidebar}
+          >
+            {isSidebarOpen ? (
+              <FaRegWindowClose color="black" size={24} />
+            ) : (
+              <GiHamburgerMenu stroke="black" />
+            )}
+          </button>
+        </div>
+        <div className="cursor-pointer pl-6">
           <h2 className="font-medium whitespace-nowrap text-sm">
             Hello, {data?.fullName}
           </h2>

@@ -79,8 +79,32 @@ import { Company } from "../models/company.model.js"
 
 })
 
+const verifyMaster = asyncHandler(async(req,_,next)=>{
+  try {
+    const token = req.cookies?.accessToken || req.header('authorization')?.replace('Bearer ', '')
+    if(!token){
+      throw new ApiError(400,"Unautherized request")
+    }
+    const decodedToken = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET_KEY)
+    const master = await User.findById(decodedToken?._id).select("-password -refreshToken")
+    if(!master){
+      throw new ApiError(400,"Invalid access token")
+    }
+    if(master.role !=="master"){
+      throw new ApiError(403,"You are not an admin")
+    }
+    req.user = master;
+    next()
+    
+  } catch (error) {
+    throw new ApiError(400,error?.message || "Something went wrong!")
+  }
+
+})
+
 export{
   verifyAdmin,
   verifyJWT,
-  verifyJwtForCompany
+  verifyJwtForCompany,
+  verifyMaster
 }

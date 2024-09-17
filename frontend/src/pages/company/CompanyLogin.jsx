@@ -98,11 +98,6 @@ function CompanyLogin() {
               </span>
             </Link>
           </p>
-          <p className="mx-auto text-blue-700 font-bold ">
-            <Link to="/student/register/self">
-              <span>Register!</span>
-            </Link>
-          </p>
           <div className="p-4 -mt-3">
             {error && (
               <p className="text-red-600 bg-gray-100 text-xs p-3 font-semibold italic rounded-lg">
