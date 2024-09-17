@@ -12,22 +12,18 @@ function AdminStudents() {
   const [isEditClicked, setIsEditClicked] = useState(false);
 
   useEffect(() => {
-    // Call refetch with a callback function
     refetch(() => {
-      console.log("Data refetched!"); // Additional actions after data is refetched
+      console.log("Data refetched!");
     });
   }, []);
+
   if (loading)
     return (
-      <button
-        disabled
-        type="button"
-        className="mt-4 text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
-      >
+      <div className="flex justify-center items-center h-screen">
         <svg
           aria-hidden="true"
           role="status"
-          className="inline w-4 h-4 me-3 text-white animate-spin"
+          className="w-8 h-8 text-blue-500 animate-spin"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +37,7 @@ function AdminStudents() {
             fill="currentColor"
           />
         </svg>
-        Loading...
-      </button>
+      </div>
     );
 
   const handleStudentClick = (studentId) => {

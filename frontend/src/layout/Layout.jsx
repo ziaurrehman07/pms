@@ -46,7 +46,7 @@ const Layout = () => {
           ref={sidebarRef}
           className={`fixed h-full lg:static transform ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } transition-transform lg:translate-x-0 lg:block z-50 pr-4`}
+          } transition-transform lg:translate-x-0 lg:block  pr-4`}
         >
           {role === "admin" ? (
             <SidebarAdmin toggleSidebar={toggleSidebar} />
