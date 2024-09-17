@@ -8,9 +8,12 @@ function MasterAdminHome() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/api/v1/users/log-out-user", {
-        withCredentials: true,
-      });
+      await axios.get(
+        "https://pmsservice.onrender.com/api/v1/users/log-out-user",
+        {
+          withCredentials: true,
+        }
+      );
       window.localStorage.clear();
       navigate("/login");
       console.log("Logout clicked");
