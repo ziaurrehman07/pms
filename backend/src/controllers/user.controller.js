@@ -81,7 +81,7 @@ const getAdminList = asyncHandler(async (req, res) => {
     "-password -refreshToken"
   );
 
-  if(!admins){
+  if (!admins) {
     throw new ApiError(404, "No admin found");
   }
   return res
@@ -90,17 +90,17 @@ const getAdminList = asyncHandler(async (req, res) => {
 });
 
 const deleteAdmin = asyncHandler(async (req, res) => {
-  const {adminId} = req.params;
+  const { adminId } = req.params;
   let admin;
   try {
     admin = await User.findByIdAndDelete(adminId);
   } catch (error) {
-    throw new ApiError(500, "Something went wrong while deleting admin !!")
-  } 
+    throw new ApiError(500, "Something went wrong while deleting admin !!");
+  }
   return res
-  .status(200)
-  .json(new ApiResponse(200,admin ,"Admin deleted successfully"));
-})
+    .status(200)
+    .json(new ApiResponse(200, admin, "Admin deleted successfully"));
+});
 
 const registerStudent = asyncHandler(async (req, res) => {
   const { fullName, email, password, enrollment } = req.body;
@@ -172,7 +172,7 @@ const loginUser = asyncHandler(async (req, res) => {
   );
 
   const options = {
-    httpOnly: true,
+    httpOnly: false,
     secure: true,
     sameSite: "none",
   };
@@ -202,7 +202,7 @@ const logOutUser = asyncHandler(async (req, res) => {
   );
 
   const options = {
-    httpOnly: true,
+    httpOnly: false,
     secure: true,
     sameSite: "none",
   };
@@ -236,7 +236,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     user._id
   );
   const options = {
-    httpOnly: true,
+    httpOnly: false,
     secure: true,
     sameSite: "none",
   };
