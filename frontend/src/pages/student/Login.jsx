@@ -5,7 +5,7 @@ import {
   RiEyeFill,
   RiUserLine,
 } from "react-icons/ri";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Login() {
@@ -53,9 +53,22 @@ function Login() {
       setLoading(false); // Reset loading to false after request is complete
     }
   };
+  useEffect(() => {
+    const handleResize = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
-    <div className="h-screen w-full grid place-items-center">
+    <div className="h-screen-dynamic w-full grid place-items-center">
       <div className="bg-white h-[500px] w-[300px] shadow-md rounded-lg drop-shadow-sm mt-10 mb-10 ">
         <div className="flex flex-col items-center">
           <div className="flex place-items-center justify-center  mt-6 ">
