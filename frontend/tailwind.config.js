@@ -6,6 +6,9 @@ export default {
       colors: {
         "light-gray": "#f5f5f5",
       },
+      height: {
+        "screen-dynamic": "calc(var(--vh, 1vh) * 100)",
+      },
     },
   },
   plugins: [],
