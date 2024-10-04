@@ -2,17 +2,15 @@ import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import { ApiError } from "./ApiError.util.js";
 import { URL } from "url";
-
-// // cloudinary.config({
-// //   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-// //   api_key: process.env.CLOUDINARY_API_KEY,
-// //   api_secret: process.env.CLOUDINARY_API_SECRET,
-// // });
+import dotenv from "dotenv";
+dotenv.config({
+  path: "../.env",
+});
 
 cloudinary.config({
-  cloud_name: "di4334qw4",
-  api_key: "255264663687758",
-  api_secret: "RQNxuGEtMoH94bkE6L9wytdnHaA",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const uploadOnCloudinary = async (localPath, id, folder) => {
@@ -56,7 +54,7 @@ const deleteFromCloudinary = async (url, folder) => {
   }
 };
 
-export { uploadOnCloudinary, deleteFromCloudinary};
+export { uploadOnCloudinary, deleteFromCloudinary };
 
 // import { google } from 'googleapis';
 // import fs from 'fs';
