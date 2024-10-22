@@ -39,7 +39,7 @@ function Login() {
         { withCredentials: true }
       );
       console.log("Response:", response);
-      sessionStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(response.data));
       const { role } = response.data.data.loggedInUser;
       console.log(role);
       if (role === "student") navigate("/student");
